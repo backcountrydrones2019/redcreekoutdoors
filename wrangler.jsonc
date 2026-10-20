@@ -1,6 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "redcreekoutdoors",
+  // Justin's Cloudflare account (same as backcountrydrones.com). Not a secret.
+  "account_id": "cb84c27e835d7b5d6e0ae6f65af422cd",
   "main": "worker/index.ts",
   "compatibility_date": "2026-09-01",
   "compatibility_flags": ["nodejs_compat"],
