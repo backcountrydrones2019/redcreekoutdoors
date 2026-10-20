@@ -142,6 +142,12 @@ async function notify(lead: Lead, env: Env): Promise<void> {
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+    // www to apex in one hop, path and query kept. Always Use HTTPS on the zone
+    // handles http, so http://www lands here as https://www and redirects once more
+    // at most. Needs run_worker_first: true (assets would answer www otherwise).
+    if (url.hostname === 'www.redcreekoutdoors.com') {
+      return Response.redirect(`https://redcreekoutdoors.com${url.pathname}${url.search}`, 301);
+    }
     if (url.pathname === '/api/request') return handleRequest(request, env, ctx);
     if (url.pathname === '/api/trap-request') return handleTrapRequest(request, env, ctx);
     if (url.pathname === '/api/hunt-booking') return handleHuntBooking(request, env, ctx);

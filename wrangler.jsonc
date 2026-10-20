@@ -12,12 +12,11 @@
     "binding": "ASSETS",
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash",
-    /* Assets are served before the Worker runs, and with 404-page handling a
-       browser navigation to a path with no asset gets 404.html without the
-       Worker ever seeing it. A plain form POST to /api/request would 404.
-       Listing /api/* makes the Worker run first for those paths only.
-       ADD A PATH HERE for any new Worker route a link or form must reach. */
-    "run_worker_first": ["/api/*"]
+    /* The Worker runs first on every request (since cutover 2026-10-20) so it
+       can 301 www to the apex; assets can't see the host. It hands everything
+       else to env.ASSETS, which still applies _redirects, _headers and the
+       404 page (tested locally before go-live). */
+    "run_worker_first": true
   },
 
   "vars": {
@@ -50,16 +49,14 @@
 
   "observability": { "enabled": true },
 
-  /* NOT LIVE. workers.dev only until cutover (migration-runbook.md, step 6).
-     Same method as backcountrydrones.com: zone routes, not a custom domain.
-     The proxied apex A records keep pointing at GoDaddy (76.223.105.230,
-     13.248.243.5) and the routes make Cloudflare answer from this Worker
-     instead of reaching them. ROLLBACK: comment these out and redeploy; the
-     GoDaddy site serves again within seconds.
+  /* LIVE since 2026-10-20 (migration-runbook.md, Phase D). Zone routes, not a
+     custom domain, same as backcountrydrones.com. The proxied apex A records
+     still point at GoDaddy (76.223.105.230, 13.248.243.5); these routes make
+     Cloudflare answer from this Worker instead. ROLLBACK: comment the routes
+     out and push; the GoDaddy site serves again within seconds. */
   "routes": [
     { "pattern": "redcreekoutdoors.com/*", "zone_name": "redcreekoutdoors.com" },
     { "pattern": "www.redcreekoutdoors.com/*", "zone_name": "redcreekoutdoors.com" }
   ],
-  */
   "workers_dev": true
 }
