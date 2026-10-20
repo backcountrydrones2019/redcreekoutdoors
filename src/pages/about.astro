@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { PEOPLE } from '../data/people';
-import { SITE, COUNTIES, HUNT_TOWNS } from '../consts';
+import { SITE, COUNTIES, HUNT_TOWNS, SCALE } from '../consts';
 const crumbs = [{ name: 'About', path: '/about' }];
 ---
 
@@ -23,7 +23,7 @@ const crumbs = [{ name: 'About', path: '/about' }];
         each job makes the other one better.
       </p>
       <p>
-        We work private land across {COUNTIES.join(', ')} counties, with hunts near{' '}
+        We work {SCALE.acres} acres of private land across {COUNTIES.join(', ')} counties, with hunts near{' '}
         {HUNT_TOWNS.slice(0, -1).join(', ')} and {HUNT_TOWNS[HUNT_TOWNS.length - 1]}. Landowners get a crew that puts
         pressure on hogs from two directions, trapping and hunting. Hunters get access to ground they couldn't get on
         otherwise, with guns and ammo there if they need them.
@@ -43,9 +43,10 @@ const crumbs = [{ name: 'About', path: '/about' }];
 
       <h2>Who we work with</h2>
       <p>
-        Thermal drone wildlife surveys and ranch consulting run through{' '}
-        <a href={SITE.partner.url}>{SITE.partner.name}</a>. We also handle hog control on commercial solar sites,
-        where hogs root up the ground between panel rows and around equipment.
+        <a href={SITE.partner.url}>{SITE.partner.name}</a> is our technology partner. It flies the thermal aerial
+        surveys of hog damage and hog country, engineers the electronic release mechanisms on our traps, and manages
+        every field camera in the operation. Red Creek runs the traps and works directly with the landowners. We also
+        handle hog control on commercial solar sites.
       </p>
     </div>
   </section>

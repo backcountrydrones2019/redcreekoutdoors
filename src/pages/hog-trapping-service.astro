@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { SITE, PRICES, COUNTIES } from '../consts';
+import { SITE, PRICES, COUNTIES, SCALE } from '../consts';
 
 const crumbs = [{ name: 'Hog Trapping Service', path: '/hog-trapping-service' }];
 
@@ -18,6 +18,10 @@ const faq = [
   {
     q: 'How many hogs have to come off to make a difference?',
     a: 'Texas A&M AgriLife Extension estimates up to 66 percent of a hog population has to be removed every year, for years, just to keep it from growing. Anything less and the numbers climb anyway.',
+  },
+  {
+    q: 'What happens to the hogs?',
+    a: 'Depending on the market and the situation, trapped hogs either go out alive to a buying station or are dispatched on site. Live hogs move only the way Texas Animal Health Commission rules allow.',
   },
   {
     q: 'Do you work solar sites and commercial property?',
@@ -103,9 +107,17 @@ const schema = [
           Not when the first one does.
         </li>
         <li>
-          <strong>Remove and reset.</strong> Hogs come off the property and the trap moves to the next group.
+          <strong>Remove and reset.</strong> Depending on the market and the situation, hogs go out alive to a buying
+          station or are dispatched on site. Then the trap resets for the next group.
         </li>
       </ol>
+
+      <p>
+        The cameras and the remote release hardware on our traps are built and run by our partner{' '}
+        <a href={SITE.partner.url}>{SITE.partner.name}</a>, which also flies thermal{' '}
+        <a href="/wildlife-surveys">aerial surveys</a> of hog damage before and during a job. We run the traps and work
+        the property with you.
+      </p>
 
       <div class="callout">
         <p>
@@ -117,7 +129,7 @@ const schema = [
 
       <h2>Who we trap for</h2>
       <ul class="checks">
-        <li>Ranches and large acreage across {COUNTIES.join(', ')} counties</li>
+        <li>Ranches and large acreage across {COUNTIES.join(', ')} counties. {SCALE.acres} acres are under our hunt and trap programs today.</li>
         <li>Crop ground and hay meadows</li>
         <li>Commercial solar sites</li>
         <li>Landowners near town where the creek bottoms back up to the subdivisions</li>
@@ -153,7 +165,8 @@ const schema = [
       <p class="sources">
         Sources:{' '}
         <a href="https://agrilifeextension.tamu.edu/asset-external/feral-hog-population-growth-density-and-harvest-in-texas/">Texas A&M AgriLife Extension, Feral Hog Population Growth, Density and Harvest in Texas</a>;{' '}
-        <a href="https://nri.tamu.edu/news/2019/november/startling-statistics-everyone-needs-to-know-about-wild-pigs/">Texas A&M Natural Resources Institute, Startling statistics everyone needs to know about wild pigs</a>.
+        <a href="https://nri.tamu.edu/news/2019/november/startling-statistics-everyone-needs-to-know-about-wild-pigs/">Texas A&M Natural Resources Institute, Startling statistics everyone needs to know about wild pigs</a>;{' '}
+        <a href="https://www.tahc.texas.gov/animal_health/swine/">Texas Animal Health Commission, Feral Swine</a>.
       </p>
     </div>
   </section>

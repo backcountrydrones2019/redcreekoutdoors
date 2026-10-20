@@ -57,6 +57,16 @@ export const PRICES = {
   duck: { amount: 400, text: '$400 a gun per day' },
 } as const;
 
+/* Scale of the operation. Stub pattern: a number renders only when it's real.
+   acres: stated by Justin 2026-10-20. hogsRemoved and traps come from the Hog
+   Logger database (Supabase project "hoglogger", paused at last check); fill
+   them in from a live query, never from memory, then they render. */
+export const SCALE = {
+  acres: '20,000+',
+  hogsRemoved: null as number | null,
+  traps: null as number | null,
+} as const;
+
 /* Said on every hunt page, in the owners' terms. */
 export const EQUIPMENT_RULE =
   "Bring your own rifle or shotgun, or use ours. Same with ammo. The price doesn't move either way, because you're paying for access to the ground and the hunt, not for gear.";

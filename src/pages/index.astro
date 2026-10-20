@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { SITE, PRICES, COUNTIES, HUNT_TOWNS } from '../consts';
+import { SITE, PRICES, COUNTIES, HUNT_TOWNS, SCALE } from '../consts';
 
 const hunts = [
   { name: 'Thermal Hog Hunts', href: '/thermal-hog-hunts', price: PRICES.thermalHog.text, text: 'Night hunts under thermal optics on private ground where the hogs are doing real damage.' },
@@ -101,7 +101,7 @@ const schema = {
         <ul class="checks">
           <li>We go after the whole sounder. Leaving sows behind means the problem is back by spring.</li>
           <li>Cellular traps and cameras. We watch the trap live and close it when the group is inside, not when the first pig walks in.</li>
-          <li>Large acreage, ag ground, and commercial solar sites across {COUNTIES.join(', ')} counties.</li>
+          <li>{SCALE.acres} acres under our hunt and trap programs: ranches, ag ground and commercial solar sites across {COUNTIES.join(', ')} counties.</li>
           <li>One crew that both hunts and traps, so the property gets pressure from both directions.</li>
         </ul>
         <p><a href="/hog-removal-areas">See the towns and counties we cover</a></p>
@@ -109,9 +109,9 @@ const schema = {
       <div class="prose">
         <h2>Ranch surveys, from the air</h2>
         <p>
-          Before a trap goes up or a hunt gets planned, it helps to know what's actually on the ground. Thermal drone
-          wildlife surveys and ranch consulting are run with our partner{' '}
-          <a href={SITE.partner.url}>{SITE.partner.name}</a>, also out of Bell County.
+          Before a trap goes up or a hunt gets planned, it helps to know what's actually on the ground. Our partner{' '}
+          <a href={SITE.partner.url}>{SITE.partner.name}</a> flies the thermal surveys, builds the remote release
+          hardware on our traps and runs the field cameras. We run the traps and the hunts.
         </p>
         <p><a href="/wildlife-surveys">How the surveys work</a></p>
       </div>
