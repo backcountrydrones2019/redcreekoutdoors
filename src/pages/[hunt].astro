@@ -26,13 +26,13 @@ const schema = [
     serviceType: 'Guided hunt',
     provider: { '@id': `${SITE.url}/#business` },
     areaServed: HUNT_TOWNS.map((t) => ({ '@type': 'City', name: `${t}, TX` })),
-    offers: h.offers.map((o) => ({
+    ...(h.offers.length && { offers: h.offers.map((o) => ({
       '@type': 'Offer',
       name: o.name,
       priceCurrency: 'USD',
       price: o.amount,
       priceSpecification: { '@type': 'UnitPriceSpecification', price: o.amount, priceCurrency: 'USD', unitText: o.unit },
-    })),
+    })) }),
   },
   {
     '@context': 'https://schema.org',
