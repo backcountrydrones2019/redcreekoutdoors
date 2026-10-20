@@ -1,0 +1,77 @@
+---
+/* Aerial hog damage footage, home page, right under the hero.
+   Source: Justin's DJI clip DJI_20261013113645_0478_D (2026-10-13), trimmed to
+   0:12-0:42, audio and all metadata (GPS included) stripped. No town,
+   property or owner is named, and nothing here ties a drone to a hunt.
+   Loads only when scrolled into view; pauses when it leaves. Reduced motion
+   gets the poster and native controls instead of autoplay. */
+---
+
+<section class="section sand damage" aria-labelledby="damage-h">
+  <div class="wrap dgrid">
+    <div class="dtext">
+      <p class="eyebrow">From the air</p>
+      <h2 id="damage-h">This is what a sounder does to a field</h2>
+      <p>
+        Every dark patch in this footage is ground torn up by feral hogs. It's an aerial survey over a Central Texas field,
+        flown in October 2026.
+      </p>
+      <p>
+        Damage like this is why we trap the whole sounder instead of picking off one hog at a time, and why every job
+        starts with a site assessment, not a guess.
+      </p>
+      <div class="btn-row">
+        <a class="btn" href="/hog-trap-request">Hog Trap Request</a>
+        <a class="btn ghost" href="/hog-damage-prevention">Stopping hog damage</a>
+      </div>
+      <p class="small"><a href="/wildlife-surveys">How the aerial surveys work</a></p>
+    </div>
+    <figure class="dvid">
+      <video id="damage-video" muted playsinline loop preload="none" poster="/video/hog-damage-aerial-poster.webp"
+        data-sm="/video/hog-damage-aerial-480.mp4" data-lg="/video/hog-damage-aerial-720.mp4"
+        aria-label="Aerial footage of a Central Texas field with large dark patches of soil rooted up by feral hogs"></video>
+      <button type="button" class="vtoggle" id="damage-toggle" aria-label="Pause video" hidden><span aria-hidden="true">❚❚</span></button>
+      <figcaption>Feral hog rooting, Central Texas, October 2026.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var v = document.getElementById('damage-video'), b = document.getElementById('damage-toggle');
+    if (!v || !v.play) return;
+    var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var saver = navigator.connection && navigator.connection.saveData;
+    var src = innerWidth < 760 ? v.dataset.sm : v.dataset.lg;
+    if (still || saver) { v.controls = true; v.src = src; return; }
+    var userPaused = false;
+    function set(paused) {
+      b.setAttribute('aria-label', paused ? 'Play video' : 'Pause video');
+      b.firstElementChild.textContent = paused ? '▶' : '❚❚';
+    }
+    b.addEventListener('click', function () {
+      if (v.paused) { userPaused = false; v.play(); set(false); } else { userPaused = true; v.pause(); set(true); }
+    });
+    if (!('IntersectionObserver' in window)) { v.src = src; v.play(); b.hidden = false; return; }
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) {
+          if (!v.src) { v.src = src; b.hidden = false; }
+          if (!userPaused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        } else if (!v.paused) v.pause();
+      });
+    }, { threshold: 0.35 }).observe(v);
+  })();
+</script>
+
+<style>
+  .dgrid { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 60rem) { .dgrid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3rem; } }
+  .dtext h2 { margin-top: 0; }
+  .dvid { position: relative; margin: 0; }
+  .dvid video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--char-deep) url(/video/hog-damage-aerial-poster.webp) center / cover; border-radius: var(--radius); border-bottom: 4px solid var(--red); box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22); }
+  .dvid figcaption { font: 400 0.88rem/1.4 var(--tag); color: var(--muted); margin-top: 0.6rem; }
+  .vtoggle { position: absolute; right: 0.75rem; top: 0.75rem; width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.85); background: rgba(0, 0, 0, 0.4); color: #fff; font-size: 0.78rem; cursor: pointer; }
+  .vtoggle:hover, .vtoggle:focus-visible { background: #fff; color: var(--char-deep); }
+  .small { font-size: 0.95rem; margin-top: 1rem; }
+</style>

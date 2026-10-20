@@ -5,6 +5,7 @@ import TexasMap from '../components/TexasMap.astro';
 import HuntMenu from '../components/HuntMenu.astro';
 import SocialFeed from '../components/SocialFeed.astro';
 import PhotoSlideshow from '../components/PhotoSlideshow.astro';
+import DamageVideo from '../components/DamageVideo.astro';
 import { SITE, PRICES, COUNTIES, HUNT_TOWNS, SCALE } from '../consts';
 
 const hunts = [
@@ -58,6 +59,8 @@ const schema = {
       <p class="hero-call">Or call <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a></p>
     </div>
   </section>
+
+  <DamageVideo />
 
   <PhotoSlideshow />
 
