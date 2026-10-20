@@ -23,6 +23,7 @@ const crumbs = [{ name: 'About', path: '/about' }];
         each job makes the other one better.
       </p>
       <p>
+        {SCALE.hogsRemoved && <>We've trapped {SCALE.hogsRemoved} hogs in {SCALE.hogsYear} so far (through {SCALE.hogsAsOf}).{' '}</>}
         We work {SCALE.acres} acres of private land across {COUNTIES.join(', ')} counties, with hunts near{' '}
         {HUNT_TOWNS.slice(0, -1).join(', ')} and {HUNT_TOWNS[HUNT_TOWNS.length - 1]}. Landowners get a crew that puts
         pressure on hogs from two directions, trapping and hunting. Hunters get access to ground they couldn't get on

@@ -101,6 +101,7 @@ const schema = {
         <ul class="checks">
           <li>We go after the whole sounder. Leaving sows behind means the problem is back by spring.</li>
           <li>Cellular traps and cameras. We watch the trap live and close it when the group is inside, not when the first pig walks in.</li>
+          {SCALE.hogsRemoved && <li>{SCALE.hogsRemoved} hogs trapped in {SCALE.hogsYear} so far (through {SCALE.hogsAsOf}).</li>}
           <li>{SCALE.acres} acres under our hunt and trap programs: ranches, ag ground and commercial solar sites across {COUNTIES.join(', ')} counties.</li>
           <li>One crew that both hunts and traps, so the property gets pressure from both directions.</li>
         </ul>

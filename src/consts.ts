@@ -65,7 +65,9 @@ export const PRICES = {
    memory. A null value doesn't render. */
 export const SCALE = {
   acres: '20,000+',
-  hogsRemoved: null as number | null,
+  hogsRemoved: 455 as number | null,
+  hogsYear: 2026,
+  hogsAsOf: 'Oct. 20, 2026',
   traps: null as number | null,
 } as const;
 
