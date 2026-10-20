@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE } from '../consts';
+
+const crumbs = [
+  { name: 'Hog Trapping Service', path: '/hog-trapping-service' },
+  { name: 'Wildlife Surveys', path: '/wildlife-surveys' },
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Thermal drone wildlife surveys and ranch consulting',
+  serviceType: 'Thermal drone wildlife survey',
+  provider: [
+    { '@id': `${SITE.url}/#business` },
+    { '@type': 'LocalBusiness', name: 'Backcountry Drones LLC', url: SITE.partner.url },
+  ],
+};
+---
+
+<Base
+  title="Thermal Drone Wildlife Surveys | Red Creek Outdoors"
+  description="Thermal drone surveys show what's on your ranch: deer, hogs and predators. Run with Backcountry Drones for Central Texas landowners. Then we plan the work."
+  crumbs={crumbs}
+  schema={schema}
+>
+  <PageHero eyebrow="Ranch services" title="Thermal Drone Wildlife Surveys" crumbs={crumbs}
+    lede="Count what's actually on the place before you trap it, hunt it or manage it. Flown with our partner Backcountry Drones." />
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Why survey first</h2>
+      <p>
+        A thermal drone flown at night sees warm bodies through the dark: deer, hogs, coyotes. On a hog job it tells us how
+        many sounders are using the place and where they bed, so the traps go in the right spot the first time. For
+        ranch management it gives you a real deer count instead of a guess off a feeder camera.
+      </p>
+
+      <h2>How the work splits</h2>
+      <table class="spec">
+        <tbody>
+          <tr><th>Backcountry Drones</th><td>Flies the survey, processes the thermal footage and delivers the counts</td></tr>
+          <tr><th>Red Creek Outdoors</th><td>Reads the results with you and plans the trapping, hunting or management that follows</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <p>
+          <strong>Surveys and hunts stay separate.</strong> A survey is a survey. We don't use drones to find game for a
+          hunter during a hunt.
+        </p>
+      </div>
+
+      <h2>More on the surveys</h2>
+      <p>
+        Survey timing, deliverables and pricing are on the Backcountry Drones site:{' '}
+        <a href="https://backcountrydrones.com/services/wildlife-surveys">thermal drone wildlife surveys</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand title="Want a count?" text="Tell us the county and acreage and what you want to know: hogs, deer or both." />
+</Base>

@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE } from '../consts';
+const crumbs = [{ name: 'Privacy Policy', path: '/privacy-policy' }];
+---
+
+<Base
+  title="Privacy Policy | Red Creek Outdoors"
+  description="What Red Creek Outdoors LLC collects through this website, why, who processes it, and how to have your information removed. Plain language."
+  crumbs={crumbs}
+>
+  <PageHero title="Privacy Policy" crumbs={crumbs} lede="Short version: we collect what you type into the request form, use it to call you back, and don't sell it." />
+  <section class="section">
+    <div class="wrap prose">
+      <p><strong>Last updated:</strong> October 20, 2026</p>
+
+      <h2>What we collect</h2>
+      <p>
+        When you send a request, we get what you type: your name, phone, email, dates, party size, property location,
+        acreage and message. We also record the page you first landed on and the site that sent you, so we know which
+        pages are working.
+      </p>
+      <p>
+        Like every website, the server sees your IP address and browser details when you load a page. We don't use
+        advertising trackers or sell anything about you.
+      </p>
+
+      <h2>Why</h2>
+      <p>To answer your request, book your hunt or schedule trapping, and keep a record of the job.</p>
+
+      <h2>Who handles it</h2>
+      <ul>
+        <li>Cloudflare hosts the site and stores form submissions.</li>
+        <li>Resend delivers the email that tells us a request came in.</li>
+        <li>Google Workspace holds our business email.</li>
+      </ul>
+      <p>We don't share your information with anyone else unless the law requires it.</p>
+
+      <h2>Your choices</h2>
+      <p>
+        Call {SITE.phone} and ask, and we'll tell you what we have on file about you or delete it.
+      </p>
+
+      <h2>Who we are</h2>
+      <p>{SITE.legal}, {SITE.city}, Texas. {SITE.phone}.</p>
+    </div>
+  </section>
+</Base>

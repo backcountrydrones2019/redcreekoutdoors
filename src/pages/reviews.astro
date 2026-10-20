@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { TOTALS, REVIEWS, REVIEW_LINKS } from '../data/reviews';
+const crumbs = [{ name: 'Reviews', path: '/reviews' }];
+---
+
+<Base
+  title="Reviews | Red Creek Outdoors"
+  description="What hunters and landowners say about Red Creek Outdoors. Rated 5.0 on Google and 5.0 on Facebook. Read the reviews or leave your own."
+  crumbs={crumbs}
+>
+  <PageHero eyebrow="Reviews" title="What Hunters and Landowners Say" crumbs={crumbs}
+    lede={`${TOTALS.google.rating} on Google from ${TOTALS.google.count} reviews. ${TOTALS.facebook.rating} on Facebook from ${TOTALS.facebook.count}.`} />
+
+  <section class="section">
+    <div class="wrap prose">
+      {REVIEWS.map((r) => (
+        <blockquote class="card">
+          <p>"{r.quote}"</p>
+          <footer>{r.name ? `${r.name}, ` : ''}{r.source} review{r.service ? `, ${r.service}` : ''}</footer>
+        </blockquote>
+      ))}
+
+      <h2>Hunted or trapped with us?</h2>
+      <p>A review is the best thing you can do for a small outfit. It takes a minute.</p>
+      <div class="btn-row">
+        {REVIEW_LINKS.google && <a class="btn" href={REVIEW_LINKS.google}>Review us on Google</a>}
+        <a class="btn ghost" href={REVIEW_LINKS.facebook}>Review us on Facebook</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  blockquote { margin: 0 0 1rem; }
+  blockquote p { font-size: 1.15rem; margin-bottom: 0.4rem; }
+  blockquote footer { color: var(--muted); font-size: 0.9rem; }
+</style>

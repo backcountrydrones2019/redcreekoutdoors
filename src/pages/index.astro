@@ -1,0 +1,132 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE, PRICES, COUNTIES, HUNT_TOWNS } from '../consts';
+
+const hunts = [
+  { name: 'Thermal Hog Hunts', href: '/thermal-hog-hunts', price: PRICES.thermalHog.text, text: 'Night hunts under thermal optics on private ground where the hogs are doing real damage.' },
+  { name: 'Thermal Predator Hunts', href: '/thermal-predator-hunts', price: PRICES.thermalPredator.text, text: 'Coyotes after dark, called in and glassed with thermal, on ranches that want them gone.' },
+  { name: 'Whitetail Deer', href: '/whitetail-deer-hunts', price: `${PRICES.whitetailDoe.text}. ${PRICES.whitetailBuck.text}.`, text: 'Guided doe and buck hunts on private Central Texas land during the Texas season.' },
+  { name: 'Dove', href: '/dove-hunts', price: PRICES.dove.text, text: 'Field shoots in season. Bring a shotgun or use ours.' },
+  { name: 'Teal', href: '/teal-hunts', price: PRICES.teal.text, text: 'The September early teal season, first ducks of the year.' },
+  { name: 'Duck', href: '/duck-hunts', price: PRICES.duck.text, text: 'Guided duck hunts on private water in the regular season.' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  url: `${SITE.url}/`,
+  name: SITE.name,
+  publisher: { '@id': `${SITE.url}/#business` },
+};
+---
+
+<Base
+  title="Hog Trapping & Guided Hunts in Killeen, TX | Red Creek Outdoors"
+  description="Whole-sounder hog trapping for landowners and guided thermal, whitetail, dove and duck hunts on private Central Texas land. Call 254-397-8938."
+  schema={schema}
+>
+  <section class="home-hero">
+    <div class="wrap">
+      <p class="eyebrow">Killeen, Texas · {COUNTIES.join(', ')} counties</p>
+      <h1>Hog Trapping and Guided Hunts in Central Texas</h1>
+      <p class="lede">
+        Two jobs, same ground. We trap the whole sounder off your land, and we guide hunters on private ranches
+        across Central Texas. One phone number for both.
+      </p>
+      <div class="btn-row">
+        <a class="btn" href={`tel:${SITE.phoneE164}`}>Call {SITE.phone}</a>
+        <a class="btn ghost light" href="/contact">Book a hunt or request trapping</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid two split">
+      <div class="card">
+        <p class="eyebrow">Landowners</p>
+        <h2>Hogs on your place?</h2>
+        <p>
+          Shooting one pig at a time teaches the rest to run. We work the property, find where the sounder
+          travels and feeds, get them comfortable, then take the group in one event with cellular traps we
+          can see and trigger from a phone.
+        </p>
+        <p class="price">Trapping {PRICES.trapping.text.toLowerCase()}</p>
+        <div class="btn-row">
+          <a class="btn" href="/hog-trapping-service">How trapping works</a>
+          <a class="btn ghost" href="/hog-trapping-killeen-tx">Hog trapping in Killeen</a>
+        </div>
+      </div>
+      <div class="card">
+        <p class="eyebrow">Hunters</p>
+        <h2>Looking for a hunt?</h2>
+        <p>
+          Thermal hog and predator hunts at night, whitetail in season, and dove, teal and duck shoots on
+          private ground near {HUNT_TOWNS.slice(0, -1).join(', ')} and {HUNT_TOWNS[HUNT_TOWNS.length - 1]}.
+        </p>
+        <p class="price">Hunts from $300</p>
+        <div class="btn-row">
+          <a class="btn" href="/guided-hunts">See every hunt</a>
+          <a class="btn ghost" href="/corporate-hunts">Corporate groups</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sand">
+    <div class="wrap">
+      <h2>Guided hunts and starting prices</h2>
+      <p class="prose">
+        Prices are what we charge, on the page, before you call. Guns and ammo are there if you need them and the
+        price doesn't change either way. You're paying for the ground and the hunt.
+      </p>
+      <div class="grid three">
+        {hunts.map((h) => (
+          <div class="card">
+            <h3><a href={h.href}>{h.name}</a></h3>
+            <p class="price">{h.price}</p>
+            <p>{h.text}</p>
+            <a class="more" href={h.href}>Details</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid two">
+      <div class="prose">
+        <h2>Why landowners call us</h2>
+        <ul class="checks">
+          <li>We go after the whole sounder. Leaving sows behind means the problem is back by spring.</li>
+          <li>Cellular traps and cameras. We watch the trap live and close it when the group is inside, not when the first pig walks in.</li>
+          <li>Large acreage, ag ground, and commercial solar sites across {COUNTIES.join(', ')} counties.</li>
+          <li>One crew that both hunts and traps, so the property gets pressure from both directions.</li>
+        </ul>
+        <p><a href="/hog-removal-areas">See the towns and counties we cover</a></p>
+      </div>
+      <div class="prose">
+        <h2>Ranch surveys, from the air</h2>
+        <p>
+          Before a trap goes up or a hunt gets planned, it helps to know what's actually on the ground. Thermal drone
+          wildlife surveys and ranch consulting are run with our partner{' '}
+          <a href={SITE.partner.url}>{SITE.partner.name}</a>, also out of Bell County.
+        </p>
+        <p><a href="/wildlife-surveys">How the surveys work</a></p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .home-hero { background: var(--char-deep); color: #eee; padding: 4rem 0 4.25rem; border-bottom: 4px solid var(--red); }
+  .home-hero h1 { color: #fff; max-width: 15ch; }
+  .home-hero .lede { color: #d6d1cc; }
+  .home-hero .eyebrow { color: #ff8a8d; }
+  .light { color: #fff; border-color: #fff; }
+  .light:hover { background: #fff; color: var(--char-deep); }
+  .split .card h2 { margin-top: 0; }
+</style>

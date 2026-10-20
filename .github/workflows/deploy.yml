@@ -1,0 +1,47 @@
+# Build, verify and deploy on every push to main. Same pipeline as
+# backcountrydrones.com.
+#
+# The one secret this needs is CLOUDFLARE_API_TOKEN (Workers edit on Justin's
+# account). Worker secrets such as RESEND_API_KEY live on the Worker in
+# Cloudflare and survive redeploys.
+#
+# Do NOT add a step that rewrites wrangler.jsonc. On backcountrydrones.com a
+# comment-stripping regex ate "/api/*" through to the cron and shipped a config
+# missing its vars, with no error. Pass build values as --var flags instead.
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-main
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Full history: sitemap lastmod comes from git log per source file.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      # The gate. Any FAIL stops the deploy.
+      - run: npm run verify
+
+      - name: Deploy to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy --var BUILD_SHA:${{ github.sha }}

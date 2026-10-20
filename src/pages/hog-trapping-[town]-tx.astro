@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { TOWN_PAGES } from '../data/towns/index';
+import { SITE, PRICES } from '../consts';
+import type { Town } from '../data/types';
+
+/* Each town is its own data file (src/data/towns/<slug>.ts), so sitemap
+   lastmod moves only when that town's copy changes. The template is thin on
+   purpose: everything a reader sees comes from the town file, which is what
+   keeps the pages under 25 percent shared text (verify.mjs enforces it). */
+export function getStaticPaths() {
+  return TOWN_PAGES.map((t) => ({ params: { town: t.slug.replace(/^hog-trapping-/, '').replace(/-tx$/, '') }, props: { t } }));
+}
+
+const { t } = Astro.props as { t: Town };
+const crumbs = [
+  { name: 'Hog Removal Areas', path: '/hog-removal-areas' },
+  { name: t.town, path: `/${t.slug}` },
+];
+const others = TOWN_PAGES.filter((x) => x.slug !== t.slug);
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `Hog trapping in ${t.town}, TX`,
+    serviceType: 'Feral hog trapping and removal',
+    provider: { '@id': `${SITE.url}/#business` },
+    areaServed: [{ '@type': 'City', name: `${t.town}, TX` }, { '@type': 'AdministrativeArea', name: `${t.county} County, TX` }],
+    offers: { '@type': 'Offer', priceCurrency: 'USD', price: PRICES.trapping.amount, description: PRICES.trapping.text },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: t.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+
+<Base title={t.title} description={t.description} crumbs={crumbs} schema={schema}>
+  <PageHero eyebrow={`${t.county} County`} title={t.h1} lede={t.lede} crumbs={crumbs}>
+    <div class="btn-row">
+      <a class="btn" href={`tel:${SITE.phoneE164}`}>Call {SITE.phone}</a>
+      <a class="btn ghost" href="/contact">Request trapping</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap prose">
+      <table class="spec">
+        <tbody>
+          {t.facts.map((f) => <tr><th>{f.label}</th><td set:html={f.value} /></tr>)}
+        </tbody>
+      </table>
+
+      {t.sections.map((s) => (
+        <>
+          <h2>{s.h2}</h2>
+          {s.paras.map((p) => <p set:html={p} />)}
+          {s.list && <ul class="checks">{s.list.map((li) => <li set:html={li} />)}</ul>}
+        </>
+      ))}
+
+      <h2>{t.town} hog trapping questions</h2>
+      <div class="faq">
+        {t.faq.map((f) => (
+          <details><summary>{f.q}</summary><p set:html={f.a} /></details>
+        ))}
+      </div>
+
+      <p>
+        Nearby: {others.map((o, i) => <>{i > 0 && ' · '}<a href={`/${o.slug}`}>{o.town}</a></>)}
+      </p>
+
+      <p class="sources">
+        Sources:{' '}
+        {t.sources.map((s, i) => <>{i > 0 && '; '}<a href={s.url}>{s.label}</a></>)}.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand title={`Hogs near ${t.town}?`} text="Tell us the road, rough acreage and where you're seeing sign. We'll come look." />
+</Base>

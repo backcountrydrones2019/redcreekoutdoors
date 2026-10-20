@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../consts';
+---
+
+<Base title="Request Received | Red Creek Outdoors" description="Your request reached Red Creek Outdoors. We'll call you back. For anything urgent, call 254-397-8938 directly." noindex>
+  <section class="section">
+    <div class="wrap prose">
+      <p class="eyebrow">Received</p>
+      <h1>Got it. We'll call you.</h1>
+      <p class="lede">Your request is in. If it can't wait, call <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a>.</p>
+      <p id="ref"></p>
+      <p><a href="/">Back to the home page</a></p>
+    </div>
+  </section>
+</Base>
+<script is:inline>
+  (function () {
+    var m = /ref=(RC-[0-9]{6}-[0-9]{4})/.exec(location.search);
+    if (m) document.getElementById('ref').textContent = 'Reference: ' + m[1];
+  })();
+</script>

@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE } from '../consts';
+const crumbs = [{ name: 'Terms and Conditions', path: '/terms-and-conditions' }];
+---
+
+<Base
+  title="Terms and Conditions | Red Creek Outdoors"
+  description="Terms for using the Red Creek Outdoors LLC website. Hunt and trapping terms are set in writing at booking, before any money changes hands."
+  crumbs={crumbs}
+>
+  <PageHero title="Terms and Conditions" crumbs={crumbs} lede="These cover the website. Every hunt and trapping job gets its own written terms at booking." />
+  <section class="section">
+    <div class="wrap prose">
+      <p><strong>Last updated:</strong> October 20, 2026</p>
+
+      <h2>Prices on this site</h2>
+      <p>
+        Prices are starting prices. Your final price, dates, what's included, deposit and cancellation terms are set
+        in writing when you book. If the website and your written booking disagree, the written booking governs.
+      </p>
+
+      <h2>Hunting laws</h2>
+      <p>
+        Every hunter is responsible for holding the licenses, endorsements, stamps and certifications Texas and federal
+        law require for the hunt they book. Our hunt pages link to the official sources so you can check before you
+        come.
+      </p>
+
+      <h2>Information on this site</h2>
+      <p>
+        We work to keep season dates and rules current and link to the agency that publishes them. Agencies change
+        rules. The agency's own page is the authority, not ours.
+      </p>
+
+      <h2>Contact</h2>
+      <p>{SITE.legal}, {SITE.city}, Texas. {SITE.phone}.</p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,29 @@
+# =============================================================================
+# Red Creek Outdoors: GoDaddy Website Builder to Cloudflare redirects
+#
+# EXACT RULES IN THE TOP BLOCK. EVERY RULE WITH A * IN THE BOTTOM BLOCK.
+# Never interleave them. On backcountrydrones.com an exact rule sitting below a
+# splat lost to it, live, while the file looked correct.
+#
+# Every page URL from the GoDaddy site is still served at the same address
+# (see site-inventory.md), so there are no content redirects. Keep every rule
+# here indefinitely: old URLs carry traffic and ranking signal for months.
+#
+# www to apex and http to https are NOT here. They're a Cloudflare Redirect
+# Rule and Always Use HTTPS on the zone, so they resolve in one hop.
+# =============================================================================
+
+# --- EXACT ------------------------------------------------------------------
+# GoDaddy's sitemaps, submitted in Search Console on 2026-05-01.
+/sitemap.website.xml     /sitemap-index.xml     301
+/sitemap.ols.xml         /sitemap-index.xml     301
+/sitemap.ola.xml         /sitemap-index.xml     301
+/sitemap.xml             /sitemap-index.xml     301
+/home                    /                      301
+# Landowner "thermal removal" is the guided thermal hog hunt (owner, 2026-10-20).
+# One offer, one URL. Old page had 54 impressions and 1 click at cutover.
+/thermal-hunting-removal /thermal-hog-hunts      301
+
+# --- SPLAT (keep below every exact rule) ------------------------------------
+# GoDaddy member stubs (/m/login, /m/create) are left to 404 on purpose. They
+# were never content.

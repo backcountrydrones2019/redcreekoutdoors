@@ -1,0 +1,87 @@
+---
+import { NAV, SITE } from '../consts';
+const here = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+---
+
+{/* No backdrop-filter on this header. It creates a containing block for fixed
+    descendants and traps the mobile menu inside the bar. Learned on
+    backcountrydrones.com. */}
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="/" class="brand" aria-label="Red Creek Outdoors home">
+      <img src="/brand/logo-96.png" width="48" height="48" alt="Red Creek Outdoors LLC logo" />
+      <span class="name">Red Creek <b>Outdoors</b></span>
+    </a>
+
+    <nav class="desk" aria-label="Main">
+      <ul>
+        {NAV.map((item) => (
+          <li class={'children' in item ? 'has-kids' : ''}>
+            <a href={item.href} aria-current={here === item.href ? 'page' : undefined}>{item.label}</a>
+            {'children' in item && (
+              <ul class="drop">
+                {item.children.map((c) => (
+                  <li><a href={c.href}>{c.label}</a></li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <a class="phone" href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a>
+      <a class="btn" href="/contact">Book</a>
+    </div>
+
+    <details class="mobile">
+      <summary aria-label="Menu"><span></span><span></span><span></span></summary>
+      <nav aria-label="Mobile">
+        {NAV.map((item) => (
+          <div class="group">
+            <a class="top" href={item.href}>{item.label}</a>
+            {'children' in item && item.children.map((c) => <a href={c.href}>{c.label}</a>)}
+          </div>
+        ))}
+        <a class="top" href="/reviews">Reviews</a>
+        <a class="top" href="/contact">Contact</a>
+        <a class="btn" href={`tel:${SITE.phoneE164}`}>Call {SITE.phone}</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header { background: var(--char-deep); color: #fff; position: sticky; top: 0; z-index: 50; border-bottom: 3px solid var(--red); }
+  .bar { display: flex; align-items: center; gap: 1rem; min-height: 4.25rem; }
+  .brand { display: flex; align-items: center; gap: 0.6rem; color: #fff; text-decoration: none; margin-right: auto; }
+  .brand img { background: #fff; border-radius: 50%; }
+  .name { font: 700 1.25rem/1 var(--display); letter-spacing: 0.02em; }
+  .name b { color: #ff6b6f; font-weight: 700; }
+
+  .desk { display: none; }
+  .desk > ul { list-style: none; display: flex; gap: 0.2rem; margin: 0; padding: 0; }
+  .desk li { position: relative; margin: 0; }
+  .desk a { display: block; color: #eee; text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 0.6rem 0.7rem; }
+  .desk a:hover, .desk a[aria-current='page'] { color: #fff; text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+  .drop { display: none; position: absolute; left: 0; top: 100%; min-width: 14rem; background: var(--char-deep); list-style: none; padding: 0.4rem 0; margin: 0; border-top: 3px solid var(--red); }
+  .has-kids:hover .drop, .has-kids:focus-within .drop { display: block; }
+
+  .actions { display: none; align-items: center; gap: 0.9rem; }
+  .phone { color: #fff; font-weight: 700; text-decoration: none; white-space: nowrap; }
+  .actions .btn { padding: 0.7rem 1.1rem; }
+
+  .mobile summary { list-style: none; cursor: pointer; display: grid; gap: 5px; padding: 0.6rem; }
+  .mobile summary::-webkit-details-marker { display: none; }
+  .mobile summary span { display: block; width: 26px; height: 3px; background: #fff; }
+  .mobile nav { position: fixed; inset: 4.25rem 0 0 0; background: var(--char-deep); overflow-y: auto; padding: 1rem var(--gutter) 2rem; display: grid; gap: 0.2rem; align-content: start; }
+  .mobile nav a { color: #ddd; text-decoration: none; padding: 0.45rem 0 0.45rem 1rem; display: block; }
+  .mobile nav a.top { color: #fff; font-weight: 700; padding-left: 0; margin-top: 0.6rem; }
+  .mobile nav .btn { margin-top: 1.2rem; text-align: center; padding: 0.95rem; color: #fff; }
+
+  @media (min-width: 64rem) {
+    .desk, .actions { display: flex; }
+    .mobile { display: none; }
+  }
+</style>

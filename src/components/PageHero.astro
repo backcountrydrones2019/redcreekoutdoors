@@ -1,0 +1,32 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+  crumbs?: { name: string; path: string }[];
+}
+const { eyebrow, title, lede, crumbs = [] } = Astro.props;
+---
+
+<section class="hero">
+  <div class="wrap">
+    {crumbs.length > 0 && (
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        {crumbs.map((c, i) =>
+          i === crumbs.length - 1 ? <span aria-current="page"> / {c.name}</span> : <> / <a href={c.path}>{c.name}</a></>
+        )}
+      </nav>
+    )}
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {lede && <p class="lede">{lede}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .hero { background: var(--sand); border-bottom: 1px solid var(--line); padding: 2.5rem 0 2.75rem; }
+  .crumbs { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+  .crumbs a { color: var(--muted); }
+</style>

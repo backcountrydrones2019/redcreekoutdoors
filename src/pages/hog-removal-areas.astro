@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE, COUNTIES, SERVICE_TOWNS, PRICES } from '../consts';
+import { TOWN_PAGES } from '../data/towns/index';
+
+const crumbs = [
+  { name: 'Hog Trapping Service', path: '/hog-trapping-service' },
+  { name: 'Hog Removal Areas', path: '/hog-removal-areas' },
+];
+const withPage = new Set(TOWN_PAGES.map((t) => t.town));
+const pageFor = (town: string) => TOWN_PAGES.find((t) => t.town === town)?.slug;
+---
+
+<Base
+  title="Hog Removal Areas in Central Texas | Red Creek Outdoors"
+  description="Hog trapping in Killeen, Temple, Belton, Gatesville, McGregor, Salado and across Bell, Coryell, Milam and Falls counties. Based in Killeen, Texas."
+  crumbs={crumbs}
+>
+  <PageHero eyebrow="Service area" title="Where We Trap Hogs" crumbs={crumbs}
+    lede={`Out of Killeen, across ${COUNTIES.join(', ')} counties and the towns around them.`} />
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Towns with their own page</h2>
+      <div class="grid three">
+        {TOWN_PAGES.map((t) => (
+          <div class="card">
+            <h3><a href={`/${t.slug}`}>Hog trapping in {t.town}</a></h3>
+            <p>{t.county} County. {t.summary}</p>
+            <a class="more" href={`/${t.slug}`}>{t.town} details</a>
+          </div>
+        ))}
+      </div>
+
+      <h2>Every town we serve</h2>
+      <ul class="towns">
+        {SERVICE_TOWNS.map((t) => (
+          <li>{withPage.has(t) ? <a href={`/${pageFor(t)}`}>{t}</a> : t}</li>
+        ))}
+      </ul>
+      <p class="prose">
+        Not on the list? Call anyway. If your place is past Bell, Coryell, Milam or Falls county, tell us the county and
+        acreage and we'll tell you straight whether it makes sense for us to come.
+      </p>
+
+      <div class="callout prose">
+        <p>
+          <strong>Hog trapping {PRICES.trapping.text.toLowerCase()}.</strong>{' '}
+          <a href="/hog-trapping-service">How a trapping job runs</a>. Call <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .towns { columns: 2 10rem; padding-left: 1.1rem; }
+</style>

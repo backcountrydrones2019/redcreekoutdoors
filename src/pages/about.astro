@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { PEOPLE } from '../data/people';
+import { SITE, COUNTIES, HUNT_TOWNS } from '../consts';
+const crumbs = [{ name: 'About', path: '/about' }];
+---
+
+<Base
+  title="About Red Creek Outdoors | Killeen, Texas"
+  description="Red Creek Outdoors LLC is a Killeen, Texas hunting guide and feral hog trapping outfit working private land across Bell, Coryell, Milam and Falls counties."
+  crumbs={crumbs}
+>
+  <PageHero eyebrow="About" title="Who We Are" crumbs={crumbs}
+    lede="A Central Texas outfit that traps hogs for landowners and guides hunters on private ground. Based in Killeen." />
+
+  <section class="section">
+    <div class="wrap prose">
+      <p>
+        Red Creek Outdoors LLC does two jobs. We trap feral hogs off private land, the whole sounder at a time, and we
+        guide hunters for hogs, predators, whitetail, dove, teal and ducks. It's the same ground and the same crew, and
+        each job makes the other one better.
+      </p>
+      <p>
+        We work private land across {COUNTIES.join(', ')} counties, with hunts near{' '}
+        {HUNT_TOWNS.slice(0, -1).join(', ')} and {HUNT_TOWNS[HUNT_TOWNS.length - 1]}. Landowners get a crew that puts
+        pressure on hogs from two directions, trapping and hunting. Hunters get access to ground they couldn't get on
+        otherwise, with guns and ammo there if they need them.
+      </p>
+
+      <h2>The crew</h2>
+      <div class="grid two people">
+        {PEOPLE.map((p) => (
+          <div class="card">
+            {p.published && p.photo && <img src={p.photo} alt={`${p.name}, ${p.role} at Red Creek Outdoors`} width="480" height="480" loading="lazy" />}
+            <h3>{p.name}</h3>
+            <p class="role">{p.role}</p>
+            {p.published && p.bio && <p>{p.bio}</p>}
+          </div>
+        ))}
+      </div>
+
+      <h2>Who we work with</h2>
+      <p>
+        Thermal drone wildlife surveys and ranch consulting run through{' '}
+        <a href={SITE.partner.url}>{SITE.partner.name}</a>. We also handle hog control on commercial solar sites,
+        where hogs root up the ground between panel rows and around equipment.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .people img { border-radius: var(--radius); margin-bottom: 0.8rem; }
+  .role { color: var(--red-dark); font-weight: 700; margin-top: -0.4rem; }
+</style>

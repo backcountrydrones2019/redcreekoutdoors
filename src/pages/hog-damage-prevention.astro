@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE, PRICES } from '../consts';
+const crumbs = [
+  { name: 'Hog Trapping Service', path: '/hog-trapping-service' },
+  { name: 'Hog Damage Prevention', path: '/hog-damage-prevention' },
+];
+---
+
+<Base
+  title="Feral Hog Damage Prevention for Texas Land | Red Creek Outdoors"
+  description="How to read feral hog sign, what the damage costs, and when trapping the whole sounder beats waiting. For Central Texas landowners, sourced to Texas A&M."
+  crumbs={crumbs}
+>
+  <PageHero eyebrow="Landowners" title="Stopping Feral Hog Damage" crumbs={crumbs}
+    lede="You can't fence your way out of a hog problem on open ground, and you can't wait it out. Here's how to read what's happening and when to call." />
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>What it costs</h2>
+      <p>
+        A 2004 Texas A&M AgriLife Extension survey put feral hog damage to Texas agriculture at $52 million a year, and the
+        Texas A&M Natural Resources Institute estimates the state carries around 3 million wild pigs. Those numbers are
+        old and the herd has only grown. On a single property the cost shows up as torn-up pasture, hay you can't cut,
+        ruined food plots, busted fence and muddied stock tanks.
+      </p>
+
+      <h2>Read the sign</h2>
+      <ul class="checks">
+        <li><strong>Rooting.</strong> Ground turned over like a bad disc job, often along creek bottoms, fence lines and low wet spots.</li>
+        <li><strong>Wallows.</strong> Mud holes at tanks, seeps and creek edges, usually with crusted mud rubbed on nearby trees and posts.</li>
+        <li><strong>Rubs.</strong> Mud and hair on posts, poles and tree trunks at hog height.</li>
+        <li><strong>Trails.</strong> Low tunnels through brush and under fences, used the same way every night.</li>
+        <li><strong>Tracks.</strong> Rounder and blunter than deer tracks, often in groups.</li>
+      </ul>
+
+      <h2>What works and what doesn't</h2>
+      <p>
+        Hogs breed faster than casual pressure can keep up with. AgriLife Extension estimates up to 66 percent of a
+        population has to come off every year just to hold it level. Shooting the odd hog at the feeder doesn't get close,
+        and it teaches the survivors to come in later and leave sooner.
+      </p>
+      <p>
+        What does work is taking whole sounders, sows included, in single events, then keeping pressure on what's left.
+        That's the trapping job. For the boars that won't trap, night hunts with thermal finish it.
+      </p>
+
+      <div class="callout">
+        <p>
+          <strong>Hog trapping {PRICES.trapping.text.toLowerCase()}.</strong>{' '}
+          <a href="/hog-trapping-service">See how a trapping job runs</a>, or call{' '}
+          <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a>.
+        </p>
+      </div>
+
+      <h2>While you wait for us</h2>
+      <ul class="checks">
+        <li>Don't shoot at the sounder. Every miss and every single kill makes the rest harder to trap.</li>
+        <li>Note where and when you see fresh sign. Mornings after rain are the easiest time to read it.</li>
+        <li>Stop any deer corn that's getting hit at night. It's feeding the hogs on your dime.</li>
+      </ul>
+
+      <p class="sources">
+        Sources:{' '}
+        <a href="https://nri.tamu.edu/news/2019/november/startling-statistics-everyone-needs-to-know-about-wild-pigs/">Texas A&M Natural Resources Institute</a>;{' '}
+        <a href="https://agrilifeextension.tamu.edu/asset-external/feral-hog-population-growth-density-and-harvest-in-texas/">Texas A&M AgriLife Extension, Feral Hog Population Growth, Density and Harvest in Texas</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand title="Seeing sign?" text="Tell us where and how fresh. We'll come read it with you." />
+</Base>

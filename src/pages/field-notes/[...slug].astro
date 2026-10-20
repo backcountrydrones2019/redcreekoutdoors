@@ -1,0 +1,50 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { SITE } from '../../consts';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('field-notes', (n) => !n.data.draft);
+  return notes.map((n) => ({ params: { slug: n.id }, props: { n } }));
+}
+
+const { n } = Astro.props;
+const { Content } = await render(n);
+const crumbs = [
+  { name: 'Field Notes', path: '/field-notes' },
+  { name: n.data.title, path: `/field-notes/${n.id}` },
+];
+const fmt = new Intl.DateTimeFormat('en-US', { dateStyle: 'long', timeZone: 'UTC' });
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: n.data.title,
+  description: n.data.description,
+  datePublished: n.data.date.toISOString(),
+  dateModified: (n.data.updated || n.data.date).toISOString(),
+  author: { '@id': `${SITE.url}/#business` },
+  publisher: { '@id': `${SITE.url}/#business` },
+  mainEntityOfPage: `${SITE.url}/field-notes/${n.id}`,
+};
+---
+
+<Base title={`${n.data.title} | Red Creek Outdoors`} description={n.data.description} crumbs={crumbs} schema={schema}>
+  <PageHero eyebrow="Field Notes" title={n.data.title} crumbs={crumbs}>
+    <p class="date">
+      {fmt.format(n.data.date)}{n.data.updated && ` · Updated ${fmt.format(n.data.updated)}`}
+    </p>
+  </PageHero>
+  <section class="section">
+    <article class="wrap prose note-body">
+      <Content />
+    </article>
+  </section>
+  <CtaBand />
+</Base>
+
+<style>
+  .date { color: var(--muted); margin: 0; }
+  .note-body :global(h2) { font-size: 1.6rem; }
+</style>

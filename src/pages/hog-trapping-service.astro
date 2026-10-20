@@ -1,0 +1,167 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE, PRICES, COUNTIES } from '../consts';
+
+const crumbs = [{ name: 'Hog Trapping Service', path: '/hog-trapping-service' }];
+
+const faq = [
+  {
+    q: 'How much does hog trapping cost?',
+    a: `Trapping ${PRICES.trapping.text.toLowerCase()}. Final price depends on acreage, access and how many hogs are working the property. You'll have it in writing before we set a panel.`,
+  },
+  {
+    q: 'Why not just shoot them?',
+    a: "Shooting takes one or two and educates the rest. The survivors go nocturnal and get harder to catch. Trapping the whole sounder in one event leaves nothing behind to learn from it.",
+  },
+  {
+    q: 'How many hogs have to come off to make a difference?',
+    a: 'Texas A&M AgriLife Extension estimates up to 66 percent of a hog population has to be removed every year, for years, just to keep it from growing. Anything less and the numbers climb anyway.',
+  },
+  {
+    q: 'Do you work solar sites and commercial property?',
+    a: 'Yes. We handle hog control on commercial solar sites as well as farms, ranches and hay ground.',
+  },
+  {
+    q: 'What area do you cover?',
+    a: `${COUNTIES.join(', ')} counties and the surrounding area, out of Killeen. See the areas page for towns.`,
+  },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Feral hog trapping',
+    serviceType: 'Feral hog trapping and removal',
+    provider: { '@id': `${SITE.url}/#business` },
+    areaServed: COUNTIES.map((c) => ({ '@type': 'AdministrativeArea', name: `${c} County, TX` })),
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'USD',
+      price: PRICES.trapping.amount,
+      priceSpecification: { '@type': 'PriceSpecification', minPrice: PRICES.trapping.amount, priceCurrency: 'USD' },
+      description: PRICES.trapping.text,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+
+<Base
+  title="Feral Hog Trapping Service in Central Texas | Red Creek Outdoors"
+  description="We trap the whole sounder, not one pig at a time. Cellular traps, live camera checks and removal across Bell, Coryell, Milam and Falls counties. From $800."
+  crumbs={crumbs}
+  schema={schema}
+>
+  <PageHero
+    eyebrow="Landowners"
+    title="Feral Hog Trapping Service"
+    lede={`Whole-sounder trapping for Central Texas landowners. ${PRICES.trapping.text}.`}
+    crumbs={crumbs}
+  >
+    <div class="btn-row">
+      <a class="btn" href={`tel:${SITE.phoneE164}`}>Call {SITE.phone}</a>
+      <a class="btn ghost" href="/contact">Request trapping</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>The math is against you</h2>
+      <p>
+        A sow averages about one and a half litters a year with five or six piglets each, according to the Texas A&M
+        Natural Resources Institute. AgriLife Extension's population work puts the removal needed to hold a herd level at
+        up to 66 percent every year. Taking a hog here and there doesn't touch that number. It just teaches the rest of the
+        sounder to stay out of sight.
+      </p>
+      <p>
+        So we don't chase pigs. We trap the group.
+      </p>
+
+      <h2>How a trapping job runs</h2>
+      <ol class="steps">
+        <li>
+          <strong>Walk the property.</strong> We find where the hogs are coming in, where they feed, where they water and
+          where they bed. Rooting, wallows, rubs on fence posts and trails through the brush tell most of the story.
+        </li>
+        <li>
+          <strong>Bait and watch.</strong> Bait goes where the hogs already travel, with a cellular camera on it. We want
+          to see the whole sounder, every sow and every shoat, before anything gets built.
+        </li>
+        <li>
+          <strong>Build the trap around them.</strong> The trap goes up in stages while the hogs keep feeding, so they
+          stay comfortable with it.
+        </li>
+        <li>
+          <strong>Drop it when they're all in.</strong> The gate closes from a phone, live, when the last hog walks in.
+          Not when the first one does.
+        </li>
+        <li>
+          <strong>Remove and reset.</strong> Hogs come off the property and the trap moves to the next group.
+        </li>
+      </ol>
+
+      <div class="callout">
+        <p>
+          <strong>Hogs the trap doesn't get.</strong> Some old boars won't go in anything. That's where our guided thermal
+          hog hunts come in: night pressure on the same property, from the same crew. See{' '}
+          <a href="/thermal-hog-hunts">thermal hog hunts</a>.
+        </p>
+      </div>
+
+      <h2>Who we trap for</h2>
+      <ul class="checks">
+        <li>Ranches and large acreage across {COUNTIES.join(', ')} counties</li>
+        <li>Crop ground and hay meadows</li>
+        <li>Commercial solar sites</li>
+        <li>Landowners near town where the creek bottoms back up to the subdivisions</li>
+      </ul>
+
+      <h2>Price</h2>
+      <table class="spec">
+        <tbody>
+          <tr><th>Hog trapping</th><td>{PRICES.trapping.text}</td></tr>
+          <tr><th>What sets the final price</th><td>Acreage, access, terrain and how many hogs are on it</td></tr>
+          <tr><th>When you'll know</th><td>In writing, before the first panel goes up</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Questions landowners ask</h2>
+      <div class="faq">
+        {faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <h2>Local pages</h2>
+      <p>
+        <a href="/hog-trapping-killeen-tx">Killeen</a> · <a href="/hog-trapping-temple-tx">Temple</a> ·{' '}
+        <a href="/hog-trapping-belton-tx">Belton</a> · <a href="/hog-trapping-gatesville-tx">Gatesville</a> ·{' '}
+        <a href="/hog-trapping-mcgregor-tx">McGregor</a> · <a href="/hog-trapping-salado-tx">Salado</a> ·{' '}
+        <a href="/hog-removal-areas">every area we cover</a>
+      </p>
+
+      <p class="sources">
+        Sources:{' '}
+        <a href="https://agrilifeextension.tamu.edu/asset-external/feral-hog-population-growth-density-and-harvest-in-texas/">Texas A&M AgriLife Extension, Feral Hog Population Growth, Density and Harvest in Texas</a>;{' '}
+        <a href="https://nri.tamu.edu/news/2019/november/startling-statistics-everyone-needs-to-know-about-wild-pigs/">Texas A&M Natural Resources Institute, Startling statistics everyone needs to know about wild pigs</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand title="Hogs on your place?" text="Tell us the county, rough acreage and where you're seeing sign. We'll come look." />
+</Base>
+
+<style>
+  .steps { padding-left: 1.2rem; }
+  .steps li { margin-bottom: 0.9rem; }
+</style>

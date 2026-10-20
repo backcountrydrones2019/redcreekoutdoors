@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# The Worker answers these with JSON, not pages.
+Disallow: /api/
+
+Sitemap: https://redcreekoutdoors.com/sitemap-index.xml

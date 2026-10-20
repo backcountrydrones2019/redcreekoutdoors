@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE } from '../consts';
+const crumbs = [{ name: 'Contact', path: '/contact' }];
+---
+
+<Base
+  title="Book a Hunt or Request Trapping | Red Creek Outdoors"
+  description="Book a guided hunt or request hog trapping in Central Texas. Call 254-397-8938 or send the details here and we'll call you back."
+  crumbs={crumbs}
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Book a Hunt or Request Trapping"
+    lede="Fastest is the phone. If you'd rather write it down, send the details below and we'll call you back."
+    crumbs={crumbs}
+  >
+    <div class="btn-row"><a class="btn" href={`tel:${SITE.phoneE164}`}>Call {SITE.phone}</a></div>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap grid two">
+      <form id="request" class="req" method="post" action="/api/request">
+        <p class="missing" hidden>We need your name and a phone number or email so we can reach you.</p>
+
+        <fieldset>
+          <legend>What do you need?</legend>
+          <label><input type="radio" name="kind" value="hunt" checked /> A guided hunt</label>
+          <label><input type="radio" name="kind" value="trapping" /> Hogs removed from my land</label>
+          <label><input type="radio" name="kind" value="corporate" /> A corporate or group event</label>
+          <label><input type="radio" name="kind" value="survey" /> A thermal wildlife survey</label>
+        </fieldset>
+
+        <label>Which hunt or service
+          <select name="interest">
+            <option value="">Pick one</option>
+            <option>Thermal hog hunt</option>
+            <option>Thermal predator hunt</option>
+            <option>Whitetail doe hunt</option>
+            <option>Whitetail buck hunt</option>
+            <option>Dove hunt</option>
+            <option>Teal hunt</option>
+            <option>Duck hunt</option>
+            <option>Hog trapping</option>
+            <option>Corporate event</option>
+            <option>Wildlife survey</option>
+          </select>
+        </label>
+
+        <label>Your name <input name="name" autocomplete="name" required maxlength="120" /></label>
+        <label>Phone <input name="phone" type="tel" autocomplete="tel" maxlength="40" /></label>
+        <label>Email <input name="email" type="email" autocomplete="email" maxlength="160" /></label>
+        <label>Dates you're looking at <input name="when" maxlength="160" placeholder="Weekend of Nov 14, any night in December" /></label>
+        <label>How many people <input name="party" maxlength="40" inputmode="numeric" /></label>
+        <label>Property location (landowners) <input name="location" maxlength="160" placeholder="County or nearest town" /></label>
+        <label>Acreage (landowners) <input name="acreage" maxlength="40" inputmode="numeric" /></label>
+        <label>Anything else <textarea name="message" rows="5" maxlength="4000"></textarea></label>
+
+        <div class="hp" aria-hidden="true">
+          <label>Leave this empty <input name="website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <input type="hidden" name="landing" />
+        <input type="hidden" name="referrer" />
+
+        <button class="btn" type="submit">Send request</button>
+        <p class="small">We use what you send only to answer you. See the <a href="/privacy-policy">privacy policy</a>.</p>
+      </form>
+
+      <div class="prose">
+        <h2>Straight answers</h2>
+        <p><strong>Phone:</strong> <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a></p>
+        <p><strong>Hours:</strong> {SITE.hoursText}. Hog work runs at night, so we're up.</p>
+        <p><strong>Based in:</strong> {SITE.city}, Texas. We trap and hunt across Bell, Coryell, Milam and Falls counties.</p>
+        <h3>For a hunt, have ready</h3>
+        <ul class="checks">
+          <li>Which hunt and the dates you want</li>
+          <li>How many in your group</li>
+          <li>Whether you're bringing your own gun or using ours</li>
+        </ul>
+        <h3>For trapping, have ready</h3>
+        <ul class="checks">
+          <li>County and nearest town</li>
+          <li>Rough acreage and what's on it: crops, pasture, hay, solar</li>
+          <li>Where you're seeing rooting, wallows or tracks</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script is:inline>
+  (function () {
+    var f = document.getElementById('request');
+    if (!f) return;
+    try {
+      f.landing.value = sessionStorage.getItem('rc_land') || '';
+      f.referrer.value = sessionStorage.getItem('rc_ref') || '';
+    } catch (e) {}
+    if (/missing=1/.test(location.search)) f.querySelector('.missing').hidden = false;
+  })();
+</script>
+
+<style>
+  .req { display: grid; gap: 0.9rem; }
+  .req label { display: grid; gap: 0.3rem; font-weight: 600; }
+  .req input, .req select, .req textarea { font: inherit; padding: 0.7rem; border: 1px solid #b9b2a9; border-radius: var(--radius); width: 100%; background: #fff; }
+  fieldset { border: 1px solid var(--line); border-radius: var(--radius); padding: 0.9rem 1rem; display: grid; gap: 0.5rem; }
+  fieldset label { display: flex; gap: 0.5rem; align-items: center; font-weight: 400; }
+  fieldset input { width: auto; }
+  legend { font-weight: 700; padding: 0 0.3rem; }
+  .hp { position: absolute; left: -9999px; }
+  .missing { background: #fbe9e9; border-left: 4px solid var(--red); padding: 0.7rem 1rem; }
+  .small { font-size: 0.85rem; color: var(--muted); }
+  .req .btn { justify-self: start; cursor: pointer; }
+</style>

@@ -1,0 +1,44 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "redcreekoutdoors",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash",
+    /* Assets are served before the Worker runs, and with 404-page handling a
+       browser navigation to a path with no asset gets 404.html without the
+       Worker ever seeing it. A plain form POST to /api/request would 404.
+       Listing /api/* makes the Worker run first for those paths only.
+       ADD A PATH HERE for any new Worker route a link or form must reach. */
+    "run_worker_first": ["/api/*"]
+  },
+
+  "vars": {
+    // Google Workspace mailbox to be created (approved 2026-10-20). Until it
+    // exists, set this to an inbox the owners already read.
+    "MAIL_TO": "",
+    "MAIL_FROM": "Red Creek Outdoors <site@send.redcreekoutdoors.com>"
+  },
+
+  // KV for leads. Create once in Justin's Cloudflare account, paste the id,
+  // then uncomment:
+  //   npx wrangler kv namespace create LEADS
+  // The binding name MUST stay "LEADS" (worker/index.ts reads env.LEADS).
+  // "kv_namespaces": [{ "binding": "LEADS", "id": "" }],
+
+  "observability": { "enabled": true },
+
+  /* NOT LIVE. workers.dev only until cutover (migration-runbook.md). Uncomment
+     these once the zone is active on Cloudflare and every redirect has passed
+     on the workers.dev address. ROLLBACK: comment them out and redeploy.
+  "routes": [
+    { "pattern": "redcreekoutdoors.com", "custom_domain": true }
+  ],
+  */
+  "workers_dev": true
+}

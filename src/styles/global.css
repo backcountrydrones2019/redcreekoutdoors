@@ -1,0 +1,140 @@
+/* Red Creek Outdoors. Tokens pulled from the logo: creek red #C1282C,
+   silhouette charcoal #343333, paper white. Stencil display type to match the
+   wordmark, plain sans for reading. */
+
+:root {
+  --red: #c1282c;
+  --red-dark: #9c1f23;
+  --char: #343333;
+  --char-deep: #1f1e1e;
+  --ink: #232222;
+  --muted: #5d5a58;
+  --paper: #ffffff;
+  --sand: #f4f1ec;
+  --line: #ddd7cf;
+
+  --display: 'Stardos Stencil', 'Stencil', Impact, sans-serif;
+  --body: 'Libre Franklin', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --wrap: 72rem;
+  --gutter: 1rem;
+  --radius: 4px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.65 var(--body);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--red-dark); text-underline-offset: 2px; }
+a:hover { color: var(--red); }
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--char-deep);
+  letter-spacing: 0.01em;
+  margin: 0 0 0.6em;
+}
+h1 { font-size: clamp(2.1rem, 6vw, 3.6rem); }
+h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); margin-top: 1.6em; }
+h3 { font-size: 1.35rem; margin-top: 1.4em; }
+
+p, ul, ol { margin: 0 0 1em; }
+li { margin-bottom: 0.35em; }
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+.prose { max-width: 44rem; }
+.section { padding: 3.5rem 0; }
+.section.sand { background: var(--sand); }
+.section.dark { background: var(--char-deep); color: #eeeae6; }
+.section.dark h2, .section.dark h3 { color: #fff; }
+.section.dark a { color: #ff9a9c; }
+
+.eyebrow {
+  font: 700 0.8rem/1 var(--body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.8rem;
+}
+
+.lede { font-size: 1.2rem; color: var(--muted); max-width: 42rem; }
+
+.btn {
+  display: inline-block;
+  font: 700 1rem/1 var(--body);
+  padding: 0.95rem 1.4rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--red);
+  background: var(--red);
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn:hover { background: var(--red-dark); border-color: var(--red-dark); color: #fff; }
+.btn.ghost { background: transparent; color: var(--char-deep); border-color: var(--char); }
+.btn.ghost:hover { background: var(--char); color: #fff; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+.grid { display: grid; gap: 1.25rem; }
+@media (min-width: 46rem) {
+  .grid.two { grid-template-columns: repeat(2, 1fr); }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--red);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+}
+.card h3 { margin-top: 0; }
+.card .price { font: 700 1.05rem/1.3 var(--body); color: var(--red-dark); margin-bottom: 0.6rem; }
+.card a.more { font-weight: 700; }
+
+.callout {
+  border-left: 4px solid var(--red);
+  background: var(--sand);
+  padding: 1rem 1.2rem;
+  margin: 1.5rem 0;
+}
+.callout p:last-child { margin-bottom: 0; }
+
+.checks { list-style: none; padding: 0; }
+.checks li { padding-left: 1.6rem; position: relative; }
+.checks li::before {
+  content: '';
+  position: absolute; left: 0.2rem; top: 0.55em;
+  width: 0.55rem; height: 0.55rem;
+  background: var(--red);
+  transform: rotate(45deg);
+}
+
+.spec { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; }
+.spec th, .spec td { text-align: left; padding: 0.7rem 0.6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.spec th { width: 38%; font-weight: 700; color: var(--char-deep); }
+
+.faq details { border-bottom: 1px solid var(--line); padding: 0.9rem 0; }
+.faq summary { font-weight: 700; cursor: pointer; color: var(--char-deep); }
+.faq details p { margin: 0.7rem 0 0; }
+
+.sources { font-size: 0.9rem; color: var(--muted); }
+.sources a { color: var(--muted); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }

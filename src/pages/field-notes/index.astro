@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const notes = (await getCollection('field-notes', (n) => !n.data.draft)).sort((a, b) => +b.data.date - +a.data.date);
+const crumbs = [{ name: 'Field Notes', path: '/field-notes' }];
+const fmt = new Intl.DateTimeFormat('en-US', { dateStyle: 'long', timeZone: 'UTC' });
+---
+
+<Base
+  title="Field Notes | Red Creek Outdoors"
+  description="Straight answers on Texas hunting licenses, seasons and feral hog control, sourced to Texas Parks and Wildlife and Texas A&M. From Red Creek Outdoors."
+  crumbs={crumbs}
+>
+  <PageHero eyebrow="Field Notes" title="Field Notes" crumbs={crumbs}
+    lede="What hunters and landowners ask us, answered with the source linked so you can check it." />
+  <section class="section">
+    <div class="wrap prose">
+      {notes.map((n) => (
+        <article class="note">
+          <h2><a href={`/field-notes/${n.id}`}>{n.data.title}</a></h2>
+          <p class="date">{fmt.format(n.data.date)}</p>
+          <p>{n.data.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .note { border-bottom: 1px solid var(--line); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+  .note h2 { font-size: 1.5rem; margin-top: 0.5rem; }
+  .date { color: var(--muted); font-size: 0.9rem; margin-top: -0.4rem; }
+</style>

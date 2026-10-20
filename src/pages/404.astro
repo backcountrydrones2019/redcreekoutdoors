@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../consts';
+---
+
+<Base title="Page Not Found | Red Creek Outdoors" description="That page isn't here. Find hog trapping, guided hunts and contact details for Red Creek Outdoors in Killeen, Texas." noindex>
+  <section class="section">
+    <div class="wrap prose">
+      <p class="eyebrow">404</p>
+      <h1>That trail went cold</h1>
+      <p class="lede">The page you asked for isn't here. One of these is probably what you're after.</p>
+      <ul class="checks">
+        <li><a href="/hog-trapping-service">Hog trapping for landowners</a></li>
+        <li><a href="/guided-hunts">Guided hunts and prices</a></li>
+        <li><a href="/contact">Book or request trapping</a></li>
+      </ul>
+      <p>Or call <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a>.</p>
+    </div>
+  </section>
+</Base>

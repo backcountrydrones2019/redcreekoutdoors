@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { HUNTS } from '../data/hunts/index';
+import { SITE, EQUIPMENT_RULE, HUNT_TOWNS } from '../consts';
+
+const crumbs = [{ name: 'Guided Hunts', path: '/guided-hunts' }];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Guided hunts from Red Creek Outdoors',
+  itemListElement: HUNTS.map((h, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE.url}/${h.slug}`, name: h.name })),
+};
+---
+
+<Base
+  title="Guided Hunts in Central Texas | Red Creek Outdoors"
+  description="Guided thermal hog and predator hunts, whitetail, dove, teal and duck hunts on private land near Killeen and Fort Hood. Prices from $300, guns available."
+  crumbs={crumbs}
+  schema={schema}
+>
+  <PageHero eyebrow="Hunters" title="Guided Hunts Near Killeen and Fort Hood" crumbs={crumbs}
+    lede={`Private ground near ${HUNT_TOWNS.slice(0, -1).join(', ')} and ${HUNT_TOWNS[HUNT_TOWNS.length - 1]}. Every price is on this page.`} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid three">
+        {HUNTS.map((h) => (
+          <div class="card">
+            <h2 class="h3"><a href={`/${h.slug}`}>{h.name}</a></h2>
+            <p class="price">{h.priceText}</p>
+            <p>{h.card}</p>
+            <p class="when"><strong>When:</strong> {h.whenShort}</p>
+            <a class="more" href={`/${h.slug}`}>Details and booking</a>
+          </div>
+        ))}
+      </div>
+
+      <div class="callout prose">
+        <p><strong>Guns and ammo.</strong> {EQUIPMENT_RULE}</p>
+      </div>
+
+      <div class="prose">
+        <h2>Groups and companies</h2>
+        <p>
+          Bringing a crew, clients or a company outing? We put groups on private ground and build the day or night around
+          what's in season. <a href="/corporate-hunts">Corporate hunts and ranch events</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Pick a date" text="Call with the hunt, the dates and how many are coming. We'll tell you what's open." />
+</Base>
+
+<style>
+  .h3 { font-size: 1.35rem; margin-top: 0; }
+  .when { font-size: 0.95rem; color: var(--muted); }
+</style>

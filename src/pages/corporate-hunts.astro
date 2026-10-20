@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE, EQUIPMENT_RULE, HUNT_TOWNS } from '../consts';
+import { HUNTS } from '../data/hunts/index';
+
+const crumbs = [
+  { name: 'Guided Hunts', path: '/guided-hunts' },
+  { name: 'Corporate Hunts', path: '/corporate-hunts' },
+];
+
+const faq = [
+  { q: 'How many people can you take?', a: "Tell us your headcount and the hunt. Group size depends on the hunt and the ground, and we'll give you a straight answer on the call." },
+  { q: 'Do our people need their own guns?', a: EQUIPMENT_RULE },
+  { q: 'What do our people need before they come?', a: "Each hunter needs the Texas licenses and, for birds, the endorsements and stamps the hunt requires. Every hunt page lists them with links to Texas Parks and Wildlife. We'll send the list to your organizer." },
+  { q: 'How is a corporate event priced?', a: 'Quoted per event. Our published hunt prices are the starting point, then headcount, dates and how much of the day or night you want set the quote.' },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Corporate hunts and ranch events',
+    serviceType: 'Guided group hunting events',
+    provider: { '@id': `${SITE.url}/#business` },
+    areaServed: { '@type': 'State', name: 'Texas' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+
+<Base
+  title="Corporate Hunts and Ranch Events in Texas | Red Creek Outdoors"
+  description="Corporate hunting trips and ranch events in Central Texas: thermal hog hunts, dove shoots, whitetail and waterfowl for teams, clients and company outings."
+  crumbs={crumbs}
+  schema={schema}
+>
+  <PageHero eyebrow="Groups" title="Corporate Hunts and Ranch Events" crumbs={crumbs}
+    lede="Take the team, or the client you're trying to close, somewhere they'll talk about for a year. Private ground in Central Texas, guided start to finish." />
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>What a group gets</h2>
+      <ul class="checks">
+        <li>Private hunting ground near {HUNT_TOWNS.slice(0, -1).join(', ')} and {HUNT_TOWNS[HUNT_TOWNS.length - 1]}</li>
+        <li>Guides who run the whole thing, from safety briefing to the last shot</li>
+        <li>Guns and ammo for anyone who doesn't bring their own, at no extra charge</li>
+        <li>A hunt matched to the season and to your people, first-timers included</li>
+      </ul>
+
+      <h2>Pick the hunt by season</h2>
+      <table class="spec">
+        <tbody>
+          {HUNTS.map((h) => (
+            <tr><th><a href={`/${h.slug}`}>{h.name}</a></th><td>{h.whenShort}. {h.priceText}.</td></tr>
+          ))}
+        </tbody>
+      </table>
+      <p>
+        Thermal hog hunts run year-round and are the easiest one to put a mixed group on. A dove shoot in September is
+        the classic Texas client outing. Whitetail and duck hunts suit smaller groups who already hunt.
+      </p>
+
+      <h2>Questions organizers ask</h2>
+      <div class="faq">
+        {faq.map((f) => (
+          <details><summary>{f.q}</summary><p>{f.a}</p></details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Plan the event" text="Call with your headcount, the month you're looking at and what kind of hunt. We'll build it." />
+</Base>

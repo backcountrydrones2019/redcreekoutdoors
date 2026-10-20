@@ -1,0 +1,67 @@
+---
+import { SITE, COUNTIES } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap cols">
+    <div>
+      <p class="mark">Red Creek <b>Outdoors</b></p>
+      <p>Feral hog trapping and guided hunts on private land in Central Texas. Based in {SITE.city}, Texas.</p>
+      <p><a class="tel" href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a><br />{SITE.hoursText}</p>
+    </div>
+    <div>
+      <p class="h">Landowners</p>
+      <ul>
+        <li><a href="/hog-trapping-service">Hog Trapping Service</a></li>
+        <li><a href="/hog-trapping-killeen-tx">Hog Trapping Killeen</a></li>
+        <li><a href="/hog-damage-prevention">Hog Damage Prevention</a></li>
+        <li><a href="/hog-removal-areas">Areas We Trap</a></li>
+        <li><a href="/wildlife-surveys">Wildlife Surveys</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="h">Hunters</p>
+      <ul>
+        <li><a href="/thermal-hog-hunts">Thermal Hog Hunts</a></li>
+        <li><a href="/thermal-predator-hunts">Thermal Predator Hunts</a></li>
+        <li><a href="/whitetail-deer-hunts">Whitetail Deer Hunts</a></li>
+        <li><a href="/dove-hunts">Dove Hunts</a></li>
+        <li><a href="/teal-hunts">Teal Hunts</a></li>
+        <li><a href="/duck-hunts">Duck Hunts</a></li>
+        <li><a href="/corporate-hunts">Corporate Hunts</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="h">Red Creek</p>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/reviews">Reviews</a></li>
+        <li><a href="/field-notes">Field Notes</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href={SITE.social.facebook} rel="me">Facebook</a></li>
+        <li><a href={SITE.social.instagram} rel="me">Instagram</a></li>
+        <li><a href={SITE.social.tiktok} rel="me">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap base">
+    <p>Serving {COUNTIES.join(', ')} counties and surrounding areas.</p>
+    <p>&copy; {year} {SITE.legal}. <a href="/terms-and-conditions">Terms</a> · <a href="/privacy-policy">Privacy</a></p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--char-deep); color: #c9c4bf; margin-top: 0; border-top: 4px solid var(--red); font-size: 0.95rem; }
+  .cols { display: grid; gap: 1.5rem; padding-top: 2.5rem; padding-bottom: 1.5rem; }
+  @media (min-width: 46rem) { .cols { grid-template-columns: 1.4fr 1fr 1fr 1fr; } }
+  .mark { font: 700 1.4rem/1 var(--display); color: #fff; }
+  .mark b { color: #ff6b6f; }
+  .h { color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8rem; }
+  ul { list-style: none; padding: 0; }
+  a { color: #e6e1dc; text-decoration: none; }
+  a:hover { color: #fff; text-decoration: underline; }
+  .tel { font-weight: 700; color: #fff; font-size: 1.1rem; }
+  .base { border-top: 1px solid #3a3838; padding-top: 1rem; padding-bottom: 1.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem; }
+  .base p { margin: 0; }
+</style>
