@@ -215,7 +215,7 @@ if (process.argv.includes('--full')) {
     const { chromium } = await import('playwright');
     const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium' });
     for (const width of WIDTHS) {
-      for (const path of ['/', '/hog-trapping-killeen-tx', '/thermal-hog-hunts', '/contact']) {
+      for (const path of ['/', '/hog-trapping-killeen-tx', '/thermal-hog-hunts', '/contact', '/hog-trap-request', '/book-a-hunt', '/hog-removal-areas']) {
         const page = await browser.newPage({ viewport: { width, height: 800 } });
         await page.goto(`http://localhost:8787${path}`, { waitUntil: 'networkidle' });
         if (await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth))

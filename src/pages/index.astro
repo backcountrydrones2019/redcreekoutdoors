@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import TexasMap from '../components/TexasMap.astro';
+import HuntMenu from '../components/HuntMenu.astro';
+import SocialFeed from '../components/SocialFeed.astro';
 import { SITE, PRICES, COUNTIES, HUNT_TOWNS, SCALE } from '../consts';
 
 const hunts = [
@@ -36,10 +38,11 @@ const schema = {
         Two jobs, same ground. We trap the whole sounder off your land, and we guide hunters on private ranches
         across Central Texas. One phone number for both.
       </p>
-      <div class="btn-row">
-        <a class="btn" href={`tel:${SITE.phoneE164}`}>Call {SITE.phone}</a>
-        <a class="btn ghost light" href="/contact">Book a hunt or request trapping</a>
+      <div class="btn-row hero-actions">
+        <a class="btn" href="/hog-trap-request">Hog Trap Request</a>
+        <HuntMenu id="hero-huntmenu" />
       </div>
+      <p class="hero-call">Or call <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a></p>
     </div>
   </section>
 
@@ -131,6 +134,8 @@ const schema = {
     </div>
   </section>
 
+  <SocialFeed />
+
   <CtaBand />
 </Base>
 
@@ -140,6 +145,9 @@ const schema = {
   .home-hero .lede { color: #d6d1cc; }
   .home-hero .eyebrow { color: #ff8a8d; }
   .light { color: #fff; border-color: #fff; }
+  .hero-actions :global(.btn) { font-size: 1.1rem; padding: 1.05rem 1.6rem; }
+  .hero-call { margin-top: 1rem; color: #d6d1cc; }
+  .hero-call a { color: #fff; font-weight: 700; }
   .light:hover { background: #fff; color: var(--char-deep); }
   .split .card h2 { margin-top: 0; }
 </style>

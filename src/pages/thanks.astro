@@ -9,6 +9,7 @@ import { SITE } from '../consts';
       <p class="eyebrow">Received</p>
       <h1>Got it. We'll call you.</h1>
       <p class="lede">Your request is in. If it can't wait, call <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a>.</p>
+      <p id="next"></p>
       <p id="ref"></p>
       <p><a href="/">Back to the home page</a></p>
     </div>
@@ -16,7 +17,13 @@ import { SITE } from '../consts';
 </Base>
 <script is:inline>
   (function () {
-    var m = /ref=(RC-[0-9]{6}-[0-9]{4})/.exec(location.search);
-    if (m) document.getElementById('ref').textContent = 'Reference: ' + m[1];
+    var q = new URLSearchParams(location.search);
+    var ref = q.get('ref') || '';
+    if (/^R[CTH]-[0-9]{6}-[0-9]{4}$/.test(ref)) document.getElementById('ref').textContent = 'Reference: ' + ref;
+    var next = {
+      trap: 'Next: we call to talk through the property and set a site assessment. Once we confirm it, the $100 nonrefundable deposit is due to lock it in.',
+      hunt: "Next: we call to confirm your date and the details. Once we confirm we can take your hunt, the $100 nonrefundable deposit is due to lock it in."
+    }[q.get('kind')];
+    if (next) document.getElementById('next').textContent = next;
   })();
 </script>

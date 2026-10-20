@@ -16,7 +16,12 @@ const crumbs = [{ name: 'Contact', path: '/contact' }];
     lede="Fastest is the phone. If you'd rather write it down, send the details below and we'll call you back."
     crumbs={crumbs}
   >
-    <div class="btn-row"><a class="btn" href={`tel:${SITE.phoneE164}`}>Call {SITE.phone}</a></div>
+    <div class="btn-row">
+      <a class="btn" href="/hog-trap-request">Hog Trap Request</a>
+      <a class="btn" href="/book-a-hunt">Book a Hunt</a>
+      <a class="btn ghost" href={`tel:${SITE.phoneE164}`}>Call {SITE.phone}</a>
+    </div>
+    <p class="help-note">Booking a hunt or need hogs trapped? Use the matching form, it asks exactly what we need. Everything else, use the form below.</p>
   </PageHero>
 
   <section class="section">
@@ -103,6 +108,7 @@ const crumbs = [{ name: 'Contact', path: '/contact' }];
 
 <style>
   .req { display: grid; gap: 0.9rem; }
+  .help-note { margin-top: 1rem; color: var(--muted); }
   .req label { display: grid; gap: 0.3rem; font-weight: 600; }
   .req input, .req select, .req textarea { font: inherit; padding: 0.7rem; border: 1px solid #b9b2a9; border-radius: var(--radius); width: 100%; background: #fff; }
   fieldset { border: 1px solid var(--line); border-radius: var(--radius); padding: 0.9rem 1rem; display: grid; gap: 0.5rem; }

@@ -16,10 +16,17 @@
  * so a mail outage never loses a request. The ops console reads from there.
  */
 
+import { handleTrapRequest, handleHuntBooking } from './forms';
+import { handleSocial, refreshFeed } from './social';
+
 interface Env {
   ASSETS: Fetcher;
   LEADS?: KVNamespace;
+  SOCIAL?: KVNamespace;
   RESEND_API_KEY?: string; // secret: npx wrangler secret put RESEND_API_KEY
+  FB_PAGE_TOKEN?: string; // secret: npx wrangler secret put FB_PAGE_TOKEN
+  FB_PAGE_ID?: string;
+  TIKTOK_VIDEOS?: string;
   MAIL_TO: string;
   MAIL_FROM: string;
   BUILD_SHA?: string;
@@ -136,8 +143,14 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     if (url.pathname === '/api/request') return handleRequest(request, env, ctx);
+    if (url.pathname === '/api/trap-request') return handleTrapRequest(request, env, ctx);
+    if (url.pathname === '/api/hunt-booking') return handleHuntBooking(request, env, ctx);
+    if (url.pathname === '/api/social') return handleSocial(env, ctx);
     if (url.pathname === '/api/health') return Response.json({ ok: true, build: env.BUILD_SHA || 'local' });
     if (url.pathname.startsWith('/api/')) return new Response('Not found', { status: 404 });
     return env.ASSETS.fetch(request);
+  },
+  async scheduled(_event: ScheduledController, env: Env, ctx: ExecutionContext) {
+    ctx.waitUntil(refreshFeed(env));
   },
 } satisfies ExportedHandler<Env>;

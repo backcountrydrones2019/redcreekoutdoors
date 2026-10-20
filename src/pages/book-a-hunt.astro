@@ -1,0 +1,166 @@
+---
+/* Book a hunt. Built new 2026-10-20. Posts JSON to /api/hunt-booking.
+   ?hunt=<value> preselects the hunt (the home page menu links here that way).
+   Content and consent wording live in src/data/hunt-booking.ts. */
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE, DEPOSIT, EQUIPMENT_RULE } from '../consts';
+import { HUNT_OPTIONS, PARTY, EXPERIENCE, GEAR, HEARD, CONSENT, CONSENT_FINE, CONSENT_VERSION, ACKNOWLEDGEMENTS } from '../data/hunt-booking';
+import '../styles/forms.css';
+
+const crumbs = [
+  { name: 'Guided Hunts', path: '/guided-hunts' },
+  { name: 'Book a Hunt', path: '/book-a-hunt' },
+];
+---
+
+<Base
+  title="Book a Hunt | Red Creek Outdoors"
+  description="Request a guided thermal hog, predator, whitetail, dove, teal or duck hunt in Central Texas. Pick your hunt and dates and we confirm by phone."
+  crumbs={crumbs}
+>
+  <PageHero eyebrow="Hunters" title="Book a Hunt" crumbs={crumbs}
+    lede="Pick the hunt and the dates you want. We call to confirm what's open, then lock it in." />
+
+  <section class="section">
+    <div class="wrap prose-wide">
+      <div class="deposit">
+        <strong>How booking works</strong>
+        <p>Send the request and we call you to confirm the date and the details. {DEPOSIT.rule}</p>
+      </div>
+
+      <form id="hunt-form" class="intake" method="post" novalidate>
+        <h2>The hunt</h2>
+        <div class="fld">
+          <label for="hunt">Which hunt <span class="req">*</span></label>
+          <select id="hunt" name="hunt" required>
+            <option value="">Pick a hunt</option>
+            {HUNT_OPTIONS.map((h) => <option value={h.value} data-price={h.price}>{h.label}, {h.price.toLowerCase()}</option>)}
+          </select>
+          <p class="help" id="hunt-price"></p>
+        </div>
+        <div class="row">
+          <div class="fld"><label for="date1">First choice date <span class="req">*</span></label><input id="date1" name="date1" type="date" required /></div>
+          <div class="fld"><label for="date2">Second choice date</label><input id="date2" name="date2" type="date" /></div>
+        </div>
+        <label class="ack"><input type="checkbox" id="flexible" name="flexible" value="yes" /> <span>My dates are flexible. Offer me whatever is open.</span></label>
+        <div class="row">
+          <div class="fld">
+            <label for="party">Number of hunters <span class="req">*</span></label>
+            <select id="party" name="party" required><option value="">Select</option>{PARTY.map((p) => <option>{p}</option>)}</select>
+          </div>
+          <div class="fld">
+            <label for="youth">Hunters under 17</label>
+            <select id="youth" name="youth"><option value="">None</option>{['1', '2', '3', '4 or more'].map((p) => <option>{p}</option>)}</select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="fld">
+            <label for="experience">Experience</label>
+            <select id="experience" name="experience"><option value="">Select</option>{EXPERIENCE.map((p) => <option>{p}</option>)}</select>
+          </div>
+          <div class="fld">
+            <label for="gear">Guns</label>
+            <select id="gear" name="gear"><option value="">Select</option>{GEAR.map((p) => <option>{p}</option>)}</select>
+            <p class="help">{EQUIPMENT_RULE}</p>
+          </div>
+        </div>
+
+        <h2>Who you are</h2>
+        <div class="row">
+          <div class="fld"><label for="name">Name <span class="req">*</span></label><input id="name" name="name" autocomplete="name" required /></div>
+          <div class="fld"><label for="phone">Mobile phone <span class="req">*</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" required /></div>
+        </div>
+        <div class="row">
+          <div class="fld"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="fld"><label for="hometown">Where you're coming from</label><input id="hometown" name="hometown" placeholder="Killeen, Fort Hood, Austin, out of state" /></div>
+        </div>
+        <div class="fld">
+          <label for="heard">How did you hear about us?</label>
+          <select id="heard" name="heard"><option value="">Select</option>{HEARD.map((p) => <option>{p}</option>)}</select>
+        </div>
+        <div class="fld">
+          <label for="message">Anything we should know</label>
+          <textarea id="message" name="message" rows="4" placeholder="Celebrating a birthday, a first hunt for my son, a mobility issue, a group from work."></textarea>
+        </div>
+
+        <h2>Stay in the loop</h2>
+        <div class="consent">
+          <p class="fine">Want first shot at open dates and specials? Check the ways we can reach you.</p>
+          {CONSENT.map((c) => (
+            <label><input type="checkbox" name="consent" value={c.key} /> <span><strong>{c.label}.</strong> {c.text}</span></label>
+          ))}
+          <p class="fine">{CONSENT_FINE}</p>
+        </div>
+
+        <h2>Before you send this</h2>
+        <div class="acks">
+          {ACKNOWLEDGEMENTS.map((a) => (
+            <label class="ack"><input type="checkbox" name="ack" value={a.key} data-ack /> <span>{a.text}</span></label>
+          ))}
+        </div>
+
+        <div class="hp" aria-hidden="true"><label for="website">Leave empty</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
+
+        <button type="submit" class="btn">Send Hunt Request</button>
+        <p class="help">Rather talk? Call <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a>.</p>
+        <p class="status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ PHONE: SITE.phone, CONSENT_VERSION }}>
+    (function () {
+      var form = document.getElementById('hunt-form');
+      var sel = document.getElementById('hunt');
+      var priceEl = document.getElementById('hunt-price');
+      var statusEl = document.getElementById('form-status');
+      function setStatus(msg, state) { statusEl.textContent = msg; if (state) statusEl.setAttribute('data-state', state); else statusEl.removeAttribute('data-state'); }
+      function showPrice() { var o = sel.options[sel.selectedIndex]; priceEl.textContent = o && o.dataset.price ? 'Starting price: ' + o.dataset.price + '.' : ''; }
+      var want = new URLSearchParams(location.search).get('hunt');
+      if (want && sel.querySelector('option[value="' + want.replace(/[^a-z-]/g, '') + '"]')) sel.value = want;
+      sel.addEventListener('change', showPrice); showPrice();
+      var today = new Date().toISOString().slice(0, 10);
+      ['date1', 'date2'].forEach(function (id) { document.getElementById(id).min = today; });
+
+      function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+      function checked(name) { return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (c) { return c.value; }); }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var firstBad = null;
+        form.querySelectorAll('[required]').forEach(function (el) {
+          var ok = el.value.trim() !== '';
+          el.setAttribute('aria-invalid', String(!ok));
+          if (!ok && !firstBad) firstBad = el;
+        });
+        if (firstBad) { firstBad.focus(); setStatus('Fill in the highlighted fields and try again.', 'err'); return; }
+        var notAcked = form.querySelector('[data-ack]:not(:checked)');
+        if (notAcked) { notAcked.focus(); setStatus('Read and check every box under "Before you send this."', 'err'); return; }
+
+        var btn = form.querySelector('button[type=submit]');
+        btn.disabled = true; btn.textContent = 'Sending...'; setStatus('', '');
+        var land = '', ref = '';
+        try { land = sessionStorage.getItem('rc_land') || ''; ref = sessionStorage.getItem('rc_ref') || ''; } catch (err) {}
+        var payload = {
+          hunt: val('hunt'), date1: val('date1'), date2: val('date2'), flexible: document.getElementById('flexible').checked,
+          party: val('party'), youth: val('youth'), experience: val('experience'), gear: val('gear'),
+          name: val('name'), phone: val('phone'), email: val('email'), hometown: val('hometown'), heard: val('heard'), message: val('message'),
+          consent: checked('consent'), consent_version: CONSENT_VERSION, acks: checked('ack'),
+          website: val('website'), landing: land, referrer: ref,
+        };
+        fetch('/api/hunt-booking', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+          .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+          .then(function (d) { location.href = '/thanks?kind=hunt&ref=' + encodeURIComponent(d.ref || ''); })
+          .catch(function () {
+            setStatus("That didn't go through. Call " + PHONE + " and we'll book it by phone.", 'err');
+            btn.disabled = false; btn.textContent = 'Send Hunt Request';
+          });
+      });
+    })();
+  </script>
+</Base>
+
+<style>
+  .prose-wide { max-width: 52rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+</style>

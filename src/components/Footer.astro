@@ -1,5 +1,6 @@
 ---
 import { SITE, COUNTIES } from '../consts';
+import SocialLinks from './SocialLinks.astro';
 const year = new Date().getFullYear();
 ---
 
@@ -9,6 +10,7 @@ const year = new Date().getFullYear();
       <p class="mark">Red Creek <b>Outdoors</b></p>
       <p>Feral hog trapping and guided hunts on private land in Central Texas. Based in {SITE.city}, Texas.</p>
       <p><a class="tel" href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a><br />{SITE.hoursText}</p>
+      <SocialLinks size={24} labels />
     </div>
     <div>
       <p class="h">Landowners</p>
@@ -39,9 +41,8 @@ const year = new Date().getFullYear();
         <li><a href="/reviews">Reviews</a></li>
         <li><a href="/field-notes">Field Notes</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href={SITE.social.facebook} rel="me">Facebook</a></li>
-        <li><a href={SITE.social.instagram} rel="me">Instagram</a></li>
-        <li><a href={SITE.social.tiktok} rel="me">TikTok</a></li>
+        <li><a href="/book-a-hunt">Book a Hunt</a></li>
+        <li><a href="/hog-trap-request">Hog Trap Request</a></li>
       </ul>
     </div>
   </div>

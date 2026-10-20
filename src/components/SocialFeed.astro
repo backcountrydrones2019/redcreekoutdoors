@@ -1,0 +1,96 @@
+---
+/* Home page social carousel. The section is server-rendered with real text and
+   links to both channels, so it reads fine with no posts loaded. The script
+   then fetches /api/social and builds a scrolling carousel of post cards.
+   If the feed answers with nothing, the follow-us block simply stays. */
+import { SITE } from '../consts';
+import SocialLinks from './SocialLinks.astro';
+---
+
+<section class="section dark" id="social">
+  <div class="wrap">
+    <p class="eyebrow">From the field</p>
+    <h2>Fresh off the trap line and the hunt</h2>
+    <p class="prose">Catches, hunts and the stuff in between. Follow along on{' '}
+      <a href={SITE.social.facebook} rel="me noopener" target="_blank">Facebook</a> and{' '}
+      <a href={SITE.social.tiktok} rel="me noopener" target="_blank">TikTok</a>.</p>
+
+    <div class="feed" id="feed" data-state="fallback" aria-live="polite">
+      <div class="fallback"><SocialLinks size={30} labels /></div>
+    </div>
+
+    <div class="controls" id="feed-controls" hidden>
+      <button type="button" class="btn ghost light" data-dir="-1" aria-label="Previous posts">‹</button>
+      <button type="button" class="btn ghost light" data-dir="1" aria-label="Next posts">›</button>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var feed = document.getElementById('feed');
+    var controls = document.getElementById('feed-controls');
+    if (!feed || !window.fetch) return;
+    fetch('/api/social', { headers: { Accept: 'application/json' } })
+      .then(function (r) { return r.status === 200 ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.posts || !d.posts.length) return;
+        var track = document.createElement('div');
+        track.className = 'track';
+        d.posts.forEach(function (p) {
+          var a = document.createElement('a');
+          a.className = 'post ' + p.network;
+          a.href = p.url; a.target = '_blank'; a.rel = 'noopener';
+          if (p.image) {
+            var img = document.createElement('img');
+            img.src = p.image; img.loading = 'lazy'; img.decoding = 'async';
+            img.alt = p.text ? p.text.slice(0, 120) : 'Red Creek Outdoors post';
+            a.appendChild(img);
+          }
+          var body = document.createElement('div');
+          body.className = 'body';
+          var net = document.createElement('span');
+          net.className = 'net';
+          net.textContent = p.network === 'tiktok' ? 'TikTok' : 'Facebook';
+          body.appendChild(net);
+          if (p.text) { var t = document.createElement('p'); t.textContent = p.text; body.appendChild(t); }
+          a.appendChild(body);
+          track.appendChild(a);
+        });
+        feed.innerHTML = '';
+        feed.appendChild(track);
+        feed.dataset.state = 'live';
+        controls.hidden = false;
+        controls.addEventListener('click', function (e) {
+          var b = e.target.closest('button'); if (!b) return;
+          track.scrollBy({ left: Number(b.dataset.dir) * track.clientWidth * 0.9, behavior: 'smooth' });
+        });
+        // Slow auto-advance; stops for good once someone touches it.
+        var auto = setInterval(function () {
+          if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) track.scrollTo({ left: 0, behavior: 'smooth' });
+          else track.scrollBy({ left: track.clientWidth * 0.9, behavior: 'smooth' });
+        }, 6000);
+        ['pointerdown', 'wheel', 'keydown', 'focusin'].forEach(function (ev) { feed.addEventListener(ev, function () { clearInterval(auto); }, { once: true }); });
+        controls.addEventListener('click', function () { clearInterval(auto); }, { once: true });
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) clearInterval(auto);
+      })
+      .catch(function () {});
+  })();
+</script>
+
+<style>
+  .feed { margin-top: 1.5rem; }
+  .fallback :global(.social) { gap: 1rem; }
+  .feed :global(.track) { display: grid; grid-auto-flow: column; grid-auto-columns: min(80%, 19rem); gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.75rem; scrollbar-width: thin; }
+  .feed :global(.post) { scroll-snap-align: start; display: flex; flex-direction: column; background: #2b2a2a; border-radius: var(--radius); overflow: hidden; color: #eee; text-decoration: none; border-top: 4px solid var(--red); }
+  .feed :global(.post.tiktok) { border-top-color: #fff; }
+  .feed :global(.post img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #111; }
+  .feed :global(.post .body) { padding: 0.8rem 0.9rem 1rem; }
+  .feed :global(.post .net) { font: 800 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: #ff8a8d; }
+  .feed :global(.post p) { margin: 0.4rem 0 0; font-size: 0.95rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  .feed :global(.post:hover) { outline: 2px solid var(--red); }
+  .controls { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+  .controls .btn { font-size: 1.4rem; padding: 0.3rem 1rem; cursor: pointer; }
+  .light { color: #fff; border-color: #fff; }
+  .light:hover { background: #fff; color: var(--char-deep); }
+</style>

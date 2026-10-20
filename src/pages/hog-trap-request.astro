@@ -1,0 +1,202 @@
+---
+/* Hog trap request. Ported from backcountrydrones.com /request-hog-assessment,
+   trapping only. Satellite map for marking the property (this is the one place
+   the site uses map tiles, because the landowner needs to see their own
+   ground). Posts JSON to /api/trap-request. Everything a landowner reads here
+   lives in src/data/trap-request.ts and consts DEPOSIT. */
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE, DEPOSIT, PRICES } from '../consts';
+import { MAP_MODES, CONTROL_METHODS, DAMAGE_TYPES, ACKNOWLEDGEMENTS, PROPERTY_FIELDS } from '../data/trap-request';
+import '../styles/forms.css';
+
+const crumbs = [
+  { name: 'Hog Trapping Service', path: '/hog-trapping-service' },
+  { name: 'Hog Trap Request', path: '/hog-trap-request' },
+];
+---
+
+<Base
+  title="Hog Trap Request | Red Creek Outdoors"
+  description="Request hog trapping in Central Texas. Mark the damage on a map, tell us what you have tried, and we schedule a site assessment. Trapping from $800."
+  crumbs={crumbs}
+>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  </Fragment>
+
+  <PageHero eyebrow="Landowners" title="Hog Trap Request" crumbs={crumbs}
+    lede="Show us where the hogs are and what you've already tried. We'll call to schedule a site assessment. Nothing gets built until we've walked it." />
+
+  <section class="section">
+    <div class="wrap prose-wide">
+      <div class="deposit">
+        <strong>How it works</strong>
+        <p>
+          Send this, and we call you. If we can take the job, we schedule a site assessment and walk the property with you.
+          {DEPOSIT.rule} Hog trapping {PRICES.trapping.text.toLowerCase()}, with the final price in writing after the
+          assessment.
+        </p>
+      </div>
+
+      <form id="trap-form" class="intake" method="post" novalidate>
+        <h2>Who you are</h2>
+        <div class="row">
+          <div class="fld"><label for="name">Name <span class="req">*</span></label><input id="name" name="name" autocomplete="name" required /></div>
+          <div class="fld"><label for="phone">Phone <span class="req">*</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" required /></div>
+        </div>
+        <div class="row">
+          <div class="fld"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="fld">
+            <label for="role">Your relationship to the property</label>
+            <select id="role" name="role">
+              <option value="">Select one</option>
+              <option>Owner</option><option>Manager or foreman</option><option>Lessee</option>
+              <option>Family member with authority</option><option>Agent or representative</option>
+            </select>
+          </div>
+        </div>
+
+        <h2>The property</h2>
+        <div class="row">
+          {PROPERTY_FIELDS.map((f) => (
+            <div class="fld" style={'half' in f && f.half ? undefined : 'grid-column: 1 / -1'}>
+              <label for={f.name}>{f.label}{'required' in f && f.required && <span class="req"> *</span>}</label>
+              {f.kind === 'select' ? (
+                <select id={f.name} name={f.name}>
+                  <option value="">Select one</option>
+                  {'options' in f && f.options.map((o) => <option>{o}</option>)}
+                </select>
+              ) : (
+                <input id={f.name} name={f.name} inputmode={'inputmode' in f ? f.inputmode : undefined}
+                  placeholder={'placeholder' in f ? f.placeholder : undefined} required={'required' in f && f.required} />
+              )}
+              {'help' in f && f.help && <p class="help">{f.help}</p>}
+            </div>
+          ))}
+        </div>
+
+        <h2>Show us on the map</h2>
+        <p class="help">
+          Optional, and worth it. Find your place, pick a button, then tap the map. For a shaded area, tap the corners, then
+          tap the same button again to close it. Every mark is a question we don't have to ask you later.
+        </p>
+        <div class="map-tools">
+          <button type="button" class="btn ghost" id="btn-locate">Use my location</button>
+          {MAP_MODES.map((m, i) => (
+            <button type="button" class="btn ghost" data-mode={m.key} aria-pressed={i === 0 ? 'true' : 'false'}>{m.label}</button>
+          ))}
+          <button type="button" class="btn ghost" id="btn-undo">Undo</button>
+          <button type="button" class="btn ghost" id="btn-clear-shade">Clear shading</button>
+        </div>
+        <p class="map-hint" id="map-hint">{MAP_MODES[0].hint}</p>
+        <div class="mapsearch">
+          <label class="small" for="map-search">Search an address</label>
+          <div class="mapsearch__row">
+            <input type="search" id="map-search" autocomplete="off" enterkeyhint="search" placeholder="Address or nearest crossroads" />
+            <button type="button" class="btn" id="map-search-go">Search</button>
+          </div>
+          <p class="small muted" id="map-search-status" role="status" aria-live="polite"></p>
+          <ul class="mapsearch__results" id="map-search-results" hidden></ul>
+          <p class="small muted">Address search by Nominatim, &copy; OpenStreetMap contributors.</p>
+        </div>
+        <div id="map" role="application" aria-label="Map for marking hog damage and sign"></div>
+        <p class="small muted" id="map-status">Nothing marked yet.</p>
+
+        <h2>What's happening</h2>
+        <fieldset class="fld">
+          <legend>What are they tearing up?</legend>
+          <div class="checkgrid">
+            {DAMAGE_TYPES.map((d) => <label><input type="checkbox" name="damage" value={d} /> <span>{d}</span></label>)}
+          </div>
+        </fieldset>
+        <fieldset class="fld">
+          <legend>What's been tried so far?</legend>
+          <p class="help">Check everything, including by anyone else with access. What a sounder has already survived changes how it behaves and changes the plan.</p>
+          <div class="checkgrid">
+            {CONTROL_METHODS.map((c) => <label><input type="checkbox" name="control" value={c} /> <span>{c}</span></label>)}
+          </div>
+        </fieldset>
+        <div class="fld">
+          <label for="control_detail">How has that gone?</label>
+          <textarea id="control_detail" name="control_detail" rows="4" placeholder="Caught 6 in a box trap in the spring and nothing since. They quit coming to the corn feeder."></textarea>
+          <p class="help">How many came off and when it quit working is the most useful thing you can tell us.</p>
+        </div>
+        <div class="fld">
+          <label for="message">Anything else <span class="req">*</span></label>
+          <textarea id="message" name="message" rows="5" required placeholder="What you're trying to protect, a deadline, a crop going in, a lease that starts in October."></textarea>
+        </div>
+
+        <h2>Before you send this</h2>
+        <div class="acks">
+          {ACKNOWLEDGEMENTS.map((a) => (
+            <label class="ack"><input type="checkbox" name="ack" value={a.key} data-ack /> <span>{a.text}</span></label>
+          ))}
+        </div>
+
+        <div class="hp" aria-hidden="true"><label for="website">Leave empty</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
+
+        <button type="submit" class="btn">Send Hog Trap Request</button>
+        <p class="help">Hogs in a crop or after livestock right now? Call instead: <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a>.</p>
+        <p class="status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+  <script is:inline src="/js/map-search.js" defer></script>
+  <script is:inline src="/js/map-verts.js" defer></script>
+  <script is:inline src="/js/intake-map.js" defer></script>
+  <script is:inline define:vars={{ MODES: MAP_MODES, PHONE: SITE.phone }}>
+    (function () {
+      var form = document.getElementById('trap-form');
+      var statusEl = document.getElementById('form-status');
+      function setStatus(msg, state) { statusEl.textContent = msg; if (state) statusEl.setAttribute('data-state', state); else statusEl.removeAttribute('data-state'); }
+      function checked(name) { return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (c) { return c.value; }); }
+      function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+      (function boot() {
+        if (!window.RCIntakeMap || typeof L === 'undefined') { setTimeout(boot, 120); return; }
+        window.RCIntakeMap.init(MODES);
+      })();
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var firstBad = null;
+        form.querySelectorAll('[required]').forEach(function (el) {
+          var ok = el.value.trim() !== '';
+          el.setAttribute('aria-invalid', String(!ok));
+          if (!ok && !firstBad) firstBad = el;
+        });
+        if (firstBad) { firstBad.focus(); setStatus('Fill in the highlighted fields and try again.', 'err'); return; }
+        var notAcked = form.querySelector('[data-ack]:not(:checked)');
+        if (notAcked) { notAcked.focus(); setStatus('Read and check every box under "Before you send this."', 'err'); return; }
+
+        var btn = form.querySelector('button[type=submit]');
+        btn.disabled = true; btn.textContent = 'Sending...'; setStatus('', '');
+        var marks = window.RCIntakeMap ? window.RCIntakeMap.marks() : { points: [], areas: [] };
+        var property = {};
+        ['address', 'acreage', 'county', 'sounder', 'duration', 'cell', 'trailer', 'livestock', 'neighbors'].forEach(function (k) { property[k] = val(k); });
+        var land = '', ref = '';
+        try { land = sessionStorage.getItem('rc_land') || ''; ref = sessionStorage.getItem('rc_ref') || ''; } catch (err) {}
+        var payload = {
+          name: val('name'), phone: val('phone'), email: val('email'), role: val('role'),
+          property: property, damage: checked('damage'), control: checked('control'),
+          control_detail: val('control_detail'), message: val('message'), acks: checked('ack'),
+          points: marks.points, areas: marks.areas, website: val('website'), landing: land, referrer: ref,
+        };
+        fetch('/api/trap-request', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+          .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+          .then(function (d) { location.href = '/thanks?kind=trap&ref=' + encodeURIComponent(d.ref || ''); })
+          .catch(function () {
+            setStatus("That didn't go through. Call " + PHONE + " and we'll take it from there.", 'err');
+            btn.disabled = false; btn.textContent = 'Send Hog Trap Request';
+          });
+      });
+    })();
+  </script>
+</Base>
+
+<style>
+  .prose-wide { max-width: 52rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+</style>

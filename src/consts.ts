@@ -17,9 +17,10 @@ export const SITE = {
   // Business Profile says "Open 24 hours". Kept as is, by decision 2026-10-20.
   hoursText: 'Open 24 hours, 7 days a week',
   hoursSchema: ['Mo-Su 00:00-23:59'],
+  // The two channels Justin named 2026-10-20. Header, footer and schema
+  // sameAs all read from here.
   social: {
     facebook: 'https://www.facebook.com/redcreekoutdoorz',
-    instagram: 'https://www.instagram.com/redcreekoutdoorz',
     tiktok: 'https://www.tiktok.com/@redcreekoutdoors',
   },
   partner: {
@@ -69,6 +70,15 @@ export const SCALE = {
   hogsYear: 2026,
   hogsAsOf: 'Oct. 20, 2026',
   traps: null as number | null,
+} as const;
+
+/* Deposit, by Justin 2026-10-20: one rule for both forms. Due only after Red
+   Creek confirms it can take the hunt or schedule the site assessment.
+   Payment method is set at confirmation (no payment link on the site yet). */
+export const DEPOSIT = {
+  amount: 100,
+  text: '$100',
+  rule: 'Once we confirm we can take your hunt or schedule your hog trapping site assessment, a $100 nonrefundable deposit is due to lock it in. Nothing is owed until we confirm.',
 } as const;
 
 /* Said on every hunt page, in the owners' terms. */

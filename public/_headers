@@ -2,7 +2,8 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  # geolocation=(self) for the "Use my location" button on /hog-trap-request.
+  Permissions-Policy: geolocation=(self), microphone=(), camera=(), interest-cohort=()
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable

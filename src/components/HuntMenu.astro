@@ -1,0 +1,65 @@
+---
+/* "Book a Hunt" button that opens a list of hunts. Built on <details> so it
+   works with no JavaScript; a small script closes it on outside click and
+   Escape. Each choice opens /book-a-hunt with that hunt already selected. */
+import { HUNTS } from '../data/hunts/index';
+interface Props { tone?: 'dark' | 'light'; id?: string }
+const { tone = 'dark', id = 'huntmenu' } = Astro.props;
+const options = [
+  ...HUNTS.flatMap((h) =>
+    h.slug === 'whitetail-deer-hunts'
+      ? [
+          { label: 'Whitetail Doe Hunt', value: 'whitetail-doe', price: 'From $700 a day' },
+          { label: 'Whitetail Buck Hunt', value: 'whitetail-buck', price: 'From $1,500 a day' },
+        ]
+      : [{ label: h.name.replace(/s$/, ''), value: h.slug.replace(/-hunts$/, ''), price: h.priceText }]
+  ),
+  { label: 'Corporate or Group Event', value: 'corporate', price: 'Quoted per event' },
+];
+---
+
+<details class={`huntmenu ${tone}`} id={id}>
+  <summary class="btn">Book a Hunt <span aria-hidden="true">▾</span></summary>
+  <div class="panel" role="menu">
+    <p class="ph">Pick your hunt</p>
+    <ul>
+      {options.map((o) => (
+        <li role="none">
+          <a role="menuitem" href={`/book-a-hunt?hunt=${o.value}`}>
+            <span class="n">{o.label}</span>
+            <span class="p">{o.price}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</details>
+
+<script is:inline define:vars={{ id }}>
+  (function () {
+    var d = document.getElementById(id);
+    if (!d) return;
+    document.addEventListener('click', function (e) { if (d.open && !d.contains(e.target)) d.open = false; });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && d.open) { d.open = false; d.querySelector('summary').focus(); } });
+  })();
+</script>
+
+<style>
+  .huntmenu { position: relative; display: inline-block; }
+  .huntmenu summary { list-style: none; cursor: pointer; user-select: none; }
+  .huntmenu summary::-webkit-details-marker { display: none; }
+  .huntmenu[open] summary span { display: inline-block; transform: rotate(180deg); }
+  .panel {
+    position: absolute; z-index: 40; left: 0; top: calc(100% + 0.5rem);
+    width: min(22rem, calc(100vw - 2rem)); background: #fff; color: var(--ink);
+    border: 1px solid var(--line); border-top: 4px solid var(--red); border-radius: var(--radius);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28); padding: 0.6rem 0;
+  }
+  .ph { font: 900 1.1rem/1 var(--display); text-transform: uppercase; letter-spacing: 0.04em; margin: 0.4rem 1rem 0.5rem; color: var(--char-deep); }
+  .panel ul { list-style: none; margin: 0; padding: 0; }
+  .panel li { margin: 0; }
+  .panel a { display: flex; justify-content: space-between; gap: 1rem; padding: 0.65rem 1rem; text-decoration: none; color: var(--ink); border-top: 1px solid var(--line); }
+  .panel a:hover, .panel a:focus { background: var(--sand); color: var(--red-dark); }
+  .n { font-weight: 700; }
+  .p { color: var(--muted); font-size: 0.92rem; white-space: nowrap; }
+</style>

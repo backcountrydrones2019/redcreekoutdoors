@@ -27,12 +27,25 @@
     // Interim sender on the already-verified Backcountry Drones Resend domain.
     // Switch to "Red Creek Outdoors <site@send.redcreekoutdoors.com>" once
     // send.redcreekoutdoors.com is verified in Resend (runbook F7).
-    "MAIL_FROM": "Red Creek Outdoors <site@send.backcountrydrones.com>"
+    "MAIL_FROM": "Red Creek Outdoors <site@send.backcountrydrones.com>",
+    // Facebook Page handle for the home page feed. The Page token is a secret:
+    //   npx wrangler secret put FB_PAGE_TOKEN
+    "FB_PAGE_ID": "redcreekoutdoorz",
+    // TikTok has no account feed API. Paste video links here, comma
+    // separated, newest first. Each is resolved by TikTok's public oEmbed.
+    "TIKTOK_VIDEOS": ""
   },
+
+  // Refreshes the social feed cache every two hours.
+  "triggers": { "crons": ["0 */2 * * *"] },
 
   // KV for leads, namespace "redcreekoutdoors-LEADS", created 2026-10-20.
   // The binding name MUST stay "LEADS" (worker/index.ts reads env.LEADS).
-  "kv_namespaces": [{ "binding": "LEADS", "id": "dcc6a01d57414f56882f723369625450" }],
+  "kv_namespaces": [
+    { "binding": "LEADS", "id": "dcc6a01d57414f56882f723369625450" },
+    // Social feed cache, "redcreekoutdoors-SOCIAL", created 2026-10-20.
+    { "binding": "SOCIAL", "id": "d7f754a4916d4937b01eee3a2a4a613e" }
+  ],
 
   "observability": { "enabled": true },
 
