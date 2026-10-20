@@ -1,0 +1,11 @@
+name: Live smoke
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 12 * * *'   # daily, 7:17 CT
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/smoke.sh

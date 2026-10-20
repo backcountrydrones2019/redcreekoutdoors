@@ -45,3 +45,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: deploy --var BUILD_SHA:${{ github.sha }}
+
+      # Live check against the real domain, same build that just deployed.
+      - name: Live smoke test
+        run: bash scripts/smoke.sh ${{ github.sha }}
