@@ -22,7 +22,7 @@
  */
 
 const GRAPH = 'https://graph.facebook.com/v26.0';
-const KV_KEY = 'feed:v1';
+const KV_KEY = 'feed:v2'; // bump to drop a stale cached feed after a format change
 const MAX_POSTS = 12;
 const MAX_TEXT = 260;
 
