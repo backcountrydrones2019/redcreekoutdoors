@@ -30,11 +30,9 @@
     "MAIL_FROM": "Red Creek Outdoors <site@send.backcountrydrones.com>"
   },
 
-  // KV for leads. Create once in Justin's Cloudflare account, paste the id,
-  // then uncomment:
-  //   npx wrangler kv namespace create LEADS
+  // KV for leads, namespace "redcreekoutdoors-LEADS", created 2026-10-20.
   // The binding name MUST stay "LEADS" (worker/index.ts reads env.LEADS).
-  // "kv_namespaces": [{ "binding": "LEADS", "id": "" }],
+  "kv_namespaces": [{ "binding": "LEADS", "id": "dcc6a01d57414f56882f723369625450" }],
 
   "observability": { "enabled": true },
 
