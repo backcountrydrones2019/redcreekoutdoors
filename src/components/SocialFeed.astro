@@ -38,6 +38,21 @@ import SocialLinks from './SocialLinks.astro';
         var track = document.createElement('div');
         track.className = 'track';
         d.posts.forEach(function (p) {
+          if (p.embed) {
+            var card = document.createElement('div');
+            card.className = 'post tiktok';
+            var f = document.createElement('iframe');
+            f.src = p.embed; f.loading = 'lazy'; f.title = 'Red Creek Outdoors on TikTok';
+            f.allow = 'encrypted-media; fullscreen; picture-in-picture';
+            f.setAttribute('allowfullscreen', '');
+            card.appendChild(f);
+            var lb = document.createElement('a');
+            lb.className = 'body'; lb.href = p.url; lb.target = '_blank'; lb.rel = 'noopener';
+            lb.innerHTML = '<span class="net">TikTok</span>';
+            card.appendChild(lb);
+            track.appendChild(card);
+            return;
+          }
           var a = document.createElement('a');
           a.className = 'post ' + p.network;
           a.href = p.url; a.target = '_blank'; a.rel = 'noopener';
@@ -85,6 +100,8 @@ import SocialLinks from './SocialLinks.astro';
   .feed :global(.post) { scroll-snap-align: start; display: flex; flex-direction: column; background: #2b2a2a; border-radius: var(--radius); overflow: hidden; color: #eee; text-decoration: none; border-top: 4px solid var(--red); }
   .feed :global(.post.tiktok) { border-top-color: #fff; }
   .feed :global(.post img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #111; }
+  .feed :global(.post iframe) { width: 100%; aspect-ratio: 9 / 16; border: 0; display: block; background: #111; }
+  .feed :global(.post .body) { text-decoration: none; color: inherit; }
   .feed :global(.post .body) { padding: 0.8rem 0.9rem 1rem; }
   .feed :global(.post .net) { font: 800 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: #ff8a8d; }
   .feed :global(.post p) { margin: 0.4rem 0 0; font-size: 0.95rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }

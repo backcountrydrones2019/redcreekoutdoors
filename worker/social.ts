@@ -8,9 +8,10 @@
  * assets, then pull its token from /me/accounts).
  *
  * TIKTOK: TikTok has no public API for an account's posts. Instead, list
- * video links in var TIKTOK_VIDEOS (comma separated). Each link is resolved
- * through TikTok's public oEmbed endpoint for its title and thumbnail. No
- * token needed.
+ * video links in var TIKTOK_VIDEOS (comma separated). As of 2026-10-20
+ * TikTok's oEmbed returns only a player iframe (no title, no thumbnail), so
+ * each link becomes TikTok's official player, https://www.tiktok.com/player/v1/<id>,
+ * lazy-loaded by the carousel. No network call and no token needed here.
  *
  * WHY NOT EMBED WIDGETS: Meta's and TikTok's embeds load their trackers on
  * every visitor and render empty under ad blockers. Pulling server side and
@@ -25,7 +26,7 @@ const KV_KEY = 'feed:v1';
 const MAX_POSTS = 12;
 const MAX_TEXT = 260;
 
-export interface SocialPost { id: string; network: 'facebook' | 'tiktok'; url: string; text: string; image?: string; createdAt?: string }
+export interface SocialPost { id: string; network: 'facebook' | 'tiktok'; url: string; text: string; image?: string; embed?: string; createdAt?: string }
 export interface SocialFeed { posts: SocialPost[]; fetchedAt: string }
 export interface SocialEnv { SOCIAL?: KVNamespace; FB_PAGE_TOKEN?: string; FB_PAGE_ID?: string; TIKTOK_VIDEOS?: string }
 
@@ -62,16 +63,19 @@ async function facebookPosts(env: SocialEnv): Promise<SocialPost[]> {
 }
 
 async function tiktokPosts(env: SocialEnv): Promise<SocialPost[]> {
-  const urls = (env.TIKTOK_VIDEOS || '').split(',').map((u) => u.trim()).filter((u) => /^https:\/\/www\.tiktok\.com\/@[^/]+\/video\/\d+/.test(u)).slice(0, 12);
-  const out = await Promise.allSettled(
-    urls.map(async (u): Promise<SocialPost> => {
-      const res = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(u)}`);
-      if (!res.ok) throw new Error(`oembed ${res.status}`);
-      const d: any = await res.json();
-      return { id: `tt_${u.split('/').pop()}`, network: 'tiktok', url: u, text: trim(d.title), image: d.thumbnail_url };
-    })
-  );
-  return out.filter((r): r is PromiseFulfilledResult<SocialPost> => r.status === 'fulfilled').map((r) => r.value);
+  return (env.TIKTOK_VIDEOS || '')
+    .split(',')
+    .map((u) => u.trim())
+    .map((u) => /^https:\/\/www\.tiktok\.com\/@[^/]+\/video\/(\d+)/.exec(u))
+    .filter((m): m is RegExpExecArray => !!m)
+    .slice(0, 12)
+    .map((m) => ({
+      id: `tt_${m[1]}`,
+      network: 'tiktok' as const,
+      url: m[0],
+      text: '',
+      embed: `https://www.tiktok.com/player/v1/${m[1]}?music_info=0&description=0&rel=0&controls=1&progress_bar=1&play_button=1`,
+    }));
 }
 
 export async function buildFeed(env: SocialEnv): Promise<SocialFeed> {
