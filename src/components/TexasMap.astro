@@ -1,0 +1,127 @@
+---
+/* Where we hunt and trap. A drawn map, not tiles: plain server-rendered SVG
+   from src/data/texas-map.json (built by scripts/build-map.mjs from US Census
+   county boundaries). Every trap town links to its page, so the map is also
+   navigation, and the same towns are listed in text right after it for
+   readers and crawlers that don't read SVG. */
+import map from '../data/texas-map.json';
+
+interface Props { caption?: string }
+const { caption = 'Red Creek Outdoors service area in Central Texas' } = Astro.props;
+const R = map.region;
+const S = map.state;
+/* Locator inset, bottom-left of the region map. */
+const IW = 210;
+const scale = IW / S.w;
+const IH = S.h * scale;
+const ix = 22;
+const iy = R.h - IH - 22;
+const labelled = R.counties.filter((c) => c.tier !== 'other' && c.label);
+---
+
+<figure class="txmap">
+  <svg viewBox={`0 0 ${R.w} ${R.h}`} role="img" aria-labelledby="txmap-title txmap-desc">
+    <title id="txmap-title">{caption}</title>
+    <desc id="txmap-desc">
+      Map of Central Texas. Hog trapping in Bell, Coryell, Milam and Falls counties, plus Lampasas, McLennan, Williamson,
+      Hamilton and McCulloch. Town pages: {R.towns.filter((t) => t.slug).map((t) => t.name).join(', ')}. Guided hunts near
+      Salado, Marlin, Gatesville, Rogers and Holland. Based in Killeen.
+    </desc>
+
+    <rect width={R.w} height={R.h} class="sea" />
+    <g class="counties">
+      {R.counties.map((c) => <path d={c.d} class={c.tier} />)}
+    </g>
+    <path d={R.outline} class="stateline" />
+
+    <g class="clabels" aria-hidden="true">
+      {labelled.map((c) => <text x={c.cx} y={c.cy}>{c.name.toUpperCase()}</text>)}
+    </g>
+
+    <g class="towns">
+      {R.towns.map((t) => {
+        const mark =
+          t.kind === 'hunt' ? (
+            <path class="m-hunt" d={`M${t.x} ${t.y - 8} L${t.x + 8} ${t.y} L${t.x} ${t.y + 8} L${t.x - 8} ${t.y} Z`} />
+          ) : t.base ? (
+            <>
+              <circle class="m-base-ring" cx={t.x} cy={t.y} r="12" />
+              <circle class="m-trap" cx={t.x} cy={t.y} r="7" />
+            </>
+          ) : t.kind === 'both' ? (
+            <>
+              <circle class="m-both-ring" cx={t.x} cy={t.y} r="10" />
+              <circle class="m-trap" cx={t.x} cy={t.y} r="6" />
+            </>
+          ) : (
+            <circle class="m-trap" cx={t.x} cy={t.y} r="6.5" />
+          );
+        const label = (
+          <text x={t.x + t.lx} y={t.y + t.ly} text-anchor={t.la} class={t.base ? 'tl base' : 'tl'}>
+            {t.name}{t.base ? ' (base)' : ''}
+          </text>
+        );
+        return t.slug ? (
+          <a href={`/${t.slug}`} aria-label={`Hog trapping in ${t.name}`}>{mark}{label}</a>
+        ) : (
+          <g>{mark}{label}</g>
+        );
+      })}
+    </g>
+
+    <g class="inset" transform={`translate(${ix} ${iy})`} aria-hidden="true">
+      <rect x="-8" y="-8" width={IW + 16} height={IH + 16} class="inset-bg" />
+      <g transform={`scale(${scale})`}>
+        <path d={S.lines} class="i-lines" />
+        <path d={S.served} class="i-served" />
+        <path d={S.core} class="i-core" />
+        <path d={S.outline} class="i-outline" />
+        <rect x={S.box.x} y={S.box.y} width={S.box.w} height={S.box.h} class="i-box" />
+      </g>
+      <text x="6" y="16" class="i-label">TEXAS</text>
+    </g>
+
+    <g class="legend" transform={`translate(${R.w - 250} 26)`}>
+      <rect x="-14" y="-16" width="244" height="132" class="legend-bg" />
+      <circle cx="0" cy="0" r="6.5" class="m-trap" />
+      <text x="16" y="5">Hog trapping, tap for the town</text>
+      <path class="m-hunt" d="M0 22 L8 30 L0 38 L-8 30 Z" />
+      <text x="16" y="35">Guided hunts</text>
+      <circle cx="0" cy="62" r="10" class="m-both-ring" /><circle cx="0" cy="62" r="6" class="m-trap" />
+      <text x="16" y="67">Trapping and hunts</text>
+      <rect x="-8" y="84" width="16" height="12" class="core" />
+      <text x="16" y="95">Core counties</text>
+    </g>
+  </svg>
+  <figcaption>{caption}. County lines: US Census Bureau.</figcaption>
+</figure>
+
+<style>
+  .txmap { margin: 1.5rem 0; }
+  svg { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: var(--radius); background: #f6f2ec; }
+  figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.4rem; }
+  .sea { fill: #e4ddd3; }
+  .counties path { stroke: #fff; stroke-width: 1.2; }
+  .counties .other { fill: #ece6dd; }
+  .counties .served { fill: #f0c9c6; }
+  .counties .core { fill: #df8c88; }
+  .stateline { fill: none; stroke: var(--char); stroke-width: 2; }
+  .clabels text { font: 700 13px var(--display); letter-spacing: 0.12em; fill: rgba(52, 51, 51, 0.55); text-anchor: middle; }
+  .tl { font: 700 19px var(--body); fill: var(--char-deep); paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }
+  .tl.base { font-size: 21px; }
+  .m-trap { fill: var(--red); stroke: #fff; stroke-width: 2; }
+  .m-hunt { fill: var(--char); stroke: #fff; stroke-width: 2; }
+  .m-both-ring { fill: var(--char); stroke: #fff; stroke-width: 1.5; }
+  .m-base-ring { fill: none; stroke: var(--red); stroke-width: 3; }
+  .towns a:hover .tl, .towns a:focus .tl { fill: var(--red-dark); text-decoration: underline; }
+  .towns a:hover .m-trap { fill: var(--red-dark); }
+  .inset-bg, .legend-bg { fill: rgba(255, 255, 255, 0.92); stroke: var(--line); }
+  .i-lines { fill: none; stroke: #d8d0c6; stroke-width: 0.6; }
+  .i-served { fill: #f0c9c6; }
+  .i-core { fill: var(--red); }
+  .i-outline { fill: none; stroke: var(--char); stroke-width: 1.6; }
+  .i-box { fill: none; stroke: var(--char-deep); stroke-width: 2; stroke-dasharray: 5 3; }
+  .i-label { font: 700 15px var(--display); letter-spacing: 0.3em; fill: var(--char); }
+  .legend text { font: 600 15px var(--body); fill: var(--char-deep); }
+  .legend .core { fill: #df8c88; }
+</style>

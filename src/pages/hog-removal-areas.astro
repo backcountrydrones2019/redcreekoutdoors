@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
+import TexasMap from '../components/TexasMap.astro';
 import { SITE, COUNTIES, SERVICE_TOWNS, PRICES } from '../consts';
 import { TOWN_PAGES } from '../data/towns/index';
 
@@ -23,16 +24,14 @@ const pageFor = (town: string) => TOWN_PAGES.find((t) => t.town === town)?.slug;
 
   <section class="section">
     <div class="wrap">
+      <TexasMap caption="Where Red Creek Outdoors traps hogs and guides hunts" />
+
       <h2>Towns with their own page</h2>
-      <div class="grid three">
+      <ul class="townpages">
         {TOWN_PAGES.map((t) => (
-          <div class="card">
-            <h3><a href={`/${t.slug}`}>Hog trapping in {t.town}</a></h3>
-            <p>{t.county} County. {t.summary}</p>
-            <a class="more" href={`/${t.slug}`}>{t.town} details</a>
-          </div>
+          <li><a href={`/${t.slug}`}>Hog trapping in {t.town}</a> <span>{t.county} County. {t.summary}</span></li>
         ))}
-      </div>
+      </ul>
 
       <h2>Every town we serve</h2>
       <ul class="towns">
@@ -59,4 +58,8 @@ const pageFor = (town: string) => TOWN_PAGES.find((t) => t.town === town)?.slug;
 
 <style>
   .towns { columns: 2 10rem; padding-left: 1.1rem; }
+  .townpages { list-style: none; padding: 0; display: grid; gap: 0.6rem; }
+  @media (min-width: 46rem) { .townpages { grid-template-columns: 1fr 1fr; column-gap: 2rem; } }
+  .townpages a { font-weight: 700; }
+  .townpages span { display: block; color: var(--muted); font-size: 0.95rem; }
 </style>

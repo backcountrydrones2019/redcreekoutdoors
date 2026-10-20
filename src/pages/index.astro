@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
+import TexasMap from '../components/TexasMap.astro';
 import { SITE, PRICES, COUNTIES, HUNT_TOWNS, SCALE } from '../consts';
 
 const hunts = [
@@ -71,6 +72,17 @@ const schema = {
           <a class="btn ghost" href="/corporate-hunts">Corporate groups</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Where we hunt and trap</h2>
+      <p class="prose">
+        Out of Killeen across Bell, Coryell, Milam and Falls counties and the country around them. Tap a town for what
+        trapping looks like there, or see <a href="/hog-removal-areas">every area we cover</a>.
+      </p>
+      <TexasMap caption="Red Creek Outdoors trap and hunt country, Central Texas" />
     </div>
   </section>
 
