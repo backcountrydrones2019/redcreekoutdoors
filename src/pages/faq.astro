@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { FAQ, FAQ_CHECKED } from '../data/faq';
+import { SITE } from '../consts';
+
+const crumbs = [{ name: 'Licenses and FAQ', path: '/faq' }];
+const strip = (h: string) => h.replace(/<[^>]+>/g, '');
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.flatMap((g) =>
+    g.items.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: strip(f.a) } }))
+  ),
+};
+---
+
+<Base
+  title="Texas Hunting License and Tag FAQ | Red Creek Outdoors"
+  description="What license, tags, stamps and hunter education you need for a Texas hog, deer, dove or duck hunt, and what can be digital on your phone. Sourced to TPWD."
+  crumbs={crumbs}
+  schema={schema}
+>
+  <PageHero
+    eyebrow="Before you drive out"
+    title="Texas Hunting Licenses, Tags and FAQ"
+    crumbs={crumbs}
+    lede="The questions we get every week, mostly about what license you need and what can live on your phone. Every answer links to the agency rule it comes from."
+  />
+
+  <section class="section">
+    <div class="wrap faq-layout">
+      <nav class="toc" aria-label="FAQ sections">
+        <p class="eyebrow">Jump to</p>
+        <ul>
+          {FAQ.map((g) => <li><a href={`#${g.id}`}>{g.title}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="prose">
+        <div class="callout">
+          <p><strong>Short version.</strong> Your license and duck stamp can be digital in the Texas Hunt & Fish app. Your hunter education can be a photo. A deer always needs something physical on it: the paper tag, or a handwritten note if you tagged it digitally. Carry ID.</p>
+        </div>
+
+        {FAQ.map((g) => (
+          <section class="group" id={g.id} aria-labelledby={`${g.id}-h`}>
+            <h2 id={`${g.id}-h`}>{g.title}</h2>
+            {g.items.map((f) => (
+              <details>
+                <summary><h3>{f.q}</h3></summary>
+                <div class="ans">
+                  <p set:html={f.a} />
+                  {f.src && f.src.length > 0 && (
+                    <p class="src">
+                      Source{f.src.length > 1 ? 's' : ''}:{' '}
+                      {f.src.map((s, i) => <>{i > 0 && ', '}<a href={s.url}>{s.label}</a></>)}
+                    </p>
+                  )}
+                </div>
+              </details>
+            ))}
+          </section>
+        ))}
+
+        <p class="note">
+          Checked against TPWD, USFWS and TAHC on {FAQ_CHECKED}, for the 2026-27 license year (Sept. 1, 2026 to Aug. 31, 2027).
+          Agencies change rules. The agency page is the authority, so check it before you drive out. Questions about a hunt? Call{' '}
+          <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Licensed up and ready?" text="Pick a hunt and a date. We'll tell you what's open." />
+</Base>
+
+<style>
+  .faq-layout { display: grid; gap: 2rem; }
+  @media (min-width: 60rem) { .faq-layout { grid-template-columns: 14rem minmax(0, 1fr); align-items: start; } .toc { position: sticky; top: 6rem; } }
+  .toc ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .toc a { font-family: var(--tag); font-weight: 600; text-decoration: none; color: var(--char-deep); }
+  .toc a:hover { color: var(--red); }
+  .group { scroll-margin-top: 6rem; margin-top: 2.5rem; }
+  .group h2 { margin-bottom: 0.75rem; }
+  details { border-top: 1px solid var(--line); }
+  details:last-child { border-bottom: 1px solid var(--line); }
+  summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; font: 600 1.4rem/1 var(--tag); color: var(--red); }
+  details[open] summary::after { content: '\2212'; }
+  summary h3 { font: 600 1.08rem/1.35 var(--tag); text-transform: none; margin: 0; color: var(--char-deep); }
+  .ans { padding: 0 0 1rem; }
+  .ans p { margin: 0 0 0.5rem; }
+  .src { font-size: 0.88rem; color: var(--muted); }
+  .note { margin-top: 2rem; font-size: 0.95rem; color: var(--muted); }
+</style>

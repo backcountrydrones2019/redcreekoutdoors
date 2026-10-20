@@ -106,6 +106,7 @@ export const NAV = [
       { label: 'Dove', href: '/dove-hunts' },
       { label: 'Teal', href: '/teal-hunts' },
       { label: 'Duck', href: '/duck-hunts' },
+      { label: 'Licenses and FAQ', href: '/faq' },
     ],
   },
   { label: 'Corporate', href: '/corporate-hunts' },
