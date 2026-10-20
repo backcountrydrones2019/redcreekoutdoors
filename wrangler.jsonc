@@ -19,10 +19,13 @@
   },
 
   "vars": {
-    // Google Workspace mailbox to be created (approved 2026-10-20). Until it
-    // exists, set this to an inbox the owners already read.
-    "MAIL_TO": "",
-    "MAIL_FROM": "Red Creek Outdoors <site@send.redcreekoutdoors.com>"
+    // Interim, by Justin 2026-10-20: leads go to the Backcountry Drones ops
+    // inbox until the Red Creek Workspace mailbox exists (runbook F7).
+    "MAIL_TO": "ops@backcountrydrones.com",
+    // Interim sender on the already-verified Backcountry Drones Resend domain.
+    // Switch to "Red Creek Outdoors <site@send.redcreekoutdoors.com>" once
+    // send.redcreekoutdoors.com is verified in Resend (runbook F7).
+    "MAIL_FROM": "Red Creek Outdoors <site@send.backcountrydrones.com>"
   },
 
   // KV for leads. Create once in Justin's Cloudflare account, paste the id,
@@ -33,11 +36,15 @@
 
   "observability": { "enabled": true },
 
-  /* NOT LIVE. workers.dev only until cutover (migration-runbook.md). Uncomment
-     these once the zone is active on Cloudflare and every redirect has passed
-     on the workers.dev address. ROLLBACK: comment them out and redeploy.
+  /* NOT LIVE. workers.dev only until cutover (migration-runbook.md, step 6).
+     Same method as backcountrydrones.com: zone routes, not a custom domain.
+     The proxied apex A records keep pointing at GoDaddy (76.223.105.230,
+     13.248.243.5) and the routes make Cloudflare answer from this Worker
+     instead of reaching them. ROLLBACK: comment these out and redeploy; the
+     GoDaddy site serves again within seconds.
   "routes": [
-    { "pattern": "redcreekoutdoors.com", "custom_domain": true }
+    { "pattern": "redcreekoutdoors.com/*", "zone_name": "redcreekoutdoors.com" },
+    { "pattern": "www.redcreekoutdoors.com/*", "zone_name": "redcreekoutdoors.com" }
   ],
   */
   "workers_dev": true
