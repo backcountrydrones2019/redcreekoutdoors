@@ -59,36 +59,38 @@ const here = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') 
 
 <style>
   .site-header { background: var(--char-deep); color: #fff; position: sticky; top: 0; z-index: 50; border-bottom: 3px solid var(--red); }
-  .bar { display: flex; align-items: center; gap: 1rem; min-height: 4.25rem; }
-  .brand { display: flex; align-items: center; gap: 0.6rem; color: #fff; text-decoration: none; margin-right: auto; }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4.5rem; max-width: 80rem; }
+  .brand { display: flex; align-items: center; gap: 0.65rem; color: #fff; text-decoration: none; flex: none; }
   .brand img { background: #fff; border-radius: 50%; }
-  .name { font: 800 1.3rem/1 var(--brand); letter-spacing: 0.02em; text-transform: uppercase; }
+  .name { font: 800 1.1rem/1.05 var(--brand); letter-spacing: 0.02em; text-transform: uppercase; white-space: nowrap; }
   .name b { color: #ff6b6f; font-weight: 800; }
 
 
   .desk { display: none; }
-  .desk > ul { list-style: none; display: flex; gap: 0.2rem; margin: 0; padding: 0; }
+  .desk { flex: 1; justify-content: center; }
+  .desk > ul { list-style: none; display: flex; align-items: center; gap: 0.15rem; margin: 0; padding: 0; }
   .desk li { position: relative; margin: 0; }
-  .desk a { display: block; color: #eee; text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 0.6rem 0.7rem; }
+  .desk a { display: block; color: #eee; text-decoration: none; font: 600 0.92rem/1 var(--tag); letter-spacing: 0.03em; text-transform: uppercase; white-space: nowrap; padding: 0.7rem 0.55rem; }
   .desk a:hover, .desk a[aria-current='page'] { color: #fff; text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+  .drop a { text-transform: none; letter-spacing: 0; font-size: 0.95rem; padding: 0.6rem 1rem; }
   .drop { display: none; position: absolute; left: 0; top: 100%; min-width: 14rem; background: var(--char-deep); list-style: none; padding: 0.4rem 0; margin: 0; border-top: 3px solid var(--red); }
   .has-kids:hover .drop, .has-kids:focus-within .drop { display: block; }
 
-  .actions { display: none; align-items: center; gap: 0.9rem; }
-  .phone { color: #fff; font-weight: 700; text-decoration: none; white-space: nowrap; }
-  .actions .btn { padding: 0.7rem 1.1rem; }
+  .actions { display: none; align-items: center; gap: 0.75rem; flex: none; }
+  .phone { color: #fff; font: 600 1rem/1 var(--tag); letter-spacing: 0.02em; text-decoration: none; white-space: nowrap; }
+  .actions .btn { padding: 0.75rem 1.15rem; white-space: nowrap; line-height: 1; }
 
   .mobile summary { list-style: none; cursor: pointer; display: grid; gap: 5px; padding: 0.6rem; }
   .mobile summary::-webkit-details-marker { display: none; }
   .mobile summary span { display: block; width: 26px; height: 3px; background: #fff; }
-  .mobile nav { position: fixed; inset: 4.25rem 0 0 0; background: var(--char-deep); overflow-y: auto; padding: 1rem var(--gutter) 2rem; display: grid; gap: 0.2rem; align-content: start; }
+  .mobile nav { position: fixed; inset: 4.5rem 0 0 0; background: var(--char-deep); overflow-y: auto; padding: 1rem var(--gutter) 2rem; display: grid; gap: 0.2rem; align-content: start; }
   .mobile nav a { color: #ddd; text-decoration: none; padding: 0.45rem 0 0.45rem 1rem; display: block; }
   .mobile nav a.top { color: #fff; font-weight: 700; padding-left: 0; margin-top: 0.6rem; }
   .mobile nav .btn { margin-top: 0.8rem; text-align: center; padding: 0.95rem; color: #fff; }
   .msocial { margin-top: 1rem; }
   .mobile nav .msocial a { padding: 0.35rem; }
 
-  @media (min-width: 64rem) {
+  @media (min-width: 75rem) {
     .desk, .actions { display: flex; }
     .mobile { display: none; }
   }

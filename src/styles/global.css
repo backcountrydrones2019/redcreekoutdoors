@@ -13,13 +13,12 @@
   --sand: #f4f1ec;
   --line: #ddd7cf;
 
-  /* Pinecone MVB Regular (400 only) for display, Justin's pick 2026-10-20,
-     served by Adobe Fonts kit sol0brk. Never bold it: the kit has one weight
-     and the browser would fake a bold. Barlow body, self-hosted. */
-  --display: 'pinecone-mvb', sans-serif;
-  /* Company name: Industry Black (800). Taglines, eyebrows and ledes: DIN 2014
-     Regular 400 / Demi 600. Justin's pairing 2026-10-20. All three come from
-     Adobe Fonts kit sol0brk; only those weights exist, so don't ask for others. */
+  /* Type, Justin's picks 2026-10-20, all from Adobe Fonts kit igm0xem:
+     headings DIN 2014 Narrow Bold (700 only), company name Industry Black
+     (800 only), taglines, eyebrows and ledes DIN 2014 Regular 400 / Demi 600.
+     Only those weights exist in the kit; asking for any other makes the
+     browser fake one. Barlow body, self-hosted. */
+  --display: 'din-2014-narrow', 'Arial Narrow', 'Barlow', sans-serif;
   --brand: 'industry', 'Arial Black', sans-serif;
   --tag: 'din-2014', 'Barlow', sans-serif;
   --body: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -47,11 +46,11 @@ a:hover { color: var(--red); }
 
 h1, h2, h3 {
   font-family: var(--display);
-  font-weight: 400;
+  font-weight: 700;
   font-style: normal;
-  line-height: 1.05;
+  line-height: 1.02;
   color: var(--char-deep);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   margin: 0 0 0.6em;
 }
