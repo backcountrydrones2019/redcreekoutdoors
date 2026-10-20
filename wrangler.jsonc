@@ -33,7 +33,8 @@
     "FB_PAGE_ID": "redcreekoutdoorz",
     // TikTok has no account feed API. Paste video links here, comma
     // separated, newest first. Each is resolved by TikTok's public oEmbed.
-    "TIKTOK_VIDEOS": ""
+    // Loaded 2026-10-20: the 10 newest posts on @redcreekoutdoors.
+    "TIKTOK_VIDEOS": "https://www.tiktok.com/@redcreekoutdoors/video/7698128169269923086,https://www.tiktok.com/@redcreekoutdoors/video/7693169709365185805,https://www.tiktok.com/@redcreekoutdoors/video/7693168771233565965,https://www.tiktok.com/@redcreekoutdoors/video/7693167276861721870,https://www.tiktok.com/@redcreekoutdoors/video/7680902163920456973,https://www.tiktok.com/@redcreekoutdoors/video/7670376345368562958,https://www.tiktok.com/@redcreekoutdoors/video/7662331451135888653,https://www.tiktok.com/@redcreekoutdoors/video/7662330317864242446,https://www.tiktok.com/@redcreekoutdoors/video/7661277828087958798,https://www.tiktok.com/@redcreekoutdoors/video/7661277412046556430"
   },
 
   // Refreshes the social feed cache every two hours.
