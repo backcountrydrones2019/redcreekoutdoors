@@ -45,6 +45,6 @@ npm run preview   # wrangler dev, Worker plus assets on :8787
 
 ## Worker
 
-`worker/index.ts`: `POST /api/request` stores the lead in KV (`LEADS`) first, then emails it through Resend. `/api/*` is in `run_worker_first`, or form posts would hit the 404 page. Add any new Worker route there. Secrets (`RESEND_API_KEY`) are set with `wrangler secret put` and never committed or pasted in chat.
+`worker/index.ts`: `POST /api/request` stores the lead in KV (`LEADS`) first, then emails it through Resend. `run_worker_first` is `true`: the Worker answers every request so it can 301 www to the apex, then hands pages to `env.ASSETS` (which still applies `_redirects`, `_headers` and the 404 page). Live since 2026-10-20 via zone routes in wrangler.jsonc. Rollback: comment the routes out and push. `scripts/smoke.sh` checks the live domain after every deploy; a failing smoke step means the live site is wrong, so look before pushing anything else. Secrets (`RESEND_API_KEY`) are set with `wrangler secret put` and never committed or pasted in chat.
 
 Mail: the apex DMARC is `p=reject`. Send only from a verified Resend subdomain. Interim sender is `send.backcountrydrones.com`; switch to `send.redcreekoutdoors.com` once verified (runbook F7).
