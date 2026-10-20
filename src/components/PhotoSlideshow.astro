@@ -1,0 +1,111 @@
+---
+/* Home page photo slideshow. Every slide links to the page that photo lives
+   on. Slides are server-rendered in a scroll-snap track, so it works with no
+   JavaScript (swipe or scroll). The script adds arrows, dots and a slow
+   auto-advance that stops once someone touches it or prefers reduced motion. */
+import { Picture, getImage } from 'astro:assets';
+import { PHOTOS } from '../data/photos';
+
+// A tiny blurred copy fills the frame behind portrait shots.
+const slides = await Promise.all(
+  PHOTOS.map(async (p) => ({
+    ...p,
+    portrait: p.src.height > p.src.width,
+    backdrop: p.src.height > p.src.width ? (await getImage({ src: p.src, width: 64, format: 'webp', quality: 50 })).src : null,
+  }))
+);
+---
+
+<section class="section dark slideshow" aria-roledescription="carousel" aria-label="Photos from the field">
+  <div class="wrap">
+    <p class="eyebrow">Out on the ground</p>
+    <h2>Hogs, coyotes, whitetail and ducks</h2>
+
+    <div class="stage">
+      <ol class="track" id="slides">
+        {slides.map((s, i) => (
+          <li class="slide" id={`slide-${i + 1}`} aria-roledescription="slide" aria-label={`${i + 1} of ${slides.length}`}>
+            <a href={s.page} class={s.portrait ? 'frame portrait' : 'frame'} style={s.backdrop ? `--bg:url(${s.backdrop})` : undefined}>
+              <Picture
+                src={s.src}
+                alt={s.alt}
+                formats={['avif', 'webp']}
+                widths={s.portrait ? [480, 800, 1100] : [640, 1000, 1400]}
+                quality={70}
+                sizes="(min-width: 76rem) 72rem, 100vw"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : undefined}
+                decoding="async"
+                style={s.portrait ? undefined : `object-position:${s.focus || '50% 50%'}`}
+              />
+              <span class="cap">
+                <span class="txt">{s.caption}</span>
+                <span class="go">{s.pageLabel} <span aria-hidden="true">›</span></span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div class="ctl" id="slide-ctl" hidden>
+      <button type="button" class="arrow" data-dir="-1" aria-label="Previous photo">‹</button>
+      <div class="dots">
+        {slides.map((_, i) => <button type="button" class="dot" data-i={i} aria-label={`Photo ${i + 1}`}></button>)}
+      </div>
+      <button type="button" class="arrow" data-dir="1" aria-label="Next photo">›</button>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var track = document.getElementById('slides');
+    var ctl = document.getElementById('slide-ctl');
+    if (!track || !ctl) return;
+    var slides = track.children, dots = ctl.querySelectorAll('.dot'), n = slides.length, cur = 0;
+    ctl.hidden = false;
+    function go(i) { cur = (i + n) % n; track.scrollTo({ left: slides[cur].offsetLeft - track.offsetLeft, behavior: 'smooth' }); }
+    function mark() {
+      var i = Math.round(track.scrollLeft / track.clientWidth);
+      cur = Math.max(0, Math.min(n - 1, i));
+      dots.forEach(function (d, k) { d.setAttribute('aria-current', k === cur ? 'true' : 'false'); });
+    }
+    var t; track.addEventListener('scroll', function () { clearTimeout(t); t = setTimeout(mark, 80); }, { passive: true });
+    mark();
+    var auto = setInterval(function () { go(cur + 1); }, 5500);
+    function stop() { clearInterval(auto); }
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) stop();
+    ['pointerdown', 'wheel', 'keydown', 'focusin'].forEach(function (ev) { track.addEventListener(ev, stop, { once: true }); });
+    ctl.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return; stop();
+      if (b.dataset.dir) go(cur + Number(b.dataset.dir)); else go(Number(b.dataset.i));
+    });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); });
+  })();
+</script>
+
+<style>
+  .stage { margin-top: 1.5rem; border-radius: var(--radius); overflow: hidden; border-bottom: 4px solid var(--red); }
+  .track { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .track::-webkit-scrollbar { display: none; }
+  .slide { margin: 0; scroll-snap-align: start; min-width: 0; }
+  .frame { position: relative; display: block; aspect-ratio: 4 / 3; background: #111; overflow: hidden; color: #fff; text-decoration: none; }
+  @media (min-width: 48rem) { .frame { aspect-ratio: 16 / 9; } }
+  .frame :global(picture), .frame :global(img) { display: block; width: 100%; height: 100%; }
+  .frame :global(img) { object-fit: cover; }
+  .frame.portrait::before { content: ''; position: absolute; inset: -20px; background: var(--bg) center / cover; filter: blur(18px) brightness(0.55); }
+  .frame.portrait :global(picture) { position: relative; }
+  .frame.portrait :global(img) { object-fit: contain; }
+  .cap { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 0.4rem 1rem; padding: 2.5rem 1rem 0.9rem; background: linear-gradient(transparent, rgba(0, 0, 0, 0.78)); }
+  .txt { font-size: 1rem; max-width: 40ch; }
+  .go { font: 400 1.05rem/1 var(--display); text-transform: uppercase; letter-spacing: 0.04em; background: var(--red); padding: 0.5rem 0.75rem; border-radius: var(--radius); white-space: nowrap; }
+  .frame:hover .go, .frame:focus-visible .go { background: #fff; color: var(--char-deep); }
+  .frame:focus-visible { outline: 3px solid #fff; outline-offset: -3px; }
+  .ctl { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.85rem; }
+  .arrow { background: none; color: #fff; border: 2px solid #fff; border-radius: var(--radius); font-size: 1.4rem; line-height: 1; padding: 0.3rem 0.9rem; cursor: pointer; }
+  .arrow:hover { background: #fff; color: var(--char-deep); }
+  .dots { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; background: none; padding: 0; cursor: pointer; }
+  .dot[aria-current='true'] { background: var(--red); border-color: var(--red); }
+</style>

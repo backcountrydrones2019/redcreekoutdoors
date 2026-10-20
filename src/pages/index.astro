@@ -4,6 +4,7 @@ import CtaBand from '../components/CtaBand.astro';
 import TexasMap from '../components/TexasMap.astro';
 import HuntMenu from '../components/HuntMenu.astro';
 import SocialFeed from '../components/SocialFeed.astro';
+import PhotoSlideshow from '../components/PhotoSlideshow.astro';
 import { SITE, PRICES, COUNTIES, HUNT_TOWNS, SCALE } from '../consts';
 
 const hunts = [
@@ -45,6 +46,8 @@ const schema = {
       <p class="hero-call">Or call <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a></p>
     </div>
   </section>
+
+  <PhotoSlideshow />
 
   <section class="section">
     <div class="wrap grid two split">

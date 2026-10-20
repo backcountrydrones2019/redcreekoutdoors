@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import PagePhotos from '../../components/PagePhotos.astro';
 import { SITE } from '../../consts';
 
 export async function getStaticPaths() {
@@ -39,6 +40,7 @@ const schema = {
   <section class="section">
     <article class="wrap prose note-body">
       <Content />
+      <PagePhotos page={`/field-notes/${n.id}`} />
     </article>
   </section>
   <CtaBand />

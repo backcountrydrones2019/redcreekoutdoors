@@ -1,0 +1,36 @@
+---
+/* Field photos that live on this page (see src/data/photos.ts). Renders
+   nothing if the page has none, so it can sit on any template. */
+import { Picture } from 'astro:assets';
+import { photosFor } from '../data/photos';
+interface Props { page: string }
+const photos = photosFor(Astro.props.page);
+---
+
+{photos.length > 0 && (
+  <div class={`page-photos n${Math.min(photos.length, 2)}`}>
+    {photos.map((p) => (
+      <figure id={`photo-${p.id}`}>
+        <Picture
+          src={p.src}
+          alt={p.alt}
+          formats={['avif', 'webp']}
+          widths={[480, 800, 1200]}
+          quality={70}
+          sizes={photos.length > 1 ? '(min-width: 48rem) 34rem, 100vw' : '(min-width: 48rem) 46rem, 100vw'}
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>{p.caption}</figcaption>
+      </figure>
+    ))}
+  </div>
+)}
+
+<style>
+  .page-photos { display: grid; gap: 1rem; margin: 2rem 0; }
+  @media (min-width: 48rem) { .page-photos.n2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; } }
+  figure { margin: 0; background: var(--char-deep); border-radius: var(--radius); overflow: hidden; border-bottom: 4px solid var(--red); }
+  figure :global(img) { display: block; width: 100%; height: auto; }
+  figcaption { color: #e6e1dc; font-size: 0.92rem; padding: 0.6rem 0.85rem 0.7rem; }
+</style>
