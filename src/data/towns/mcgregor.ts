@@ -16,6 +16,7 @@ const town: Town = {
     { label: 'Drive from Killeen', value: 'About 41 miles, about an hour' },
     { label: 'Trapping price', value: 'Starts at $800' },
   ],
+  nearby: ['moody', 'gatesville', 'temple', 'jonesboro'],
   sections: [
     {
       h2: 'Two kinds of country in one county',

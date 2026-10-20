@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { SITE, PRICES, COUNTIES, SCALE } from '../consts';
+import { TOWN_PAGES } from '../data/towns/index';
 
 const crumbs = [{ name: 'Hog Trapping Service', path: '/hog-trapping-service' }];
 
@@ -156,9 +157,7 @@ const schema = [
 
       <h2>Local pages</h2>
       <p>
-        <a href="/hog-trapping-killeen-tx">Killeen</a> · <a href="/hog-trapping-temple-tx">Temple</a> ·{' '}
-        <a href="/hog-trapping-belton-tx">Belton</a> · <a href="/hog-trapping-gatesville-tx">Gatesville</a> ·{' '}
-        <a href="/hog-trapping-mcgregor-tx">McGregor</a> · <a href="/hog-trapping-salado-tx">Salado</a> ·{' '}
+        {TOWN_PAGES.map((t) => <><a href={`/${t.slug}`}>{t.town}</a> · </>)}
         <a href="/hog-removal-areas">every area we cover</a>
       </p>
 

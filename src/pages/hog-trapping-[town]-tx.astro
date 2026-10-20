@@ -19,7 +19,7 @@ const crumbs = [
   { name: 'Hog Removal Areas', path: '/hog-removal-areas' },
   { name: t.town, path: `/${t.slug}` },
 ];
-const others = TOWN_PAGES.filter((x) => x.slug !== t.slug);
+const others = TOWN_PAGES.filter((x) => t.nearby.some((n) => x.slug === `hog-trapping-${n}-tx`));
 
 const schema = [
   {
@@ -72,6 +72,7 @@ const schema = [
 
       <p>
         Nearby: {others.map((o, i) => <>{i > 0 && ' · '}<a href={`/${o.slug}`}>{o.town}</a></>)}
+        {' · '}<a href="/hog-removal-areas">all areas</a>
       </p>
 
       <p class="sources">

@@ -38,6 +38,8 @@ export const SERVICE_TOWNS = [
   'Killeen', 'Harker Heights', 'Copperas Cove', 'Fort Hood', 'Belton', 'Temple',
   'Gatesville', 'Moody', 'McGregor', 'Rosebud', 'Marlin', 'Lott', 'Westphalia',
   'Holland', 'Salado', 'Jarrell', 'Buckholts', 'Austin', 'Georgetown',
+  // Added by Justin 2026-10-20, each with its own page:
+  'Lampasas', 'Jonesboro', 'Brady',
 ] as const;
 
 /* Towns where Red Creek hunts. Town names only, never a property, gate or
@@ -58,9 +60,9 @@ export const PRICES = {
 } as const;
 
 /* Scale of the operation. Stub pattern: a number renders only when it's real.
-   acres: stated by Justin 2026-10-20. hogsRemoved and traps come from the Hog
-   Logger database (Supabase project "hoglogger", paused at last check); fill
-   them in from a live query, never from memory, then they render. */
+   acres: stated by Justin 2026-10-20. hogsRemoved is this calendar year's
+   total from the ops records; refresh it from a live query, never from
+   memory. A null value doesn't render. */
 export const SCALE = {
   acres: '20,000+',
   hogsRemoved: null as number | null,

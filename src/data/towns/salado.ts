@@ -16,6 +16,7 @@ const town: Town = {
     { label: 'Drive from Killeen', value: 'About 21 miles, around half an hour' },
     { label: 'Trapping price', value: 'Starts at $800' },
   ],
+  nearby: ['belton', 'jarrell', 'temple', 'killeen'],
   sections: [
     {
       h2: 'Springs that never quit',

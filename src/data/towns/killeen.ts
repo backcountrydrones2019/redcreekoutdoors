@@ -20,6 +20,7 @@ const town: Town = {
     { label: 'Drive from our base', value: "We're based here. Same day for anywhere in town" },
     { label: 'Trapping price', value: 'Starts at $800' },
   ],
+  nearby: ['copperas-cove', 'belton', 'lampasas', 'gatesville'],
   sections: [
     {
       h2: 'Why Killeen has a hog problem',

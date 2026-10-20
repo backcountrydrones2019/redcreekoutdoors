@@ -33,6 +33,8 @@ export type Town = {
   /** One line for the areas hub card. */
   summary: string;
   facts: { label: string; value: string }[];
+  /** Slugs (file names) of up to four neighboring town pages to link. */
+  nearby: string[];
   sections: Section[];
   faq: QA[];
   sources: Source[];

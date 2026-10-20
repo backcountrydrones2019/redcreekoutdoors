@@ -16,6 +16,7 @@ const town: Town = {
     { label: 'Drive from Killeen', value: 'About 36 miles, under an hour' },
     { label: 'Trapping price', value: 'Starts at $800' },
   ],
+  nearby: ['jonesboro', 'mcgregor', 'copperas-cove', 'killeen'],
   sections: [
     {
       h2: 'Pasture country with a river through it',
