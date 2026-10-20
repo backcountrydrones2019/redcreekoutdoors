@@ -13,6 +13,7 @@ export const SRC = {
   definitions: { label: 'TPWD, Definitions (shooting hours)', url: 'https://tpwd.texas.gov/regulations/outdoor-annual/hunting/general-regulations/definitions' },
   dove: { label: 'TPWD, Dove seasons', url: 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/dove' },
   duck: { label: 'TPWD, Duck seasons', url: 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/duck' },
+  goose: { label: 'TPWD, Goose seasons and zones', url: 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/goose' },
   hip: { label: '50 CFR 20.20, Migratory Bird Harvest Information Program', url: 'https://www.law.cornell.edu/cfr/text/50/20.20' },
   plug: { label: '50 CFR 20.21, Hunting methods', url: 'https://www.ecfr.gov/current/title-50/chapter-I/subchapter-B/part-20/subpart-C/section-20.21' },
   bell: { label: 'TPWD, Bell County', url: 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/bell' },

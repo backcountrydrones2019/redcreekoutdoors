@@ -18,6 +18,8 @@ export const HUNT_OPTIONS = [
   { value: 'dove', label: 'Dove hunt', price: PRICES.dove.text, unit: 'day' },
   { value: 'teal', label: 'Teal hunt (September)', price: PRICES.teal.text, unit: 'day' },
   { value: 'duck', label: 'Duck hunt', price: PRICES.duck.text, unit: 'day' },
+  // No goose price on file yet (asked Justin 2026-10-20). Swap to PRICES.goose when set.
+  { value: 'goose', label: 'Goose hunt', price: 'Call for pricing', unit: 'day' },
   { value: 'corporate', label: 'Corporate or group event', price: 'Quoted per event', unit: 'event' },
 ] as const;
 

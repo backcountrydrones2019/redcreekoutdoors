@@ -90,7 +90,7 @@ export const FAQ: FaqGroup[] = [
   },
   {
     id: 'birds',
-    title: 'Dove, teal and duck',
+    title: 'Dove, teal, duck and goose',
     items: [
       {
         q: 'What do I need for a dove hunt?',
@@ -98,7 +98,7 @@ export const FAQ: FaqGroup[] = [
         src: [SRC.stamps, SRC.hipTx, SRC.birdMethods],
       },
       {
-        q: 'What do I need for a teal or duck hunt?',
+        q: 'What do I need for a teal, duck or goose hunt?',
         a: 'Everything for doves, plus a Federal Duck Stamp if you\'re 16 or older and non-toxic shot only. No lead anywhere in Texas for waterfowl. Shotgun plugged to three shells.',
         src: [SRC.stamps, SRC.birdMethods, SRC.plug],
       },
@@ -114,7 +114,7 @@ export const FAQ: FaqGroup[] = [
       },
       {
         q: 'Do I leave a wing on my birds for the drive home?',
-        a: 'For ducks and teal, yes. One fully feathered wing or the head stays on each dressed bird until you get home. Texas exempts doves from that rule.',
+        a: 'For ducks, teal and geese, yes. One fully feathered wing or the head stays on each dressed bird until you get home. Texas exempts doves from that rule.',
         src: [SRC.birdRules],
       },
     ],

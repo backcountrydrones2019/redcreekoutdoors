@@ -102,8 +102,8 @@ export const PHOTOS: Photo[] = [
     src: geese,
     alt: 'Tailgate of a pickup lined with snow geese and blue-phase geese, decoy bags in the bed',
     caption: 'A tailgate full of snow geese.',
-    page: '/field-notes/waterfowl-hunt-checklist-texas',
-    pageLabel: 'Waterfowl Checklist',
+    page: '/goose-hunts',
+    pageLabel: 'Goose Hunts',
     focus: '50% 60%',
   },
 ];
