@@ -117,7 +117,8 @@ export async function handleSocial(env: SocialEnv, ctx: ExecutionContext): Promi
       feed = await buildFeed(env);
       if (env.SOCIAL) ctx.waitUntil(env.SOCIAL.put(KV_KEY, JSON.stringify(feed)));
     } catch {
-      return new Response(null, { status: 204, headers });
+      // Never let a browser or edge hold on to "no posts".
+      return new Response(null, { status: 204, headers: { 'cache-control': 'no-store' } });
     }
   }
   return new Response(JSON.stringify(feed), { headers });
