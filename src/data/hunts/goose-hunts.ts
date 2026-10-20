@@ -1,10 +1,10 @@
 import type { Hunt } from '../types';
+import { PRICES } from '../../consts';
 import { SRC } from './sources';
 import { WATERFOWL_REQUIREMENTS } from './waterfowl';
 
-/* Goose hunts confirmed offered by Justin 2026-10-20. No price on file yet:
-   priceText stays "Call for pricing" and offers stays empty until a number
-   goes into consts PRICES. Zones from the TPWD goose page (IH-35 is the
+/* Goose hunts confirmed offered by Justin 2026-10-20, $500 a person (consts
+   PRICES.goose). Zones from the TPWD goose page (IH-35 is the
    Western/Eastern line). TPWD's Light Goose Conservation Order page was last
    valid for 2023-24, so no conservation order dates or rules on this page. */
 const hunt: Hunt = {
@@ -12,11 +12,11 @@ const hunt: Hunt = {
   name: 'Goose Hunts',
   title: 'Guided Goose Hunts in Central Texas | Red Creek Outdoors',
   h1: 'Guided Goose Hunts',
-  description: 'Guided snow, blue and dark goose hunts on private land near Killeen, Temple and Marlin. Season opens Nov. 7, 2026 in both Texas goose zones.',
-  lede: 'Light and dark geese on private Central Texas ground, on both sides of I-35. Call for pricing.',
+  description: 'Guided snow, blue and dark goose hunts on private land near Killeen, Temple and Marlin. $500 a person. Season opens Nov. 7, 2026 in both Texas goose zones.',
+  lede: `Light and dark geese on private Central Texas ground, on both sides of I-35. ${PRICES.goose.text}.`,
   card: 'Snows, blues and dark geese on private ground, Nov. 7 into February.',
-  priceText: 'Call for pricing',
-  offers: [],
+  priceText: PRICES.goose.text,
+  offers: [{ name: 'Goose hunt', amount: PRICES.goose.amount, unit: 'per person' }],
   whenShort: 'Nov. 7, 2026 into February 2027, depending on zone and species',
   sections: [
     {
@@ -41,7 +41,7 @@ const hunt: Hunt = {
   requirements: WATERFOWL_REQUIREMENTS,
   faq: [
     { q: 'When does goose season open near Killeen?', a: 'Nov. 7, 2026 for both light and dark geese, in both the Western and Eastern zones, per TPWD.' },
-    { q: 'How much is a guided goose hunt?', a: 'Call 254-397-8938 for the price and open dates. Guns and shells are there if you need them.' },
+    { q: 'How much is a guided goose hunt?', a: `${PRICES.goose.text}. Shotgun and shells available at the same price. Call 254-397-8938 for open dates.` },
     { q: 'Which goose zone is Killeen in?', a: 'The Western Zone. TPWD draws the line along I-35, so Killeen and Coryell County are west of it, and Milam, Falls and Bell County east of I-35 are in the Eastern Zone.' },
     { q: 'Do I need a duck stamp for geese?', a: 'Yes, if you\'re 16 or older. Geese are waterfowl, so you need the Federal Duck Stamp, HIP, the Migratory Game Bird Endorsement if you\'re 17 or older, and non-toxic shot. See <a href="/faq#birds">licenses and FAQ</a>.' },
   ],

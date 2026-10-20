@@ -58,6 +58,7 @@ export const PRICES = {
   dove: { amount: 300, text: '$300 a gun per day' },
   teal: { amount: 350, text: '$350 a gun per day' },
   duck: { amount: 400, text: '$400 a gun per day' },
+  goose: { amount: 500, text: '$500 a person' }, // Justin 2026-10-20
 } as const;
 
 /* Scale of the operation. Stub pattern: a number renders only when it's real.
