@@ -13,10 +13,10 @@
   --sand: #f4f1ec;
   --line: #ddd7cf;
 
-  /* Big Shoulders Stencil: heavy condensed stencil, a rugged cousin of the
-     logo's stencil wordmark. Barlow: built on highway-sign lettering, reads
-     clean in sun on a phone. Both self-hosted via @fontsource. */
-  --display: 'Big Shoulders Stencil', 'Stencil', Impact, sans-serif;
+  /* Pinecone MVB Regular (400 only) for display, Justin's pick 2026-10-20,
+     served by Adobe Fonts kit xbx2oev. Never bold it: the kit has one weight
+     and the browser would fake a bold. Barlow body, self-hosted. */
+  --display: 'pinecone-mvb', sans-serif;
   --body: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --wrap: 72rem;
@@ -42,8 +42,9 @@ a:hover { color: var(--red); }
 
 h1, h2, h3 {
   font-family: var(--display);
-  font-weight: 900;
-  line-height: 1;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.05;
   color: var(--char-deep);
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -51,7 +52,7 @@ h1, h2, h3 {
 }
 h1 { font-size: clamp(2.5rem, 7vw, 4.4rem); }
 h2 { font-size: clamp(1.9rem, 4.6vw, 2.8rem); margin-top: 1.6em; }
-h3 { font-size: 1.55rem; margin-top: 1.4em; font-weight: 800; }
+h3 { font-size: 1.5rem; margin-top: 1.4em; }
 
 p, ul, ol { margin: 0 0 1em; }
 li { margin-bottom: 0.35em; }
