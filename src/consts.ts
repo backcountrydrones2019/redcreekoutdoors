@@ -94,7 +94,7 @@ export const NAV = [
       { label: 'Trapping Service', href: '/hog-trapping-service' },
       { label: 'Hog Damage Prevention', href: '/hog-damage-prevention' },
       { label: 'Areas We Trap', href: '/hog-removal-areas' },
-      { label: 'Wildlife Surveys', href: '/wildlife-surveys' },
+      { label: 'Thermal Hog Counts', href: '/wildlife-surveys' },
     ],
   },
   {

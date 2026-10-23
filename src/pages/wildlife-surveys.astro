@@ -1,4 +1,9 @@
 ---
+/* Retitled 2026-10-23 (Justin): this page is about thermal HOG COUNTS before a
+   Red Creek trapping job, nothing broader. General wildlife surveys, deer
+   counts and ranch consulting belong to backcountrydrones.com, and this page
+   must not compete with Backcountry's survey page for those searches. Keep
+   the link to it. URL stays /wildlife-surveys (it's indexed). */
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -6,13 +11,13 @@ import { SITE } from '../consts';
 
 const crumbs = [
   { name: 'Hog Trapping Service', path: '/hog-trapping-service' },
-  { name: 'Wildlife Surveys', path: '/wildlife-surveys' },
+  { name: 'Thermal Hog Counts', path: '/wildlife-surveys' },
 ];
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Thermal drone wildlife surveys and ranch consulting',
-  serviceType: 'Thermal drone wildlife survey',
+  name: 'Thermal hog count before trapping',
+  serviceType: 'Feral hog survey',
   provider: [
     { '@id': `${SITE.url}/#business` },
     { '@type': 'LocalBusiness', name: 'Backcountry Drones LLC', url: SITE.partner.url },
@@ -21,48 +26,56 @@ const schema = {
 ---
 
 <Base
-  title="Thermal Drone Wildlife Surveys | Red Creek Outdoors"
-  description="Thermal drone surveys show what's on your ranch: deer, hogs and predators. Run with Backcountry Drones for Central Texas landowners. Then we plan the work."
+  title="Thermal Hog Counts Before Trapping | Red Creek Outdoors"
+  description="Before a trap goes up, a thermal count shows how many hogs are using your land and where they bed. Flown by Backcountry Drones for Red Creek trapping jobs."
   crumbs={crumbs}
   schema={schema}
 >
-  <PageHero eyebrow="Ranch services" title="Thermal Drone Wildlife Surveys" crumbs={crumbs}
-    lede="Count what's actually on the place before you trap it, hunt it or manage it. Flown with our partner Backcountry Drones." />
+  <PageHero eyebrow="Hog trapping" title="Thermal Hog Counts Before We Trap" crumbs={crumbs}
+    lede="Know how many hogs you're dealing with before the first trap goes up. The count is flown by our partner Backcountry Drones." />
 
   <section class="section">
     <div class="wrap prose">
-      <h2>Why survey first</h2>
+      <h2>Why count before trapping</h2>
       <p>
-        A thermal drone flown at night sees warm bodies through the dark: deer, hogs, coyotes. On a hog job it tells us how
-        many sounders are using the place and where they bed, so the traps go in the right spot the first time. For
-        ranch management it gives you a real deer count instead of a guess off a feeder camera.
+        Hogs do most of their moving after dark, and a thermal camera sees warm bodies through it. A count tells us how
+        many sounders are using the place and where they bed, so the traps go in the right spot the first time and we
+        know when the whole group is inside instead of guessing.
+      </p>
+      <p>
+        It also gives you a starting number. When the trapping is done, you know what came off the land against what was
+        on it.
       </p>
 
       <h2>How the work splits</h2>
       <table class="spec">
         <tbody>
-          <tr><th>Backcountry Drones</th><td>Flies the survey, processes the thermal footage and delivers the counts. Also builds the remote trap releases and runs the field cameras on our trap line</td></tr>
-          <tr><th>Red Creek Outdoors</th><td>Reads the results with you and plans the trapping, hunting or management that follows</td></tr>
+          <tr><th>Backcountry Drones</th><td>Flies the thermal count and delivers the results. Also builds the remote trap releases and runs the field cameras on our trap line</td></tr>
+          <tr><th>Red Creek Outdoors</th><td>Reads the count with you, sets the traps and works the property until the sounder is gone</td></tr>
         </tbody>
       </table>
 
       <div class="callout">
         <p>
-          <strong>Surveys and hunts stay separate.</strong> Texas Parks and Wildlife says using a drone to hunt, drive,
+          <strong>Counts and hunts stay separate.</strong> Texas Parks and Wildlife says using a drone to hunt, drive,
           capture, take, count or photograph wildlife is unlawful without a TPWD permit, and drones can't be used to find
-          wounded game. Backcountry Drones flies surveys under its TPWD Aerial Wildlife Management permit. Nobody flies a
-          drone during one of our hunts.
+          wounded game. Backcountry Drones flies under its TPWD Aerial Wildlife Management permit. Nobody flies a drone
+          during one of our hunts.
         </p>
       </div>
 
-      <h2>More on the surveys</h2>
+      <h2>Full wildlife surveys</h2>
       <p>
-        Survey timing, deliverables and pricing are on the Backcountry Drones site:{' '}
-        <a href="https://backcountrydrones.com/services/wildlife-surveys">thermal drone wildlife surveys</a>.
+        Deer counts, full-ranch surveys, timing, deliverables and pricing are Backcountry Drones' work, and they're on
+        their site: <a href="https://backcountrydrones.com/services/wildlife-surveys">thermal drone wildlife surveys</a>.
+      </p>
+      <p>
+        Ready to get hogs off your land? Start with a <a href="/hog-trap-request">hog trap request</a> or read{' '}
+        <a href="/hog-trapping-service">how our trapping works</a>.
       </p>
       <p class="sources">Source: <a href="https://tpwd.texas.gov/warden/law-enforcement-faq/drones-uavs">TPWD Law Enforcement FAQ, Drones</a>.</p>
     </div>
   </section>
 
-  <CtaBand title="Want a count?" text="Tell us the county and acreage and what you want to know: hogs, deer or both." />
+  <CtaBand title="Hogs on your place?" text="Tell us the county and acreage and what the hogs are tearing up. We'll set up the site assessment." />
 </Base>
