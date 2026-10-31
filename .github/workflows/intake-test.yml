@@ -1,0 +1,10 @@
+name: Live intake test
+# Manual only. Sends real email (to ops@backcountrydrones.com) and creates a TEST case.
+on:
+  workflow_dispatch:
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/intake-test.sh
