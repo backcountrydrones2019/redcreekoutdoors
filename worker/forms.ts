@@ -11,7 +11,7 @@
  */
 import { ACKNOWLEDGEMENTS as TRAP_ACKS, PROPERTY_FIELDS } from '../src/data/trap-request';
 import { confirmationId, openCase } from './cases';
-import { centroid, depositNote, firstNameOf, linkRow, mapsLink, opsDoc, receiptHtml, row, section, sendOps, sendReceipt, sourceLine } from './mail';
+import { centroid, firstNameOf, linkRow, mapsLink, opsDoc, receiptHtml, row, section, sendOps, sendReceipt, sourceLine } from './mail';
 import { ACKNOWLEDGEMENTS as HUNT_ACKS, CONSENT, CONSENT_VERSION, HUNT_OPTIONS } from '../src/data/hunt-booking';
 import { DEPOSIT } from '../src/consts';
 
@@ -137,7 +137,6 @@ export async function handleTrapRequest(req: Request, env: FormEnv, ctx: Executi
     property, damage, control, control_detail: s(b.control_detail, 3000), message: s(b.message, 4000),
     points, areas, source,
     acks: TRAP_ACKS.map((a) => ({ key: a.key, text: a.text })),
-    deposit_rule: DEPOSIT.rule,
     honeypot: !!hp,
   };
 
@@ -166,8 +165,7 @@ export async function handleTrapRequest(req: Request, env: FormEnv, ctx: Executi
     (points.length || areas.length ? section('Marked on the map') + pointRows + areaRows : '') +
     section('Notes') + row('Details', intake.message) +
     row('Source', sourceLine(source)) +
-    section('Acknowledged') + row('Checked', `${acks.filter((k) => TRAP_ACKS.some((a) => a.key === k)).length} of ${TRAP_ACKS.length}`) +
-    row('Deposit', `${DEPOSIT.text} nonrefundable, due once you confirm the site assessment.`)
+    section('Acknowledged') + row('Checked', `${acks.filter((k) => TRAP_ACKS.some((a) => a.key === k)).length} of ${TRAP_ACKS.length}`)
   );
   const opsOk = await sendOps(env, `${hp}Hog trap request: ${name}, ${property.county} County [${ref}]`, inner, email);
 
@@ -178,7 +176,7 @@ export async function handleTrapRequest(req: Request, env: FormEnv, ctx: Executi
       headline: 'Got it.',
       body: 'we have your hog trap request and the map you marked. Keep this email, the reference number is in it.',
       ref,
-      extraHtml: `<p style="margin:0 0 14px">Next, we call to talk through the property and set up a site assessment.</p>${depositNote()}`,
+      extraHtml: `<p style="margin:0 0 14px">Next, we call to talk through the property and set up a site assessment. There's no deposit, and the price is set in writing before any work starts.</p>`,
     }));
   }
 

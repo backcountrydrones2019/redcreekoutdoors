@@ -1,7 +1,8 @@
 /* /hog-trap-request content. Built from the backcountrydrones.com hog
    assessment form, trapping only: no drone recon, no surveying. The first
-   step is a site assessment on foot; the $100 deposit rule is in consts. */
-import { DEPOSIT, PRICES } from '../consts';
+   step is a site assessment on foot. No deposit on trapping (Justin,
+   2026-10-31), same as the BCD hog process. */
+import { PRICES } from '../consts';
 
 export const MAP_MODES = [
   { key: 'damage', label: 'Shade damage', kind: 'polygon', color: '#c1282c', hint: 'Outline where they are tearing things up: rooting, wallows, wrecked fence, torn-up fields.' },
@@ -37,7 +38,6 @@ export const PROPERTY_FIELDS = [
 
 export const ACKNOWLEDGEMENTS = [
   { key: 'assessment_first', text: 'I understand the first step is a site assessment: Red Creek walks the property, reads the sign and plans where traps go. No trap goes up until that is done and we agree on a plan.' },
-  { key: 'deposit', text: `I understand that once Red Creek confirms it can schedule my site assessment, a ${DEPOSIT.text} nonrefundable deposit is due to lock it in, and that nothing is owed until they confirm.` },
   { key: 'price', text: `I understand hog trapping ${PRICES.trapping.text.toLowerCase()}, and that the final price is set in writing after the assessment, before any work starts.` },
   { key: 'no_guarantee', text: 'I understand no one can guarantee a hog population is eliminated, that hogs move in from neighboring property, and that control is ongoing work rather than a one-time event.' },
   { key: 'access_truth', text: 'I have the authority to allow access to this property, and I will disclose any leases, livestock or neighbors that affect how it gets worked.' },

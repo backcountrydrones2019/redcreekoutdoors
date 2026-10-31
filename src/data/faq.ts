@@ -208,7 +208,7 @@ export const FAQ: FaqGroup[] = [
     items: [
       {
         q: 'Is there a deposit?',
-        a: `${DEPOSIT.rule} That goes for hunts and for hog trapping site assessments.`,
+        a: `For hunts, yes. ${DEPOSIT.rule} Hog trapping takes no deposit: we walk the property first and the price is set in writing before any work starts.`,
       },
       {
         q: 'Do I need my own gun?',

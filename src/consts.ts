@@ -73,13 +73,14 @@ export const SCALE = {
   traps: null as number | null,
 } as const;
 
-/* Deposit, by Justin 2026-10-20: one rule for both forms. Due only after Red
-   Creek confirms it can take the hunt or schedule the site assessment.
-   Payment method is set at confirmation (no payment link on the site yet). */
+/* Deposit, hunts only. Justin 2026-10-20 set one rule for both forms; on
+   2026-10-31 he took it off hog trapping ("No deposits") so the trap intake
+   matches Backcountry Drones' hog process, which takes none. Due only after
+   Red Creek confirms the hunt. Payment method is set at confirmation. */
 export const DEPOSIT = {
   amount: 100,
   text: '$100',
-  rule: 'Once we confirm we can take your hunt or schedule your hog trapping site assessment, a $100 nonrefundable deposit is due to lock it in. Nothing is owed until we confirm.',
+  rule: 'Once we confirm we can take your hunt, a $100 nonrefundable deposit is due to lock it in. Nothing is owed until we confirm.',
 } as const;
 
 /* Said on every hunt page, in the owners' terms. */

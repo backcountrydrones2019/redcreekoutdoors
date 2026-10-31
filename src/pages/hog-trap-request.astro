@@ -3,10 +3,10 @@
    trapping only. Satellite map for marking the property (this is the one place
    the site uses map tiles, because the landowner needs to see their own
    ground). Posts JSON to /api/trap-request. Everything a landowner reads here
-   lives in src/data/trap-request.ts and consts DEPOSIT. */
+   lives in src/data/trap-request.ts. No deposit on trapping (2026-10-31). */
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
-import { SITE, DEPOSIT, PRICES } from '../consts';
+import { SITE, PRICES } from '../consts';
 import { MAP_MODES, CONTROL_METHODS, DAMAGE_TYPES, ACKNOWLEDGEMENTS, PROPERTY_FIELDS } from '../data/trap-request';
 import '../styles/forms.css';
 
@@ -34,8 +34,8 @@ const crumbs = [
         <strong>How it works</strong>
         <p>
           Send this, and we call you. If we can take the job, we schedule a site assessment and walk the property with you.
-          {DEPOSIT.rule} Hog trapping {PRICES.trapping.text.toLowerCase()}, with the final price in writing after the
-          assessment.
+          Hog trapping {PRICES.trapping.text.toLowerCase()}, with the final price in writing after the assessment. No
+          deposit.
         </p>
       </div>
 

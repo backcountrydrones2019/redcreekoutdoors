@@ -4,7 +4,7 @@
  * sending domain), a phone-friendly one-column layout, and a customer receipt
  * that never promises a response time.
  */
-import { SITE, DEPOSIT } from '../src/consts';
+import { SITE } from '../src/consts';
 
 export const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 
@@ -125,9 +125,6 @@ export function receiptHtml(opts: { firstName: string; headline: string; body: s
 </div>`;
 }
 
-/** The deposit rule for a trapping job, matching the acknowledgment the landowner checked on the form. */
-export const depositNote = () =>
-  `<p style="margin:0 0 14px;padding:12px;border:2px solid #343333">Once we confirm we can schedule your site assessment, a ${esc(DEPOSIT.text)} nonrefundable deposit is due to lock it in. Nothing is owed until we confirm.</p>`;
 
 export interface MailEnv {
   RESEND_API_KEY?: string;

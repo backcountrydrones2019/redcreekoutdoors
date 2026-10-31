@@ -21,7 +21,7 @@ import { SITE } from '../consts';
     var ref = q.get('ref') || '';
     if (/^R[CTH]-[0-9]{6}-[0-9]{4}$/.test(ref)) document.getElementById('ref').textContent = 'Reference: ' + ref;
     var next = {
-      trap: 'A receipt with your reference number is on its way to your email. Next: we call to talk through the property and set a site assessment. Once we confirm it, the $100 nonrefundable deposit is due to lock it in.',
+      trap: 'A receipt with your reference number is on its way to your email. Next: we call to talk through the property and set a site assessment.',
       hunt: "Next: we call to confirm your date and the details. Once we confirm we can take your hunt, the $100 nonrefundable deposit is due to lock it in."
     }[q.get('kind')];
     if (next) document.getElementById('next').textContent = next;
