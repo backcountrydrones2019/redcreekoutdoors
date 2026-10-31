@@ -11,7 +11,7 @@ body=$(cat <<JSON
  "message":"TEST submission from the live intake test workflow. Ignore.",
  "property":{"address":"TEST, no property","acreage":"1","county":"Bell","sounder":"No idea yet"},
  "damage":["Pasture and rooting"],"control":["Nothing yet"],
- "acks":["assessment_first","price","no_guarantee","access_truth"],
+ "acks":["assessment_first","price","no_guarantee"],
  "points":[{"kind":"sign","label":"Test pin","lat":31.1171,"lng":-97.7278}],
  "areas":[{"kind":"damage","points":[[31.117,-97.728],[31.118,-97.729],[31.119,-97.727]]}],
  "source":{"landing":"/hog-trap-request","referrerHost":"","submittedFrom":"/hog-trap-request","utm_source":"intake-test"}}

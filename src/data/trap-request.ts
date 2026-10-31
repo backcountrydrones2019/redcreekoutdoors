@@ -40,5 +40,4 @@ export const ACKNOWLEDGEMENTS = [
   { key: 'assessment_first', text: 'I understand the first step is a site assessment: Red Creek walks the property, reads the sign and plans where traps go. No trap goes up until that is done and we agree on a plan.' },
   { key: 'price', text: `I understand hog trapping starts at $${PRICES.trapping.amount} for a ${PRICES.trapping.days}-day contract, that every hog trapped after the ${PRICES.trapping.days} days is $${PRICES.trapping.perPig} plus mileage at $${PRICES.trapping.perMile.toFixed(2)} a mile, and that the final price is set in writing after the assessment, before any work starts.` },
   { key: 'no_guarantee', text: 'I understand no one can guarantee a hog population is eliminated, that hogs move in from neighboring property, and that control is ongoing work rather than a one-time event.' },
-  { key: 'access_truth', text: 'I have the authority to allow access to this property, and I will disclose any leases, livestock or neighbors that affect how it gets worked.' },
 ] as const;
