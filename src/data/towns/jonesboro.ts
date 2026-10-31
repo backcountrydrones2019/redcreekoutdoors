@@ -6,7 +6,7 @@ const town: Town = {
   county: 'Hamilton and Coryell',
   title: 'Hog Trapping Jonesboro TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Jonesboro, TX',
-  description: 'Feral hog trapping around Jonesboro on the Hamilton and Coryell county line. Leon River bottoms and cattle pasture. From $800. Call 254-397-8938.',
+  description: 'Feral hog trapping around Jonesboro on the Hamilton and Coryell county line. Leon River bottoms and cattle pasture. From $950. Call 254-397-8938.',
   lede: 'A river town on the county line with more cattle than people. The Leon carries hogs right through it.',
   summary: 'Leon River cattle country on the Hamilton and Coryell line.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'The Leon River and its bottoms' },
     { label: 'Ground', value: 'Rolling prairie, buttes and limestone valleys on the Hamilton side; Grand Prairie on the Coryell side' },
     { label: 'Drive from Killeen', value: 'About 46 miles, a little over an hour' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['gatesville', 'mcgregor', 'copperas-cove', 'moody'],
   sections: [
@@ -68,7 +69,7 @@ const town: Town = {
   ],
   faq: [
     { q: 'Do you trap as far out as Jonesboro?', a: 'Yes. It\'s a little over an hour from Killeen, and cellular cameras mean we only drive out when it\'s time to work.' },
-    { q: 'What does it cost?', a: 'Hog trapping starts at $800. Acreage, access and hog numbers set the final price, in writing before we begin.' },
+    { q: 'What does it cost?', a: 'Hog trapping starts at $950. Acreage, access and hog numbers set the final price, in writing before we begin.' },
     { q: 'Hogs are in my pecans. Can you help?', a: 'Yes. Pecan bottoms pull hogs hard in the fall. We trap the trail between the bottom cover and the orchard.' },
     { q: 'My place is on the Hamilton County side. Does that matter?', a: 'No. We work both sides of the line.' },
   ],

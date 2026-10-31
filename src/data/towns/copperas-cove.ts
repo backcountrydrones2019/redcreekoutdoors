@@ -6,7 +6,7 @@ const town: Town = {
   county: 'Coryell',
   title: 'Hog Trapping Copperas Cove TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Copperas Cove, TX',
-  description: 'Hog trapping for Copperas Cove landowners in southern Coryell and western Lampasas counties, right on the Fort Hood line. From $800. Call 254-397-8938.',
+  description: 'Hog trapping for Copperas Cove landowners in southern Coryell and western Lampasas counties, right on the Fort Hood line. From $950. Call 254-397-8938.',
   lede: 'Copperas Cove backs right up to Fort Hood, and the hogs move between the two every night. We trap them on your side of the line.',
   summary: 'Fort Hood on one side, Lampasas River country on the other.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'Lampasas River tributaries including Clear Creek and Reese Creek, and Cowhouse Creek country to the north' },
     { label: 'Ground', value: 'Grand Prairie plateaus and grassland over limestone' },
     { label: 'Drive from Killeen', value: 'About 10 miles, around 15 minutes' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['killeen', 'lampasas', 'gatesville', 'belton'],
   sections: [
@@ -73,7 +74,7 @@ const town: Town = {
     },
   ],
   faq: [
-    { q: 'How much does hog trapping cost in Copperas Cove?', a: 'Trapping starts at $800. Acreage, access and how many hogs keep coming set the final price, in writing before we start.' },
+    { q: 'How much does hog trapping cost in Copperas Cove?', a: 'Trapping starts at $950. Acreage, access and how many hogs keep coming set the final price, in writing before we start.' },
     { q: 'My property backs up to Fort Hood. Can you trap there?', a: 'We trap on your property, at the spot where hogs come off the reservation. That crossing is usually the best trap site you have.' },
     { q: 'Will they just come back?', a: 'Next to that much open land, more will come. That\'s why we plan Cove jobs as ongoing: catch, reset and catch again.' },
     { q: 'Do you cover the Lampasas County side of town?', a: 'Yes. City limits and county lines don\'t change how we work.' },

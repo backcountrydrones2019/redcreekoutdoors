@@ -10,7 +10,7 @@ const crumbs = [{ name: 'Hog Trapping Service', path: '/hog-trapping-service' }]
 const faq = [
   {
     q: 'How much does hog trapping cost?',
-    a: `Trapping ${PRICES.trapping.text.toLowerCase()}. Final price depends on acreage, access and how many hogs are working the property. You'll have it in writing before we set a panel.`,
+    a: `Trapping starts at $${PRICES.trapping.amount} for a ${PRICES.trapping.days}-day contract. After the ${PRICES.trapping.days} days, every hog trapped is $${PRICES.trapping.perPig} plus mileage. Final price depends on acreage, access and how many hogs are working the property. You'll have it in writing before we set a panel.`,
   },
   {
     q: 'Why not just shoot them?',
@@ -42,13 +42,23 @@ const schema = [
     serviceType: 'Feral hog trapping and removal',
     provider: { '@id': `${SITE.url}/#business` },
     areaServed: COUNTIES.map((c) => ({ '@type': 'AdministrativeArea', name: `${c} County, TX` })),
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'USD',
-      price: PRICES.trapping.amount,
-      priceSpecification: { '@type': 'PriceSpecification', minPrice: PRICES.trapping.amount, priceCurrency: 'USD' },
-      description: PRICES.trapping.text,
-    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: `${PRICES.trapping.days}-day trapping contract`,
+        priceCurrency: 'USD',
+        price: PRICES.trapping.amount,
+        priceSpecification: { '@type': 'PriceSpecification', minPrice: PRICES.trapping.amount, priceCurrency: 'USD' },
+        description: `${PRICES.trapping.text} for a ${PRICES.trapping.days}-day contract`,
+      },
+      {
+        '@type': 'Offer',
+        name: `Trapping after the first ${PRICES.trapping.days} days`,
+        priceCurrency: 'USD',
+        price: PRICES.trapping.perPig,
+        priceSpecification: { '@type': 'UnitPriceSpecification', price: PRICES.trapping.perPig, priceCurrency: 'USD', unitText: 'per hog trapped, plus mileage' },
+      },
+    ],
   },
   {
     '@context': 'https://schema.org',
@@ -60,7 +70,7 @@ const schema = [
 
 <Base
   title="Feral Hog Trapping Service in Central Texas | Red Creek Outdoors"
-  description="We trap the whole sounder, not one pig at a time. Cellular traps, live camera checks and removal across Bell, Coryell, Milam and Falls counties. From $800."
+  description="We trap the whole sounder, not one pig at a time. Cellular traps, live camera checks and removal across Bell, Coryell, Milam and Falls counties. From $950."
   crumbs={crumbs}
   schema={schema}
 >
@@ -139,7 +149,8 @@ const schema = [
       <h2>Price</h2>
       <table class="spec">
         <tbody>
-          <tr><th>Hog trapping</th><td>{PRICES.trapping.text}</td></tr>
+          <tr><th>Hog trapping</th><td>{PRICES.trapping.text} for a {PRICES.trapping.days}-day contract</td></tr>
+          <tr><th>After {PRICES.trapping.days} days</th><td>${PRICES.trapping.perPig} a pig trapped, plus mileage</td></tr>
           <tr><th>What sets the final price</th><td>Acreage, access, terrain and how many hogs are on it</td></tr>
           <tr><th>When you'll know</th><td>In writing, before the first panel goes up</td></tr>
         </tbody>

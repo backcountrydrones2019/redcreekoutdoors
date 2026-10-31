@@ -6,7 +6,7 @@ const town: Town = {
   county: 'Bell',
   title: 'Hog Trapping Belton TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Belton, TX',
-  description: 'Hog trapping around Belton, between Belton Lake and Stillhouse Hollow. Nolan Creek and Leon River bottoms, whole-sounder removal. From $800. 254-397-8938.',
+  description: 'Hog trapping around Belton, between Belton Lake and Stillhouse Hollow. Nolan Creek and Leon River bottoms, whole-sounder removal. From $950. 254-397-8938.',
   lede: 'Two lakes, two rivers and a creek through the middle of town. Belton has more hog water per square mile than anywhere else in the county.',
   summary: 'Between two Corps lakes where the Leon and Lampasas come together.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'Nolan Creek, the Leon River, Belton Lake 3 miles north, Stillhouse Hollow Lake 5 miles southwest' },
     { label: 'Ground', value: 'Nearly level to rolling, gravelly, loamy and clay soils along the creeks' },
     { label: 'Drive from Killeen', value: 'About 17 miles, around 25 minutes' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['killeen', 'temple', 'salado', 'jarrell'],
   sections: [
@@ -66,7 +67,7 @@ const town: Town = {
     },
   ],
   faq: [
-    { q: 'How much is hog trapping in Belton?', a: 'Starts at $800, set in writing after we see the place. Acreage, access and hog numbers drive the final price.' },
+    { q: 'How much is hog trapping in Belton?', a: 'Starts at $950, set in writing after we see the place. Acreage, access and hog numbers drive the final price.' },
     { q: 'Can you trap on lake land?', a: 'We trap on private land only, at the spots where hogs come onto your property from the lake side. That\'s where the damage is anyway.' },
     { q: 'My place is near Nolan Creek in town. Is that too close?', a: 'Often not. We look for a trap site out of sight and away from foot traffic, and check it more often. Call and we\'ll walk it.' },
     { q: 'Do hogs leave in the summer?', a: 'Not around Belton. With two lakes and two rivers, they always have water and a place to wallow.' },

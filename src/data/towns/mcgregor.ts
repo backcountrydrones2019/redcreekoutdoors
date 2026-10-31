@@ -6,7 +6,7 @@ const town: Town = {
   county: 'McLennan',
   title: 'Hog Trapping McGregor TX | Red Creek Outdoors',
   h1: 'Hog Trapping in McGregor, TX',
-  description: 'Feral hog trapping and removal around McGregor and western McLennan County. South Bosque headwaters, cedar and crop ground. From $800. Call 254-397-8938.',
+  description: 'Feral hog trapping and removal around McGregor and western McLennan County. South Bosque headwaters, cedar and crop ground. From $950. Call 254-397-8938.',
   lede: 'Western McLennan County mixes cedar breaks, cropland and the head of the South Bosque. That mix keeps hogs fed and hidden. We take the whole group.',
   summary: 'Western McLennan County, where the South Bosque River starts.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'South Bosque River headwaters and the draws feeding it, stock tanks' },
     { label: 'Ground', value: 'Varied: shallow stony soils with cedar and oak, plus crop and hay ground' },
     { label: 'Drive from Killeen', value: 'About 41 miles, about an hour' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['moody', 'gatesville', 'temple', 'jonesboro'],
   sections: [
@@ -67,7 +68,7 @@ const town: Town = {
   ],
   faq: [
     { q: 'Do you trap hogs in McGregor?', a: 'Yes. Western McLennan County is in our regular range out of Killeen, about an hour up the road.' },
-    { q: 'What does it cost?', a: 'Hog trapping starts at $800. Acreage, access and how many hogs keep coming set the final price, in writing first.' },
+    { q: 'What does it cost?', a: 'Hog trapping starts at $950. Acreage, access and how many hogs keep coming set the final price, in writing first.' },
     { q: 'I catch a few and more show up. Why?', a: 'You\'re probably next to a big block of cover that keeps refilling your place. That takes a trap that stays running and gets reset, not a single catch.' },
     { q: 'Can you cover Moody and Crawford too?', a: 'Call with the location. If it\'s in western McLennan or Coryell County, odds are good.' },
   ],

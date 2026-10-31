@@ -18,7 +18,7 @@ const crumbs = [
 
 <Base
   title="Hog Trap Request | Red Creek Outdoors"
-  description="Request hog trapping in Central Texas. Mark the damage on a map, tell us what you have tried, and we schedule a site assessment. Trapping from $800."
+  description="Request hog trapping in Central Texas. Mark the damage on a map, tell us what you have tried, and we schedule a site assessment. Trapping from $950."
   crumbs={crumbs}
 >
   <Fragment slot="head">
@@ -34,8 +34,8 @@ const crumbs = [
         <strong>How it works</strong>
         <p>
           Send this, and we call you. If we can take the job, we schedule a site assessment and walk the property with you.
-          Hog trapping {PRICES.trapping.text.toLowerCase()}, with the final price in writing after the assessment. No
-          deposit.
+          Hog trapping {PRICES.trapping.terms.charAt(0).toLowerCase() + PRICES.trapping.terms.slice(1)} The final price is in
+          writing after the assessment. No deposit.
         </p>
       </div>
 

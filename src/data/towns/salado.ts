@@ -6,7 +6,7 @@ const town: Town = {
   county: 'Bell',
   title: 'Hog Trapping Salado TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Salado, TX',
-  description: 'Hog trapping around Salado and south Bell County. Spring-fed Salado Creek, rolling hills on the Balcones Fault, whole-sounder removal. From $800. 254-397-8938.',
+  description: 'Hog trapping around Salado and south Bell County. Spring-fed Salado Creek, rolling hills on the Balcones Fault, whole-sounder removal. From $950. 254-397-8938.',
   lede: 'Salado Creek never stops running, and the hogs know it. We trap the sounders working the creek and the rolling ground around the village.',
   summary: 'Spring-fed Salado Creek on the Balcones Fault, south Bell County.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'Salado Creek and its limestone springs, the draws feeding it' },
     { label: 'Ground', value: 'Rolling hills along the Balcones Fault' },
     { label: 'Drive from Killeen', value: 'About 21 miles, around half an hour' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['belton', 'jarrell', 'temple', 'killeen'],
   sections: [
@@ -66,7 +67,7 @@ const town: Town = {
     },
   ],
   faq: [
-    { q: 'How much is hog trapping near Salado?', a: 'Starts at $800. Acreage, access and how many hogs are working the creek set the final price, in writing before we start.' },
+    { q: 'How much is hog trapping near Salado?', a: 'Starts at $950. Acreage, access and how many hogs are working the creek set the final price, in writing before we start.' },
     { q: 'I have horses. Is a trap safe on my place?', a: 'We put the trap where horses and people won\'t be, and you\'ll know exactly where it is. Tell us about the stock when you call.' },
     { q: 'Why are hogs worse here in a drought?', a: 'Salado Creek is spring-fed. When upland tanks go dry, hogs move to the creek, so properties along it see more of them.' },
     { q: 'Do you also hunt near Salado?', a: 'Yes. We run guided hunts on private land near Salado. See our <a href="/thermal-hog-hunts">thermal hog hunts</a>.' },

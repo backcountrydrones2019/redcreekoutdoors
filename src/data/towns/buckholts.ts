@@ -6,7 +6,7 @@ const town: Town = {
   county: 'Milam',
   title: 'Hog Trapping Buckholts TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Buckholts, TX',
-  description: 'Feral hog trapping for Buckholts and northwest Milam County. Blackland corn ground, Little River and Donahoe Creek bottoms. From $800. Call 254-397-8938.',
+  description: 'Feral hog trapping for Buckholts and northwest Milam County. Blackland corn ground, Little River and Donahoe Creek bottoms. From $950. Call 254-397-8938.',
   lede: 'Blackland corn ground on the Little River. If there is a better setup for hogs in Milam County, we haven\'t seen it.',
   summary: 'Northwest Milam County blackland on the Little River.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'The Little River and Donahoe Creek, which joins it about 6 miles west of town' },
     { label: 'Ground', value: 'Blackland Prairie' },
     { label: 'Drive from Killeen', value: 'About 42 miles, just under an hour' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['temple', 'jarrell', 'belton', 'moody'],
   sections: [
@@ -73,7 +74,7 @@ const town: Town = {
     },
   ],
   faq: [
-    { q: 'How much is hog trapping near Buckholts?', a: 'Trapping starts at $800. Acreage, access and how many hogs are working your fields set the final price, in writing first.' },
+    { q: 'How much is hog trapping near Buckholts?', a: 'Trapping starts at $950. Acreage, access and how many hogs are working your fields set the final price, in writing first.' },
     { q: 'When is the best time to trap on crop ground?', a: 'After harvest and before planting, when the field is bare and bait pulls hardest. In season we work the field edges.' },
     { q: 'Do you cover Cameron and the rest of Milam County?', a: 'Milam County is one of our four core counties. Call with the location.' },
     { q: 'Hogs come off the river into my corn. Can you stop it?', a: 'We trap them at the crossing out of the bottom, before they reach the field. That trail is usually the best site on the place.' },

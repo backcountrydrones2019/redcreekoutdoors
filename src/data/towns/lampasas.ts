@@ -6,7 +6,7 @@ const town: Town = {
   county: 'Lampasas',
   title: 'Hog Trapping Lampasas TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Lampasas, TX',
-  description: 'Feral hog trapping for Lampasas County ranches. Sulphur Creek springs, the Lampasas River and limestone hill country. From $800. Call 254-397-8938.',
+  description: 'Feral hog trapping for Lampasas County ranches. Sulphur Creek springs, the Lampasas River and limestone hill country. From $950. Call 254-397-8938.',
   lede: 'Spring-fed creeks, cattle country and limestone hills. Lampasas County gives hogs everything, and ranchers pay for it.',
   summary: 'Spring-fed Sulphur Creek and Lampasas River cattle country.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'Sulphur Creek and its springs, the Lampasas River east of town' },
     { label: 'Ground', value: 'Grand Prairie: rolling with steep slopes and limestone benches, live oak, mesquite and juniper' },
     { label: 'Drive from Killeen', value: 'About 29 miles, a little over half an hour' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['copperas-cove', 'killeen', 'brady', 'belton'],
   sections: [
@@ -73,7 +74,7 @@ const town: Town = {
     },
   ],
   faq: [
-    { q: 'How much does hog trapping cost in Lampasas County?', a: 'Starts at $800. Acreage, access and how many hogs are working the place set the final price, in writing before we start.' },
+    { q: 'How much does hog trapping cost in Lampasas County?', a: 'Starts at $950. Acreage, access and how many hogs are working the place set the final price, in writing before we start.' },
     { q: 'Is Lampasas too far from Killeen?', a: 'No. It\'s about a half hour, and cellular cameras let us watch your bait every night without the drive.' },
     { q: 'Hogs are tearing up my hay meadow. When should I call?', a: 'Now, while the sign is fresh. A group on a nightly routine is the easiest kind to condition to a trap.' },
     { q: 'Do you work rough juniper country?', a: 'Yes. We read where hogs come down off the benches and build there. Tell us about road and trailer access when you call.' },

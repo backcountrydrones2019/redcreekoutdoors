@@ -6,7 +6,7 @@ const town: Town = {
   county: 'McCulloch',
   title: 'Hog Trapping Brady TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Brady, TX',
-  description: 'Feral hog trapping for Brady and McCulloch County ranches on the northern Edwards Plateau. Brady Creek and big pasture country. From $800. 254-397-8938.',
+  description: 'Feral hog trapping for Brady and McCulloch County ranches on the northern Edwards Plateau. Brady Creek and big pasture country. From $950. 254-397-8938.',
   lede: 'Big pasture country near the center of Texas. Brady is a long drive from Killeen, and we make it for landowners who want the whole sounder gone.',
   summary: 'Northern Edwards Plateau ranch country on Brady Creek.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'Brady Creek through town, Brady Creek Reservoir 3 miles west, the San Saba and Colorado rivers' },
     { label: 'Ground', value: 'Edwards Plateau, rolling to hilly, cut by the Brady Mountains' },
     { label: 'Drive from Killeen', value: 'About 108 miles, roughly two hours' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['lampasas', 'copperas-cove', 'killeen', 'gatesville'],
   sections: [
@@ -68,7 +69,7 @@ const town: Town = {
   ],
   faq: [
     { q: 'Do you really trap as far out as Brady?', a: 'Yes. It\'s about two hours from Killeen. Cellular cameras mean we only make the drive when there\'s work to do.' },
-    { q: 'What does hog trapping cost in McCulloch County?', a: 'Trapping starts at $800. Acreage, access, distance and hog numbers set the final price, in writing before we start.' },
+    { q: 'What does hog trapping cost in McCulloch County?', a: 'Trapping starts at $950. Acreage, access, distance and hog numbers set the final price, in writing before we start.' },
     { q: 'I run goats. Will a trap be a problem?', a: 'We place the trap where your stock can\'t get into it. Tell us what you run and where when you call.' },
     { q: 'Where do hogs water out here?', a: 'Wherever water holds through summer: Brady Creek, springs, the reservoir shoreline and good stock tanks. That\'s where we start looking.' },
   ],

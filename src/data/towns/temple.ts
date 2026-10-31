@@ -6,7 +6,7 @@ const town: Town = {
   county: 'Bell',
   title: 'Hog Trapping Temple TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Temple, TX',
-  description: 'Feral hog trapping for Temple and east Bell County farms. Blackland row-crop ground, Leon River bottoms, whole-sounder removal. From $800. Call 254-397-8938.',
+  description: 'Feral hog trapping for Temple and east Bell County farms. Blackland row-crop ground, Leon River bottoms, whole-sounder removal. From $950. Call 254-397-8938.',
   lede: 'East Bell County is farm country, and hogs do their worst damage in a planted field. We trap the group before the next crop goes in.',
   summary: 'Blackland farm ground east of I-35 and the Leon River below Lake Belton.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'The Leon River downstream of Belton Lake, plus the field drainages and tanks across the farm ground' },
     { label: 'Ground', value: 'Blackland Prairie: level to rolling, dark clay soils, heavy cropland' },
     { label: 'Drive from Killeen', value: 'About 25 miles, roughly half an hour' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['belton', 'moody', 'buckholts', 'salado'],
   sections: [
@@ -66,7 +67,7 @@ const town: Town = {
     },
   ],
   faq: [
-    { q: 'What does hog trapping cost near Temple?', a: 'Starts at $800. Acreage, access and how many sounders are working the place set the final number, in writing before we begin.' },
+    { q: 'What does hog trapping cost near Temple?', a: 'Starts at $950. Acreage, access and how many sounders are working the place set the final number, in writing before we begin.' },
     { q: 'When should I start trapping on crop ground?', a: 'Before planting or right after harvest is best, because bait works hardest when the field is bare. During the season we trap the field edges and travel lanes.' },
     { q: 'Do you cover Rogers and Holland?', a: 'Yes. East Bell County is regular ground for us.' },
     { q: 'Hogs are coming off the river onto my place. Can you stop them?', a: 'We trap them on your side where they come up out of the bottom. That crossing is usually the best trap site on the whole property.' },

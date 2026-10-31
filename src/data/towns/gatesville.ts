@@ -6,7 +6,7 @@ const town: Town = {
   county: 'Coryell',
   title: 'Hog Trapping Gatesville TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Gatesville, TX',
-  description: 'Feral hog trapping for Gatesville and Coryell County ranches. Leon River bottoms, cedar and pasture country north of Fort Hood. From $800. Call 254-397-8938.',
+  description: 'Feral hog trapping for Gatesville and Coryell County ranches. Leon River bottoms, cedar and pasture country north of Fort Hood. From $950. Call 254-397-8938.',
   lede: 'Coryell County is cattle and pasture country with the Leon River through the middle of it. Hogs love both. We trap the whole sounder.',
   summary: 'Coryell County pasture and cedar along the Leon River.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'The Leon River, which bends right past downtown, and Cowhouse Creek to the south and west' },
     { label: 'Ground', value: 'Grand Prairie plateaus and grassland over limestone, cedar, live oak and pecan' },
     { label: 'Drive from Killeen', value: 'About 36 miles, under an hour' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['jonesboro', 'mcgregor', 'copperas-cove', 'killeen'],
   sections: [
@@ -66,7 +67,7 @@ const town: Town = {
     },
   ],
   faq: [
-    { q: 'What does hog trapping cost around Gatesville?', a: 'Starts at $800. Final price depends on acreage, access and how many hogs are on it, in writing before we start.' },
+    { q: 'What does hog trapping cost around Gatesville?', a: 'Starts at $950. Final price depends on acreage, access and how many hogs are on it, in writing before we start.' },
     { q: 'Is Gatesville too far for you?', a: 'No. It\'s under an hour from Killeen and cellular cameras let us watch the bait from anywhere. We drive out when it\'s time to build or close.' },
     { q: 'Hogs are rooting my hay meadow. What do I do now?', a: 'Don\'t shoot at them, it scatters the group. Note where the fresh sign is and call. A meadow along the Leon usually has a clear entry trail.' },
     { q: 'Do you work ranches next to Fort Hood?', a: 'Yes. We trap on your side of the boundary where the hogs come onto your pasture.' },

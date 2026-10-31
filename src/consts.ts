@@ -50,7 +50,8 @@ export const HUNT_TOWNS = ['Salado', 'Marlin', 'Gatesville', 'Rogers', 'Holland'
 /* Prices exactly as the owners gave them on 2026-10-20. "From" means starting
    price. Do not add a per-hunter or group qualifier they didn't give. */
 export const PRICES = {
-  trapping: { amount: 800, text: 'Starts at $800' },
+  // Justin 2026-10-31: $950 covers a 30-day contract; after that, $20 a pig plus mileage.
+  trapping: { amount: 950, text: 'Starts at $950', days: 30, perPig: 20, terms: 'Starts at $950 for a 30-day contract. After the 30 days, $20 a pig plus mileage.' },
   thermalHog: { amount: 500, text: 'From $500 a night' },
   thermalPredator: { amount: 600, text: 'From $600 a night' },
   whitetailDoe: { amount: 700, text: 'Does from $700 a day' },

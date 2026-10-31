@@ -10,7 +10,7 @@ const town: Town = {
   county: 'Bell',
   title: 'Hog Trapping Killeen TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Killeen, TX',
-  description: 'Whole-sounder hog trapping in Killeen and Bell County. Cellular traps, camera monitoring, full removal. Trapping starts at $800. Call 254-397-8938.',
+  description: 'Whole-sounder hog trapping in Killeen and Bell County. Cellular traps, camera monitoring, full removal. Trapping starts at $950. Call 254-397-8938.',
   lede: 'Complete sounder removal, not just catching a pig here and there. Killeen is home base, so we\'re never far from your place.',
   summary: 'Home base. Nolan Creek country on the edge of Fort Hood.',
   facts: [
@@ -18,7 +18,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'South Nolan Creek and its draws, Cowhouse Creek country to the north, Belton Lake' },
     { label: 'Ground', value: 'Grand Prairie: uplands cut by stream valleys, stony slopes' },
     { label: 'Drive from our base', value: "We're based here. Same day for anywhere in town" },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['copperas-cove', 'belton', 'lampasas', 'gatesville'],
   sections: [
@@ -66,7 +67,7 @@ const town: Town = {
     },
   ],
   faq: [
-    { q: 'How much does hog trapping cost in Killeen?', a: 'Trapping starts at $800. Acreage, access and the number of hogs set the final price, and you get it in writing before we start.' },
+    { q: 'How much does hog trapping cost in Killeen?', a: 'Trapping starts at $950. Acreage, access and the number of hogs set the final price, and you get it in writing before we start.' },
     { q: 'Do you trap on small properties near town?', a: 'Yes, as long as there\'s room to build a trap safely and the hogs are coming through. A lot of Killeen calls come from places backing up to creek draws.' },
     { q: 'My place borders Fort Hood. Can you help?', a: 'Yes. We trap on your side of the fence. Hogs moving off federal ground still have to cross your property to feed, and that\'s where we catch them.' },
     { q: 'How fast can you come out?', a: 'Killeen is home base. Call 254-397-8938 and we\'ll set a time to walk your place.' },

@@ -6,7 +6,7 @@ const town: Town = {
   county: 'McLennan',
   title: 'Hog Trapping Moody TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Moody, TX',
-  description: 'Feral hog trapping around Moody in southern McLennan County. Cow Bayou headwaters, Leon River bottoms and corn ground. From $800. Call 254-397-8938.',
+  description: 'Feral hog trapping around Moody in southern McLennan County. Cow Bayou headwaters, Leon River bottoms and corn ground. From $950. Call 254-397-8938.',
   lede: 'Moody sits between Leon River bottomland and some of the most productive corn ground in McLennan County. Hogs work both.',
   summary: 'Southern McLennan County corn ground near the Leon River.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'South Cow Bayou headwaters north of town, the Leon River at Mother Neff State Park' },
     { label: 'Ground', value: 'Grand Prairie and Blackland Prairie, split by the Balcones Fault across the county' },
     { label: 'Drive from Killeen', value: 'About 36 miles, under an hour' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['mcgregor', 'temple', 'gatesville', 'belton'],
   sections: [
@@ -73,7 +74,7 @@ const town: Town = {
     },
   ],
   faq: [
-    { q: 'How much does hog trapping cost near Moody?', a: 'Trapping starts at $800. Acreage, access and how many hogs are working your ground set the final price, in writing first.' },
+    { q: 'How much does hog trapping cost near Moody?', a: 'Trapping starts at $950. Acreage, access and how many hogs are working your ground set the final price, in writing first.' },
     { q: 'When should I trap my corn ground?', a: 'Before planting or right after harvest, when the field is bare and bait works best. During the season we trap the edges.' },
     { q: 'Do you cover McGregor and Bruceville-Eddy too?', a: 'Call with the location. Southern and western McLennan County is in our range out of Killeen.' },
     { q: 'Hogs are coming off the Leon. Where do you trap?', a: 'On your property, at the trail where they come up out of the bottom.' },

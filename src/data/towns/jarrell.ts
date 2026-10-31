@@ -6,7 +6,7 @@ const town: Town = {
   county: 'Williamson',
   title: 'Hog Trapping Jarrell TX | Red Creek Outdoors',
   h1: 'Hog Trapping in Jarrell, TX',
-  description: 'Feral hog trapping around Jarrell in north Williamson County. Donahoe Creek, the Balcones Escarpment and corn ground off I-35. From $800. 254-397-8938.',
+  description: 'Feral hog trapping around Jarrell in north Williamson County. Donahoe Creek, the Balcones Escarpment and corn ground off I-35. From $950. 254-397-8938.',
   lede: 'Jarrell sits right where the hills drop onto the blackland. Hogs bed on one side and feed on the other, and we run traps on the ground in between.',
   summary: 'North Williamson County on Donahoe Creek and the Balcones Escarpment.',
   facts: [
@@ -14,7 +14,8 @@ const town: Town = {
     { label: 'Water hogs use', value: 'Donahoe Creek, which starts just east of town, and the draws running north to the Lampasas and Little rivers' },
     { label: 'Ground', value: 'Balcones Escarpment: hilly brushland to the west, flat blackland to the east' },
     { label: 'Drive from Killeen', value: 'About 35 miles, around 45 minutes' },
-    { label: 'Trapping price', value: 'Starts at $800' },
+    { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage' },
   ],
   nearby: ['salado', 'belton', 'buckholts', 'temple'],
   sections: [
@@ -74,7 +75,7 @@ const town: Town = {
   ],
   faq: [
     { q: 'Do you trap hogs near Jarrell?', a: 'Yes. We run active trap sites on farms around Jarrell right now.' },
-    { q: 'How much does it cost?', a: 'Hog trapping starts at $800. Acreage, access and how many hogs are working your place set the final price, in writing before we start.' },
+    { q: 'How much does it cost?', a: 'Hog trapping starts at $950. Acreage, access and how many hogs are working your place set the final price, in writing before we start.' },
     { q: 'Hogs come out of the brush onto my corn. Where do you trap?', a: 'At the trail where they leave the brush or the creek draw and hit the field. That edge is usually the best site on the place.' },
     { q: 'Do you cover Georgetown and Florence?', a: 'Call with the location. North Williamson County is regular ground for us.' },
   ],
