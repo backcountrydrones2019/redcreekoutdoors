@@ -184,12 +184,19 @@ const crumbs = [
           property: property, damage: checked('damage'), control: checked('control'),
           control_detail: val('control_detail'), message: val('message'), acks: checked('ack'),
           points: marks.points, areas: marks.areas, website: val('website'), landing: land, referrer: ref,
+          source: window.rcAttribution ? window.rcAttribution() : { landing: land },
         };
         fetch('/api/trap-request', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-          .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
-          .then(function (d) { location.href = '/thanks?kind=trap&ref=' + encodeURIComponent(d.ref || ''); })
-          .catch(function () {
-            setStatus("That didn't go through. Call " + PHONE + " and we'll take it from there.", 'err');
+          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { d.status = r.status; return d; }); })
+          .then(function (d) {
+            if (d.ok) { location.href = '/thanks?kind=trap&ref=' + encodeURIComponent(d.ref || ''); return; }
+            // 502 means the request is saved but our copy of the email failed.
+            if (d.ref) throw new Error('saved:' + d.ref);
+            throw new Error(String(d.status));
+          })
+          .catch(function (err) {
+            var m = /^saved:(.+)$/.exec(err && err.message || '');
+            setStatus(m ? 'We saved your request (reference ' + m[1] + ') but our notice did not go out. Call ' + PHONE + ' so it doesn\'t sit.' : "That didn't go through. Call " + PHONE + " and we'll take it from there.", 'err');
             btn.disabled = false; btn.textContent = 'Send Hog Trap Request';
           });
       });

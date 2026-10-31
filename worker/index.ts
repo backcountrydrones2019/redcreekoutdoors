@@ -3,7 +3,10 @@
  * Static assets answer every page. The Worker runs first only for /api/*
  * (wrangler.jsonc run_worker_first), so a plain HTML form post reaches it.
  *
- *   POST /api/request   booking and trapping requests from /contact
+ *   POST /api/request        booking and trapping requests from /contact
+ *   POST /api/trap-request   hog trap requests: case record, ops email, landowner receipt (forms.ts)
+ *   POST /api/hunt-booking   hunt requests with the marketing consent record (forms.ts)
+ *   GET  /api/board, /api/case   read-only case board, gated (board.ts)
  *
  * Mail: the zone's DMARC is p=reject. Anything claiming to be from
  * @redcreekoutdoors.com that isn't aligned gets dropped by the receiving
@@ -18,6 +21,7 @@
 
 import { handleTrapRequest, handleHuntBooking } from './forms';
 import { handleSocial, refreshFeed } from './social';
+import { handleBoard, handleCaseView } from './board';
 
 interface Env {
   ASSETS: Fetcher;
@@ -30,6 +34,8 @@ interface Env {
   MAIL_TO: string;
   MAIL_FROM: string;
   BUILD_SHA?: string;
+  BOARD_KEY?: string; // secret; /api/board 404s until it is set
+  CASE_WEBHOOK?: string;
 }
 
 type Lead = {
@@ -152,6 +158,8 @@ export default {
     if (url.pathname === '/api/trap-request') return handleTrapRequest(request, env, ctx);
     if (url.pathname === '/api/hunt-booking') return handleHuntBooking(request, env, ctx);
     if (url.pathname === '/api/social') return handleSocial(env, ctx);
+    if (url.pathname === '/api/board') return handleBoard(request, env.LEADS, env.BOARD_KEY);
+    if (url.pathname === '/api/case') return handleCaseView(request, env.LEADS);
     if (url.pathname === '/api/health') return Response.json({ ok: true, build: env.BUILD_SHA || 'local' });
     if (url.pathname.startsWith('/api/')) return new Response('Not found', { status: 404 });
     return env.ASSETS.fetch(request);
