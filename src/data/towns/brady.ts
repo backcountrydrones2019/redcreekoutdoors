@@ -15,7 +15,7 @@ const town: Town = {
     { label: 'Ground', value: 'Edwards Plateau, rolling to hilly, cut by the Brady Mountains' },
     { label: 'Drive from Killeen', value: 'About 108 miles, roughly two hours' },
     { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
-    { label: 'After 30 days', value: '$20 a pig plus mileage' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage at $1.75 a mile' },
   ],
   nearby: ['lampasas', 'copperas-cove', 'killeen', 'gatesville'],
   sections: [

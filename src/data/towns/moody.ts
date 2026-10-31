@@ -15,7 +15,7 @@ const town: Town = {
     { label: 'Ground', value: 'Grand Prairie and Blackland Prairie, split by the Balcones Fault across the county' },
     { label: 'Drive from Killeen', value: 'About 36 miles, under an hour' },
     { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
-    { label: 'After 30 days', value: '$20 a pig plus mileage' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage at $1.75 a mile' },
   ],
   nearby: ['mcgregor', 'temple', 'gatesville', 'belton'],
   sections: [

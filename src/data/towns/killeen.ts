@@ -19,7 +19,7 @@ const town: Town = {
     { label: 'Ground', value: 'Grand Prairie: uplands cut by stream valleys, stony slopes' },
     { label: 'Drive from our base', value: "We're based here. Same day for anywhere in town" },
     { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
-    { label: 'After 30 days', value: '$20 a pig plus mileage' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage at $1.75 a mile' },
   ],
   nearby: ['copperas-cove', 'belton', 'lampasas', 'gatesville'],
   sections: [

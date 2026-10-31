@@ -15,7 +15,7 @@ const town: Town = {
     { label: 'Ground', value: 'Rolling hills along the Balcones Fault' },
     { label: 'Drive from Killeen', value: 'About 21 miles, around half an hour' },
     { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
-    { label: 'After 30 days', value: '$20 a pig plus mileage' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage at $1.75 a mile' },
   ],
   nearby: ['belton', 'jarrell', 'temple', 'killeen'],
   sections: [

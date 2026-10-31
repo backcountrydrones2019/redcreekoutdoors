@@ -15,7 +15,7 @@ const town: Town = {
     { label: 'Ground', value: 'Nearly level to rolling, gravelly, loamy and clay soils along the creeks' },
     { label: 'Drive from Killeen', value: 'About 17 miles, around 25 minutes' },
     { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
-    { label: 'After 30 days', value: '$20 a pig plus mileage' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage at $1.75 a mile' },
   ],
   nearby: ['killeen', 'temple', 'salado', 'jarrell'],
   sections: [

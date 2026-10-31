@@ -15,7 +15,7 @@ const town: Town = {
     { label: 'Ground', value: 'Blackland Prairie: level to rolling, dark clay soils, heavy cropland' },
     { label: 'Drive from Killeen', value: 'About 25 miles, roughly half an hour' },
     { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
-    { label: 'After 30 days', value: '$20 a pig plus mileage' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage at $1.75 a mile' },
   ],
   nearby: ['belton', 'moody', 'buckholts', 'salado'],
   sections: [

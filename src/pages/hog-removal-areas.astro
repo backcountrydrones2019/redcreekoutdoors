@@ -46,7 +46,7 @@ const pageFor = (town: string) => TOWN_PAGES.find((t) => t.town === town)?.slug;
 
       <div class="callout prose">
         <p>
-          <strong>Hog trapping {PRICES.trapping.text.toLowerCase()} for a {PRICES.trapping.days}-day contract, then ${PRICES.trapping.perPig} a pig plus mileage.</strong>{' '}
+          <strong>Hog trapping {PRICES.trapping.text.toLowerCase()} for a {PRICES.trapping.days}-day contract, then ${PRICES.trapping.perPig} a pig plus mileage at ${PRICES.trapping.perMile.toFixed(2)} a mile.</strong>{' '}
           <a href="/hog-trapping-service">How a trapping job runs</a>. Call <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a>.
         </p>
       </div>

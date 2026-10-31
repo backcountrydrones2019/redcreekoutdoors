@@ -15,7 +15,7 @@ const town: Town = {
     { label: 'Ground', value: 'Grand Prairie: rolling with steep slopes and limestone benches, live oak, mesquite and juniper' },
     { label: 'Drive from Killeen', value: 'About 29 miles, a little over half an hour' },
     { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
-    { label: 'After 30 days', value: '$20 a pig plus mileage' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage at $1.75 a mile' },
   ],
   nearby: ['copperas-cove', 'killeen', 'brady', 'belton'],
   sections: [

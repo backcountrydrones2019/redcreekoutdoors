@@ -15,7 +15,7 @@ const town: Town = {
     { label: 'Ground', value: 'Varied: shallow stony soils with cedar and oak, plus crop and hay ground' },
     { label: 'Drive from Killeen', value: 'About 41 miles, about an hour' },
     { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
-    { label: 'After 30 days', value: '$20 a pig plus mileage' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage at $1.75 a mile' },
   ],
   nearby: ['moody', 'gatesville', 'temple', 'jonesboro'],
   sections: [

@@ -15,7 +15,7 @@ const town: Town = {
     { label: 'Ground', value: 'Rolling prairie, buttes and limestone valleys on the Hamilton side; Grand Prairie on the Coryell side' },
     { label: 'Drive from Killeen', value: 'About 46 miles, a little over an hour' },
     { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
-    { label: 'After 30 days', value: '$20 a pig plus mileage' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage at $1.75 a mile' },
   ],
   nearby: ['gatesville', 'mcgregor', 'copperas-cove', 'moody'],
   sections: [

@@ -10,7 +10,7 @@ const crumbs = [{ name: 'Hog Trapping Service', path: '/hog-trapping-service' }]
 const faq = [
   {
     q: 'How much does hog trapping cost?',
-    a: `Trapping starts at $${PRICES.trapping.amount} for a ${PRICES.trapping.days}-day contract. After the ${PRICES.trapping.days} days, every hog trapped is $${PRICES.trapping.perPig} plus mileage. Final price depends on acreage, access and how many hogs are working the property. You'll have it in writing before we set a panel.`,
+    a: `Trapping starts at $${PRICES.trapping.amount} for a ${PRICES.trapping.days}-day contract. After the ${PRICES.trapping.days} days, every hog trapped is $${PRICES.trapping.perPig} plus mileage at $${PRICES.trapping.perMile.toFixed(2)} a mile. Final price depends on acreage, access and how many hogs are working the property. You'll have it in writing before we set a panel.`,
   },
   {
     q: 'Why not just shoot them?',
@@ -57,6 +57,13 @@ const schema = [
         priceCurrency: 'USD',
         price: PRICES.trapping.perPig,
         priceSpecification: { '@type': 'UnitPriceSpecification', price: PRICES.trapping.perPig, priceCurrency: 'USD', unitText: 'per hog trapped, plus mileage' },
+      },
+      {
+        '@type': 'Offer',
+        name: 'Mileage after the first 30 days',
+        priceCurrency: 'USD',
+        price: PRICES.trapping.perMile,
+        priceSpecification: { '@type': 'UnitPriceSpecification', price: PRICES.trapping.perMile, priceCurrency: 'USD', unitText: 'per mile' },
       },
     ],
   },
@@ -150,7 +157,7 @@ const schema = [
       <table class="spec">
         <tbody>
           <tr><th>Hog trapping</th><td>{PRICES.trapping.text} for a {PRICES.trapping.days}-day contract</td></tr>
-          <tr><th>After {PRICES.trapping.days} days</th><td>${PRICES.trapping.perPig} a pig trapped, plus mileage</td></tr>
+          <tr><th>After {PRICES.trapping.days} days</th><td>${PRICES.trapping.perPig} a pig trapped, plus mileage at ${PRICES.trapping.perMile.toFixed(2)} a mile</td></tr>
           <tr><th>What sets the final price</th><td>Acreage, access, terrain and how many hogs are on it</td></tr>
           <tr><th>When you'll know</th><td>In writing, before the first panel goes up</td></tr>
         </tbody>

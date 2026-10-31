@@ -15,7 +15,7 @@ const town: Town = {
     { label: 'Ground', value: 'Balcones Escarpment: hilly brushland to the west, flat blackland to the east' },
     { label: 'Drive from Killeen', value: 'About 35 miles, around 45 minutes' },
     { label: 'Trapping price', value: 'Starts at $950 for a 30-day contract' },
-    { label: 'After 30 days', value: '$20 a pig plus mileage' },
+    { label: 'After 30 days', value: '$20 a pig plus mileage at $1.75 a mile' },
   ],
   nearby: ['salado', 'belton', 'buckholts', 'temple'],
   sections: [
