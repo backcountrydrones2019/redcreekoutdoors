@@ -8,7 +8,7 @@
    agreed to. CHANGE THE VERSION whenever the wording changes. This is
    practical protection, not legal advice; have counsel review before a
    marketing text program launches. */
-import { DEPOSIT, PRICES } from '../consts';
+import { PRICES } from '../consts';
 
 export const HUNT_OPTIONS = [
   { value: 'thermal-hog', label: 'Thermal hog hunt', price: PRICES.thermalHog.text, unit: 'night' },
@@ -36,7 +36,7 @@ export const CONSENT = [
 export const CONSENT_FINE = 'None of these are required to book a hunt. We will still call, text or email you about this request whether or not you check them. Uncheck or reply STOP anytime.';
 
 export const ACKNOWLEDGEMENTS = [
-  { key: 'deposit', text: `I understand that once Red Creek confirms it can take my hunt, a ${DEPOSIT.text} nonrefundable deposit is due to lock in the date, and that nothing is owed until they confirm.` },
+  { key: 'deposit', text: `I understand that once Red Creek confirms it can take my hunt, half the total price is due as a nonrefundable deposit to lock in the date, and that nothing is owed until they confirm.` },
   { key: 'price', text: 'I understand the prices on the site are starting prices, and that my final price, dates and terms are confirmed in writing when the hunt is booked.' },
   { key: 'licenses', text: 'Every hunter in my group will hold the Texas licenses, endorsements, stamps and hunter education the hunt requires. The hunt page lists them.' },
   { key: 'safety', text: 'Everyone in my group will follow the guide\'s safety instructions for the whole hunt.' },

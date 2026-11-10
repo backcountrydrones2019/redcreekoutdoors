@@ -238,7 +238,7 @@ export async function handleHuntBooking(req: Request, env: FormEnv, ctx: Executi
     ['Hunters', rec.party], ['Under 17', rec.youth], ['Experience', rec.experience], ['Guns', rec.gear],
     ['Name', rec.name], ['Phone', rec.phone], ['Email', rec.email], ['From', rec.hometown], ['Heard via', rec.heard], ['Message', rec.message],
     ['Marketing OK by', granted],
-    ['Deposit', `${DEPOSIT.text} nonrefundable, due once you confirm the hunt. Acknowledged.`],
+    ['Deposit', `${DEPOSIT.text}, nonrefundable, due once you confirm the hunt. Acknowledged.`],
     ['Landed on', rec.landing], ['Came from', rec.referrer], ['Ref', rec.ref],
   ])}`;
   ctx.waitUntil(mail(env, `Hunt request: ${rec.hunt_label}, ${rec.date1}, ${rec.party} hunter(s), ${rec.name} [${rec.ref}]`, html, rec.email));
