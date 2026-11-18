@@ -67,6 +67,7 @@ const crumbs = [{ name: 'Contact', path: '/contact' }];
         </div>
         <input type="hidden" name="landing" />
         <input type="hidden" name="referrer" />
+        <input type="hidden" name="js" />
 
         <button class="btn" type="submit">Send request</button>
         <p class="small">We use what you send only to answer you. See the <a href="/privacy-policy">privacy policy</a>.</p>
@@ -98,6 +99,7 @@ const crumbs = [{ name: 'Contact', path: '/contact' }];
   (function () {
     var f = document.getElementById('request');
     if (!f) return;
+    f.js.value = 'rc'; // the Worker drops posts without it (bots that never run the page)
     try {
       f.landing.value = sessionStorage.getItem('rc_land') || '';
       f.referrer.value = sessionStorage.getItem('rc_ref') || '';

@@ -19,6 +19,7 @@
  * so a mail outage never loses a request. The ops console reads from there.
  */
 
+import { isBlocked } from './blocklist';
 import { handleTrapRequest, handleHuntBooking } from './forms';
 import { handleSocial, refreshFeed } from './social';
 import { handleBoard, handleCaseView } from './board';
@@ -76,6 +77,7 @@ function back(to: string): Response {
 }
 
 async function handleRequest(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+  const url = new URL(request.url);
   if (request.method !== 'POST') return new Response('Method not allowed', { status: 405, headers: { allow: 'POST' } });
 
   const ct = request.headers.get('content-type') || '';
@@ -104,6 +106,24 @@ async function handleRequest(request: Request, env: Env, ctx: ExecutionContext):
   };
 
   if (!lead.name || (!lead.phone && !lead.email)) return back('/contact?missing=1#request');
+
+  // Spam screen. The contact page script sets js=rc; a bot posting straight to
+  // this endpoint never runs it (the Nov 2026 "Robertstine" spam had no js,
+  // landing or referrer). Cross-site posts and the blocklist are caught too.
+  const origin = request.headers.get('origin');
+  let crossSite = false;
+  if (origin) { try { crossSite = new URL(origin).host !== url.host; } catch { crossSite = true; } }
+  const reason = isBlocked(lead.name, lead.email, lead.phone) ? 'blocklist'
+    : crossSite ? 'cross-site'
+    : field(fd, 'js', 10) !== 'rc' ? 'no-js'
+    : '';
+  if (reason) {
+    if (env.LEADS) {
+      await env.LEADS.put(`spam:${lead.ref}`, JSON.stringify({ ...lead, reason }), { expirationTtl: 60 * 60 * 24 * 90, metadata: { reason, received: lead.received } });
+    }
+    console.warn('form spam dropped', reason, lead.ref);
+    return back('/thanks');
+  }
 
   if (env.LEADS) {
     await env.LEADS.put(`lead:${lead.ref}`, JSON.stringify(lead), { metadata: { kind: lead.kind, received: lead.received } });
