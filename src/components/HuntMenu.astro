@@ -3,14 +3,15 @@
    works with no JavaScript; a small script closes it on outside click and
    Escape. Each choice opens /book-a-hunt with that hunt already selected. */
 import { HUNTS } from '../data/hunts/index';
+import { PRICES } from '../consts';
 interface Props { tone?: 'dark' | 'light'; id?: string }
 const { tone = 'dark', id = 'huntmenu' } = Astro.props;
 const options = [
   ...HUNTS.flatMap((h) =>
     h.slug === 'whitetail-deer-hunts'
       ? [
-          { label: 'Whitetail Doe Hunt', value: 'whitetail-doe', price: 'From $700 a day' },
-          { label: 'Whitetail Buck Hunt', value: 'whitetail-buck', price: 'From $1,500 a day' },
+          { label: 'Whitetail Doe Hunt', value: 'whitetail-doe', price: `From $${PRICES.whitetailDoe.amount.toLocaleString('en-US')} a day` },
+          { label: 'Whitetail Buck Hunt', value: 'whitetail-buck', price: `From $${PRICES.whitetailBuck.amount.toLocaleString('en-US')} a day` },
         ]
       : [{ label: h.name.replace(/s$/, ''), value: h.slug.replace(/-hunts$/, ''), price: h.priceText }]
   ),

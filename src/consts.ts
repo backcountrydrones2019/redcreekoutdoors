@@ -55,7 +55,7 @@ export const PRICES = {
   thermalHog: { amount: 500, text: 'From $500 a night' },
   thermalPredator: { amount: 600, text: 'From $600 a night' },
   whitetailDoe: { amount: 700, text: 'Does from $700 a day' },
-  whitetailBuck: { amount: 1500, text: 'Bucks from $1,500 a day' },
+  whitetailBuck: { amount: 2000, text: 'Bucks from $2,000 a day' }, // Justin 2026-11-19 (was $1,500)
   dove: { amount: 300, text: '$300 a gun per day' },
   teal: { amount: 350, text: '$350 a gun per day' },
   duck: { amount: 400, text: '$400 a gun per day' },

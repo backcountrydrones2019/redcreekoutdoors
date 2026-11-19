@@ -7,7 +7,7 @@ const hunt: Hunt = {
   name: 'Whitetail Deer Hunts',
   title: 'Guided Whitetail Deer Hunts in Central Texas | Red Creek Outdoors',
   h1: 'Guided Whitetail Hunts',
-  description: 'Guided whitetail doe and buck hunts on private Central Texas land near Killeen. Does from $700 a day, bucks from $1,500. Guns available at the same price.',
+  description: 'Guided whitetail doe and buck hunts on private Central Texas land near Killeen. Does from $700 a day, bucks from $2,000. Guns available at the same price.',
   lede: `Doe and buck hunts on private ground in the Texas season. ${PRICES.whitetailDoe.text}. ${PRICES.whitetailBuck.text}.`,
   card: 'Guided doe and buck hunts on private Central Texas land in the Texas season.',
   priceText: `${PRICES.whitetailDoe.text}. ${PRICES.whitetailBuck.text}`,
