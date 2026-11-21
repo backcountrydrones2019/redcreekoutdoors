@@ -64,7 +64,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Typecheck
-        run: npx tsc -p office/tsconfig.json
+        run: npx -y -p typescript@5.9.3 tsc -p office/tsconfig.json
       - name: Deploy the Back Office
         uses: cloudflare/wrangler-action@v3
         with:
