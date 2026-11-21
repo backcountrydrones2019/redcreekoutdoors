@@ -154,7 +154,7 @@ export async function authenticate(request: Request, env: Env, keyFor?: KeyLooku
 
   if (env.DEV_AUTH_EMAIL && isLocal(url)) {
     if (!env.DEV_AUTH_TOKEN || cookie(request, 'rco_dev') !== env.DEV_AUTH_TOKEN) {
-      return { status: 403, message: 'Local console: open the /dev-login link that npm run office:dev printed.' };
+      return { status: 403, message: 'Local Back Office: open the /dev-login link that npm run office:dev printed.' };
     }
     const email = env.DEV_AUTH_EMAIL.toLowerCase();
     return { user: { email, name: userName(env, email) } };
@@ -169,7 +169,7 @@ export async function authenticate(request: Request, env: Env, keyFor?: KeyLooku
       const m = /^https:\/\/([a-z0-9-]+\.cloudflareaccess\.com)$/.exec(iss);
       if (m && !env.ACCESS_TEAM_DOMAIN) seen = ` Your Cloudflare Access team domain is ${m[1]}.`;
     } catch { /* no usable token: nothing to add */ }
-    return { status: 503, message: `The console is not set up yet: Cloudflare Access details or the USERS list are missing.${seen}` };
+    return { status: 503, message: `The Back Office isn't set up yet: Cloudflare Access details or the USERS list are missing.${seen}` };
   }
 
   const token = request.headers.get('cf-access-jwt-assertion') || cookie(request, 'CF_Authorization');
