@@ -8,7 +8,8 @@
     "preview": "wrangler dev",
     "deploy": "astro build && node scripts/verify.mjs && wrangler deploy",
     "verify": "node scripts/verify.mjs",
-    "verify:full": "node scripts/verify.mjs --full"
+    "verify:full": "node scripts/verify.mjs --full",
+    "office:dev": "wrangler d1 migrations apply rco-office --local -c office/wrangler.jsonc && wrangler dev -c office/wrangler.jsonc --port 8790 --ip 127.0.0.1"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

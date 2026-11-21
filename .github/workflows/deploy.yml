@@ -49,3 +49,24 @@ jobs:
       # Live check against the real domain, same build that just deployed.
       - name: Live smoke test
         run: bash scripts/smoke.sh ${{ github.sha }}
+
+  # RCO Back Office (office.redcreekoutdoors.com). Its own Worker; runs after the
+  # site so a Back Office problem never holds up the public site. Database
+  # changes (office/migrations) are applied by hand, never here: see office/README.md.
+  office:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typecheck
+        run: npx tsc -p office/tsconfig.json
+      - name: Deploy the Back Office
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy -c office/wrangler.jsonc

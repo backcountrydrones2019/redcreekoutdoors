@@ -1,0 +1,38 @@
+{
+  // RCO Back Office: leads, hunt calendar, call backs, who did what.
+  // Deployed by .github/workflows/deploy.yml (office step) on push to main.
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "rco-office",
+  "main": "src/index.ts",
+  "account_id": "cb84c27e835d7b5d6e0ae6f65af422cd",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Only reachable at its own hostname, which Cloudflare Access guards. No
+  // workers.dev address and no preview URLs (they'd skip Access; the Worker
+  // refuses them anyway).
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "office.redcreekoutdoors.com", "custom_domain": true }],
+
+  "d1_databases": [
+    { "binding": "DB", "database_name": "rco-office", "database_id": "48f1487b-c771-49ab-8527-2e349f25bc9f", "migrations_dir": "migrations" }
+  ],
+
+  // The public site's KV (binding LEADS there). Read only here: sync.ts copies
+  // new website leads into the Back Office.
+  "kv_namespaces": [{ "binding": "LEADS", "id": "dcc6a01d57414f56882f723369625450" }],
+
+  "vars": {
+    // Same Access team as ops.backcountrydrones.com.
+    "ACCESS_TEAM_DOMAIN": "nameless-union-3413.cloudflareaccess.com",
+    // From Zero Trust > Access > Applications > RCO Back Office. Empty = the
+    // Back Office shows "not set up yet" and lets nobody in.
+    "ACCESS_AUD": "",
+    // Everyone allowed in, "email:Name", comma separated. The name goes on
+    // everything they do. Add Ray and Cody here and in the Access policy.
+    "USERS": "justin@backcountrydrones.com:Justin"
+  },
+
+  "observability": { "enabled": true }
+}
