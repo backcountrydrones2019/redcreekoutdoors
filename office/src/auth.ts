@@ -168,6 +168,9 @@ export async function authenticate(request: Request, env: Env, keyFor?: KeyLooku
       const iss = t ? String(b64urlJson(t.split('.')[1]).iss ?? '') : '';
       const m = /^https:\/\/([a-z0-9-]+\.cloudflareaccess\.com)$/.exec(iss);
       if (m && !env.ACCESS_TEAM_DOMAIN) seen = ` Your Cloudflare Access team domain is ${m[1]}.`;
+      const aud = t ? b64urlJson(t.split('.')[1]).aud : null;
+      const tag = Array.isArray(aud) ? aud[0] : aud;
+      if (typeof tag === 'string' && /^[a-f0-9]{64}$/.test(tag) && !env.ACCESS_AUD) seen += ` Send Claude this Application Audience (AUD) tag: ${tag}`;
     } catch { /* no usable token: nothing to add */ }
     return { status: 503, message: `The Back Office isn't set up yet: Cloudflare Access details or the USERS list are missing.${seen}` };
   }
