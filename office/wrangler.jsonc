@@ -28,7 +28,7 @@
     "ACCESS_TEAM_DOMAIN": "nameless-union-3413.cloudflareaccess.com",
     // From Zero Trust > Access > Applications > RCO Back Office. Empty = the
     // Back Office shows "not set up yet" and lets nobody in.
-    "ACCESS_AUD": "",
+    "ACCESS_AUD": "37a0e6d50cb95954ba0d4fdc12217579398b095cf891a13d9b49731372b74316",
     // Everyone allowed in, "email:Name", comma separated. The name goes on
     // everything they do. Add Ray and Cody here and in the Access policy.
     "USERS": "justin@backcountrydrones.com:Justin"
