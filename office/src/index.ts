@@ -12,13 +12,18 @@ import {
   LEAD_FILTERS, type Lead, type Hunt, type Callback, type Activity,
 } from './pages';
 import { HUNT_OPTIONS } from '../../src/data/hunt-booking';
+import { parseDocs, onlineBody, onlineCard, type Decision } from './online';
 
 const HUNT_TYPES = new Set<string>([...HUNT_OPTIONS.map((h) => h.value), 'trapping']);
 const REF = /^[A-Z0-9-]{3,40}$/;
 const YMD = /^\d{4}-\d{2}-\d{2}$/;
 
-const see = (to: string, flash?: string) =>
-  new Response(null, { status: 303, headers: { location: flash ? `${to}${to.includes('?') ? '&' : '?'}ok=${encodeURIComponent(flash)}` : to } });
+const see = (to: string, flash?: string) => {
+  if (!flash) return new Response(null, { status: 303, headers: { location: to } });
+  const [base, hash] = to.split('#');
+  const location = `${base}${base.includes('?') ? '&' : '?'}ok=${encodeURIComponent(flash)}${hash ? `#${hash}` : ''}`;
+  return new Response(null, { status: 303, headers: { location } });
+};
 
 const str = (fd: FormData, k: string, max = 500) => String(fd.get(k) ?? '').trim().slice(0, max);
 const int = (fd: FormData, k: string) => {
@@ -67,7 +72,7 @@ async function get(path: string, url: URL, env: Env, user: User, flash?: string)
 
   if (path === '/') {
     await syncFromSite(env).catch((e) => console.error('sync failed', e));
-    const [newLeads, dueCalls, weekHunts, dep, toLog] = await Promise.all([
+    const [newLeads, dueCalls, weekHunts, dep, toLog, docs, decs] = await Promise.all([
       all<Lead>(env.DB.prepare(`SELECT * FROM leads WHERE status = 'new' ORDER BY created_at DESC`)),
       all<Callback & { name: string; phone: string | null }>(env.DB.prepare(
         `SELECT c.*, COALESCE(h.client, l.name) AS name, COALESCE(h.phone, l.phone) AS phone FROM callbacks c
@@ -76,8 +81,11 @@ async function get(path: string, url: URL, env: Env, user: User, flash?: string)
       all<Hunt>(env.DB.prepare(`SELECT * FROM hunts WHERE status = 'scheduled' AND date BETWEEN ?1 AND ?2 ORDER BY date, start_time`).bind(t, addDays(t, 6))),
       env.DB.prepare(`SELECT COUNT(*) AS n FROM hunts WHERE status = 'scheduled' AND deposit = 'due'`).first<number>('n'),
       all<Hunt>(env.DB.prepare(`SELECT * FROM hunts WHERE status = 'scheduled' AND date < ?1 ORDER BY date`).bind(t)),
+      all<{ name: string; json: string; updated_at: string }>(env.DB.prepare(`SELECT name, json, updated_at FROM cmd_docs WHERE name IN ('meta', 'tasks')`)),
+      all<{ id: string }>(env.DB.prepare(`SELECT id FROM cmd_decisions`)),
     ]);
-    return page({ title: 'Today', user, active: '/', flash, body: todayBody({ name: user.name, newLeads, dueCalls, weekHunts, depositsDue: dep ?? 0, toLog }) });
+    const online = onlineCard(parseDocs(docs), docs.find((r) => r.name === 'meta')?.updated_at ?? null, new Set(decs.map((x) => x.id)));
+    return page({ title: 'Today', user, active: '/', flash, body: todayBody({ name: user.name, newLeads, dueCalls, weekHunts, depositsDue: dep ?? 0, toLog }) + online });
   }
 
   if (path === '/leads') {
@@ -156,6 +164,15 @@ async function get(path: string, url: URL, env: Env, user: User, flash?: string)
     const m = /^\d{4}-\d{2}$/.test(url.searchParams.get('m') ?? '') ? url.searchParams.get('m')! : t.slice(0, 7);
     const hunts = await all<Hunt>(env.DB.prepare(`SELECT * FROM hunts WHERE date BETWEEN ?1 AND ?2 ORDER BY date, start_time, id`).bind(addDays(`${m}-01`, -7), addDays(`${m}-28`, 14)));
     return page({ title: 'Calendar', user, active: '/calendar', flash, body: calendarBody(m, hunts) });
+  }
+
+  if (path === '/online') {
+    const [rows, decs] = await Promise.all([
+      all<{ name: string; json: string; updated_at: string }>(env.DB.prepare(`SELECT name, json, updated_at FROM cmd_docs`)),
+      all<Decision>(env.DB.prepare(`SELECT * FROM cmd_decisions`)),
+    ]);
+    const updated = rows.find((r) => r.name === 'meta')?.updated_at ?? null;
+    return page({ title: 'Web & Social', user, active: '/online', flash, body: onlineBody(parseDocs(rows), updated, new Map(decs.map((x) => [x.id, x])), url.searchParams.get('done') === '1') });
   }
 
   if (path === '/activity') {
@@ -302,6 +319,23 @@ async function post(path: string, url: URL, fd: FormData, env: Env, u: User): Pr
         return see(back, 'Call back set');
       }
     }
+  }
+
+  if (path === '/online/decide') {
+    const id = str(fd, 'id', 20);
+    const decision = str(fd, 'decision', 20);
+    if (!/^RC-\d{1,4}$/.test(id) || !['approve', 'disapprove'].includes(decision)) return see('/online#todo');
+    const reason = str(fd, 'reason', 300);
+    // Only a task the last report left as Proposed can be decided here.
+    const tasks = await env.DB.prepare(`SELECT json FROM cmd_docs WHERE name = 'tasks'`).first<string>('json');
+    let action = '';
+    try { const row = (JSON.parse(tasks ?? '{}').rows ?? []).find((x: { id: string; status: string }) => x.id === id && x.status === 'Proposed'); action = row?.action ?? ''; } catch { /* treated as not found */ }
+    if (!action) return see('/online#todo', 'That item already moved on in the latest report.');
+    await env.DB.prepare(`INSERT INTO cmd_decisions (id, decision, reason, who, email, at) VALUES (?1, ?2, ?3, ?4, ?5, ?6)
+      ON CONFLICT(id) DO UPDATE SET decision = excluded.decision, reason = excluded.reason, who = excluded.who, email = excluded.email, at = excluded.at`)
+      .bind(id, decision, reason || null, u.name, u.email, now).run();
+    await log(env, u, `${decision === 'approve' ? 'Approved' : 'Turned down'} report item ${id}: ${action.slice(0, 140)}${reason ? ` (${reason})` : ''}`, {});
+    return see('/online#todo', decision === 'approve' ? `${id} approved` : `${id} turned down`);
   }
 
   const cb = /^\/callback\/(\d+)\/done$/.exec(path);

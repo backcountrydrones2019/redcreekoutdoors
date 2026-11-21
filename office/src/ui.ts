@@ -84,6 +84,7 @@ const P: Record<string, string> = {
   callback: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
   user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
   edit: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+  chart: '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
   pig: '<path d="M4 12a7 6 0 0 1 14 0v3a3 3 0 0 1-3 3H9a5 5 0 0 1-5-5z"/><path d="M18 11h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2"/><path d="M8 18v3M14 18v3M8 9l-2-3"/>',
 };
 export const icon = (name: string, size = 22) =>
@@ -131,13 +132,14 @@ const NAV = [
   { href: '/', label: 'Today', icon: 'home' },
   { href: '/leads', label: 'Leads', icon: 'inbox' },
   { href: '/calendar', label: 'Calendar', icon: 'calendar' },
+  { href: '/online', label: 'Web & Social', icon: 'chart' },
   { href: '/activity', label: 'Who did what', icon: 'clock' },
 ];
 
 export function page(opts: { title: string; user: { name: string }; active?: string; body: string; flash?: string }): Response {
   const { title, user, active = '', body, flash } = opts;
   const nav = NAV.map(
-    (n) => `<a href="${n.href}" class="${active === n.href ? 'on' : ''}"${active === n.href ? ' aria-current="page"' : ''}>${icon(n.icon, 24)}<span>${n.label}</span></a>`
+    (n) => `<a href="${n.href}" class="${active === n.href ? 'on' : ''}"${active === n.href ? ' aria-current="page"' : ''}>${icon(n.icon, 24)}<span>${esc(n.label)}</span></a>`
   ).join('');
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -188,8 +190,8 @@ p{margin:0 0 10px}
 .mark{background:var(--red);border-radius:8px;padding:5px 8px;font-size:15px;letter-spacing:.04em}
 .who{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:15px;color:#d8d3cc}
 .topnav{display:none}
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding-bottom:env(safe-area-inset-bottom)}
-.tabbar a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 2px 8px;font-size:12px;font-weight:600;text-decoration:none;color:var(--muted)}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 1px 8px;font-size:11px;text-align:center;line-height:1.2;font-weight:600;text-decoration:none;color:var(--muted)}
 .tabbar a.on{color:var(--red)}
 @media (min-width:860px){
   body{padding-bottom:40px}
