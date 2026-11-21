@@ -31,7 +31,7 @@
     "ACCESS_AUD": "37a0e6d50cb95954ba0d4fdc12217579398b095cf891a13d9b49731372b74316",
     // Everyone allowed in, "email:Name", comma separated. The name goes on
     // everything they do. Add Ray and Cody here and in the Access policy.
-    "USERS": "justin@backcountrydrones.com:Justin,codypetty00@gmail.com:Cody"
+    "USERS": "justin@backcountrydrones.com:Justin,codypetty00@gmail.com:Cody,rayfazio1997@gmail.com:Ray"
   },
 
   "observability": { "enabled": true }
