@@ -5,8 +5,8 @@ import { SRC, HUNTER_ED } from './sources';
 const hunt: Hunt = {
   slug: 'thermal-hog-hunts',
   name: 'Thermal Hog Hunts',
-  title: 'Thermal Hog Hunts in Central Texas | Red Creek Outdoors',
-  h1: 'Guided Thermal Hog Hunts',
+  title: 'Thermal Hog Hunting in Texas | Red Creek Outdoors',
+  h1: 'Guided Thermal Hog Hunting in Texas',
   description: 'Guided thermal hog hunts at night on private Central Texas land near Killeen. From $500 a night. Guns and ammo available. No license needed for hogs.',
   lede: `Night hunts on private ground where the hogs are doing real damage. ${PRICES.thermalHog.text}.`,
   card: 'Night hunts under thermal optics on private ground where the hogs are doing real damage.',

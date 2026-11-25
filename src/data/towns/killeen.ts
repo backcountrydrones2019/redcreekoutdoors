@@ -48,7 +48,7 @@ const town: Town = {
       h2: 'Home base means fast',
       paras: [
         'We\'re a Killeen outfit. When a trap closes at 2 a.m. on a place in town, we\'re there. Being close also means we can check sign and reset bait more often than an outfit driving in from Austin or Waco, and pressure is what finishes a sounder.',
-        'We work large acreage across Bell, Coryell, Milam and Falls counties out of here. If you\'re in Harker Heights, Nolanville, Copperas Cove or out toward Belton Lake, you\'re close.',
+        'We work large acreage across Bell, Coryell, Milam and Falls counties out of here. If you\'re in Harker Heights, Nolanville, Copperas Cove or out toward Belton Lake, you\'re close. How a job runs from first look to last hog is on our <a href="/hog-trapping-service">hog trapping service</a> page, and if your ground is over by Temple, see <a href="/hog-trapping-temple-tx">hog trapping in Temple</a>.',
       ],
     },
     {

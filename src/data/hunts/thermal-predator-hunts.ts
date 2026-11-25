@@ -33,6 +33,28 @@ const hunt: Hunt = {
         'Rifle and ammo provided if you want them, at the same price',
       ],
     },
+    {
+      h2: "What's included",
+      paras: ['The price covers the night, start to finish.'],
+      list: [
+        'Your guide, beside you from the safety talk to the last stand',
+        'A night under thermal on a private ranch that wants its coyotes gone',
+        'Rifle and ammo if you want them, at the same price',
+      ],
+    },
+    {
+      h2: "What's not included",
+      paras: ['Bring these yourself. Each one is sourced to TPWD in the requirements below.'],
+      list: [
+        'Your Texas hunting license. TPWD requires one to take coyotes and bobcats.',
+        'Hunter education if you were born on or after Sept. 2, 1971, or the one-time deferral',
+        'A CITES pelt tag if a bobcat pelt is leaving Texas',
+      ],
+    },
+    {
+      h2: 'What you can hunt',
+      paras: ['Coyotes are the hunt. If a bobcat comes in and it\'s legal to take, you can take it and keep it. TPWD lists both as nongame on private property.'],
+    },
   ],
   requirements: [
     { text: 'A Texas hunting license. TPWD requires one to take nongame species, which includes coyotes and bobcats.', source: SRC.nongame },
